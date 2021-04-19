@@ -1,0 +1,36 @@
+//Nox surfacing and image explanations/function calls
+
+
+
+
+noxNeutral{
+
+	"\0\s[1000]"
+
+}
+
+
+noxNarNeutral{
+
+	"\0\s[1001]"
+	
+}
+
+noxAnnoyed{
+
+	"\0\s[3000]"
+
+}
+
+
+noxNarAnnoyed{
+
+	"\0\s[3001]"
+	
+}
+
+noxEyesClosed{
+	
+	"\i[63]"
+
+}

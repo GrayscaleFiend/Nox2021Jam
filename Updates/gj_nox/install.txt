@@ -1,0 +1,4 @@
+charset, Shift_JIS
+type,ghost
+name,Nox‚N/A
+directory,gj_nox

@@ -1,0 +1,13 @@
+charset,Shift_JIS
+
+name,Nox
+type,ghost
+
+sakura.name,Nox
+kero.name,N/A
+
+sstp.allowunspecifiedsend,1
+
+icon,icon.ico
+
+shiori,yaya.dll

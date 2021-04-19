@@ -1,0 +1,36 @@
+//******************************************************************************
+// YAYA Ghost Template
+// yaya.txt (config and definition file)
+// original written by umeici.
+// change by yaya develop team.
+//******************************************************************************
+
+//------------------------------------------------------------------------------
+//System Dictionary
+//------------------------------------------------------------------------------
+include, system_config.txt		// YAYA: We need to define where the settings dictionary is.
+
+//------------------------------------------------------------------------------
+//For Nox
+//------------------------------------------------------------------------------
+dic, yaya_tmpl_util.txt		
+
+dic, nox_word.txt			
+dic, nox_string.txt		
+dic, nox_aitalk.txt	
+dic, nox_bootend.txt		
+dic, nox_change.txt		
+dic, nox_communicate.txt	
+dic, nox_mouse.txt			
+dic, nox_menu.txt			
+dic, nox_etc.txt			
+dic, nox_surfacing.txt
+
+//------------------------------------------------------------------------------
+// Save File Encryption
+// Uncomment to encrypt the save file.
+// !!!!WARNING!!!!: WHEN TURNED ON, IT WILL CONTINUE UNTIL TURNED OFF !AND! SAVE FILE DELETED
+//------------------------------------------------------------------------------
+// save.encode,on
+
+

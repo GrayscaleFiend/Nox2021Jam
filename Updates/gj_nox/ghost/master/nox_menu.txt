@@ -1,0 +1,413 @@
+//******************************************************************************
+// YAYA　Ghost template
+// menu processing dictionary
+//******************************************************************************
+
+//******************************************************************************
+// Develop main menu
+//
+// How to use AYATEMPLATE.MenuItem
+// first string = string to be displayed in choice
+// second string = function name executed when selected
+// 3 second character string = line feed amount / 50% increments / 100% if omitted (= \ n)
+//******************************************************************************
+
+#globaldefine ANNOYEDR3 -25
+#globaldefine ANNOYEDR2 -15
+#globaldefine ANNOYEDR1 -5
+#globaldefine POSITIVER1 5
+#globaldefine POSITIVER2 15
+#globaldefine POSITIVER3 25
+
+#globaldefine QPERHOUR 5
+
+
+//------------------------------------------------------------------------------
+//Main menu
+//------------------------------------------------------------------------------
+OpenMenu
+{
+	if relationship > POSITIVER3{
+		"\b1%(noxNeutral)I like you a lot!"
+	}elseif relationship > POSITIVER2{
+		"\b1%(noxNeutral)You're cool."
+	}elseif relationship > POSITIVER1{
+		"\b1%(noxNeutral)You're ok."
+	
+	}elseif relationship > ANNOYEDR1{
+		"\b1%(noxNeutral)Here's the menu."
+	
+	}elseif relationship > ANNOYEDR2{
+		"\b1%(noxNeutral)You're meh."
+	
+	}elseif relationship > ANNOYEDR3{
+		"\b1%(noxAnnoyed)You bother me."
+	}else{
+		"\b1%(noxAnnoyed)You annoy and anger me deeply."
+	
+	}
+	
+	--
+	AYATEMPLATE.MenuItem("Say something","Menu_AITALK",200)
+	--
+	if ( STRLEN(AYATEMPLATE.LastTalk) > 0 ) {
+		AYATEMPLATE.MenuItem("What was that?","Menu_LASTTALK")
+	}
+	--
+	AYATEMPLATE.MenuItem("Hey\, I have a question","Menu_QUESTION")
+	--
+	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL")
+	--
+	AYATEMPLATE.MenuItem("Talk to another ghost","Menu_GHOSTCOMSTART")
+	--
+	AYATEMPLATE.MenuItem("Settings","Menu_SETTINGS")
+	--
+	AYATEMPLATE.MenuItem("Nevermind","Menu_CANCEL",150)
+}
+
+//------------------------------------------------------------------------------
+//メニュー選択タイムアウト
+//------------------------------------------------------------------------------
+OnChoiceTimeout
+{
+	"\b1%(noxNeutral)Timed out.\e"
+
+}
+
+
+//******************************************************************************
+//各項目の処理内容
+//******************************************************************************
+
+//---- Call the random talk
+Menu_AITALK
+{
+	OnAiTalk
+}
+
+//---- last thing said, returns a string variable
+Menu_LASTTALK
+{
+	AYATEMPLATE.LastTalk
+}
+
+
+Menu_QUESTION{
+	"\b2%(noxNarNeutral)(Ask about...)"
+	--
+	AYATEMPLATE.MenuItem("I need to say something","Menu_COMMUNICATEOPEN",200)
+	--
+	AYATEMPLATE.MenuItem("I have something for you","Menu_GIFT")
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("Himself","Menu_QUESTION.cooldown",150)
+	}else
+		AYATEMPLATE.MenuItem("Himself","Menu_QUESTION_SELF",150)
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("His past","Menu_QUESTION.cooldown")
+	}else
+		AYATEMPLATE.MenuItem("His past","Menu_QUESTION_PAST")
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("His home","Menu_QUESTION.cooldown")
+	}else
+		AYATEMPLATE.MenuItem("His home","Menu_QUESTION_HOME")
+	--
+	AYATEMPLATE.MenuItem("Magic","Menu_QUESTION_MAGIC")
+	--
+	AYATEMPLATE.MenuItem("Other dragons","Menu_QUESTION_DRAGONS")
+	--
+	AYATEMPLATE.MenuItem("Humans","Menu_QUESTION_HUMANS")
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("Aria","Menu_QUESTION.cooldown")
+	}else
+		AYATEMPLATE.MenuItem("Aria","Menu_QUESTION_ARIA")
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("Rowan","Menu_QUESTION.cooldown")
+	}else
+		AYATEMPLATE.MenuItem("Rowan","Menu_QUESTION_ROWAN")
+	--
+	if questioncooldown > QPERHOUR-1{
+		AYATEMPLATE.MenuItem("Wren","Menu_QUESTION.cooldown")
+	}else
+		AYATEMPLATE.MenuItem("Wren","Menu_QUESTION_WREN")
+	--
+	if empyria > 0{
+		AYATEMPLATE.MenuItem("Empyria","Menu_QUESTION_EMPYRIA")
+	}
+	--
+	AYATEMPLATE.MenuItem("Back to menu","OpenMenu",150)
+
+
+}
+
+Menu_QUESTION_SELF{
+	questioncooldown++
+	"My name is Nox.\e"
+
+}
+
+Menu_QUESTION_PAST{
+
+
+}
+
+
+Menu_QUESTION_HOME{
+
+
+}
+
+
+Menu_QUESTION_MAGIC{
+
+
+}
+
+
+Menu_QUESTION_DRAGONS{
+
+
+}
+
+
+Menu_QUESTION_HUMANS{
+
+
+}
+
+Menu_QUESTION_ARIA: sequential{
+	questioncooldown++
+	"\b1"
+	--
+	if relationship > ANNOYEDR1{
+		"%(noxCurious) Who?"
+		"%(noxNarNeutral)(He seems to be confused by your question.)"
+		"%(noxNeutral)Hmm. I'm afraid the name doesn't ring a bell."
+		"%(noxNeutral)I don't know someone named Aria."
+		"%(noxNarNeutral) (He remained silent.)"
+	
+	}else{
+		"It's nothing."
+	}
+	--
+	"\e"
+
+}
+
+
+Menu_QUESTION_ROWAN{
+	questioncooldown++
+	"\b1"
+	--
+	if relationship > POSITIVER2{
+		{
+			"%(noxCurious)It is strange to me that you mention him. Are you from Sequoia perhaps? \x %(noxNeutral) No matter. He's a good man, but he seems to be walking misguided footsteps."
+			"%(noxNeutral)It's true that he transitioned his magic from plant to fire. But is he more powerful for it? \w[16] %(noxAnnoyed) No. He is much weaker."
+			"%(noxNeutral)I wish I knew his intentions. \w[16] It isn't traveling season for merchants, so there really wasn't any reason for him to be traveling through Death's Cliffs. He saved Aria though, to which I'm grateful."
+			
+		}
+	
+		if relationship > POSITIVER3{
+			
+			"%(noxNeutral)Rowan strikes me as odd. Most people would have given into disparity with the tragedies he has experienced. But instead he's traveling to a different country. Unless… \w[16] Hmm. I don't like where that thought was going."
+			"%(noxNeutral)In a way, he reminds me of myself. Whether that is a good or bad thing, well. I'll have to see."
+			
+		}
+		
+		
+	
+	}elseif relationship > ANNOYEDR1{
+		"%(noxCurious) Who?"
+		"%(noxNarNeutral)(He seems to be confused by your question.)"
+		"%(noxNeutral)Hmm. I'm afraid the name doesn't ring a bell."
+		"%(noxNeutral)I don't know someone named Rowan."
+		"%(noxNarNeutral) (He remained silent.)"
+	
+	}else{
+		"It's nothing."
+	
+	}
+	--
+	"\e"
+
+}
+
+
+Menu_QUESTION_WREN{
+	questioncooldown++
+	"\b1"
+	--
+	if relationship > ANNOYEDR1{
+		"%(noxCurious) Who?"
+		"%(noxNarNeutral)(He seems to be confused by your question.)"
+		"%(noxNeutral)Hmm. I'm afraid the name doesn't ring a bell."
+		"%(noxNeutral)I don't know someone named Wren."
+		"%(noxNarNeutral) (He remained silent.)"
+	
+	}else{
+		"It's nothing."
+	}
+	--
+	"\e"
+
+}
+
+
+Menu_QUESTION_EMPYRIA{
+	questioncooldown++
+	"\b1"
+	--
+	if relationship > ANNOYEDR1{
+		"%(noxNeutral)Ah… such a shame what happened to it. I was not around when it all happened, but the kingdom was torn apart by a feral magic user. There were so many casualties…\w[16] the landscape is still recovering, and rumor has it the feral is still out there. I would advise against traveling through the ruins."
+	}else{
+		"It's nothing."
+	}
+	--
+	"\e"
+
+}
+
+
+
+Menu_QUESTION.cooldown{
+	"\b1"
+	--
+	"%(noxCurious)Don't you think that is enough questions?"
+	"%(noxNeutral)Hmm. Perhaps another time, young one."
+	"%(noxNeutral)I would rather not say right now."
+	"%(noxNeutral)A bit much, don't you think?"
+	"%(noxNarNeutral)(He gently shakes his head.)"
+	--
+	"\e"
+
+}
+
+Menu_QUESTION.negDenial{
+	"\b1"
+	--
+	"%(noxNarAngry)(He ignored your question.)"
+	"%(noxNarAngry)(He glares at you in response.)"
+	"%(noxAngry)Why should I grace you with an answer?"
+	"%(noxAngry)No."
+	"%(noxNarAngry)(A deep throated growl emits from his mouth.)"
+	"%(noxNarAngry)(You should probably apologize before asking questions.)"
+	--
+	"\e"
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---- トーク頻度の調整
+Menu_TALKINTERVAL
+{
+	"\b1%(noxNeutral)How often should I talk?"
+	--
+	AYATEMPLATE.MenuItem("Every minute","Menu_TALKMAX",200)
+	--
+	AYATEMPLATE.MenuItem("Every 3 minutes","Menu_TALKNORMAL")
+	--
+	AYATEMPLATE.MenuItem("Each 5 minutes","Menu_TALKPOOR")
+	--
+	AYATEMPLATE.MenuItem("Don't","Menu_TALKNONE")
+	--
+	AYATEMPLATE.MenuItem("Nevermind","OpenMenu",150)
+}
+
+//---- Talk with the user
+Menu_COMMUNICATEOPEN
+{
+	"%(noxNeutral)What is it?\![open,communicatebox]\e"
+}
+
+//---- talk to a friendghost
+Menu_GHOSTCOMSTART
+{
+	StartCommunicate
+}
+
+//---- Nevermind
+Menu_CANCEL
+{
+	"%(noxNeutral)You closed the menu.\e"
+}
+
+//---- talk the most frequently
+Menu_TALKMAX
+{
+	//---- うるさく話す(15秒間隔)
+	aitalkinterval = 15
+	"This is a lot.\e"
+}
+
+Menu_TALKNORMAL
+{
+	//---- talk an average amount
+	aitalkinterval = 180
+	"Yeah ok\e"
+}
+
+Menu_TALKPOOR
+{
+	//---- talk infrequently
+	aitalkinterval = 300
+	"Comfortable rate.\e"
+}
+
+Menu_TALKNONE
+{
+	//---- 話さない
+	aitalkinterval = 0
+	"I'll be quiet.\e"
+}
+
+//---- ヘッドライン
+Menu_HEADLINECANCEL
+{
+	//---- キャンセルされた
+	"Headline canceled.\e"
+}
+
+
+
+
+Menu_SETTINGS{
+	"Here's the settings. Barren... for now."
+	--
+	if hourannounce > 1{
+		AYATEMPLATE.MenuItem("Turn off hourly announcements","Menu_HOURANNOUNCEMENTSOFF",200)
+	}else{
+		AYATEMPLATE.MenuItem("Turn on hourly announcements","Menu_HOURANNOUNCEMENTSON",200)
+	}
+	--
+	AYATEMPLATE.MenuItem("Back","OpenMenu",150)
+
+
+}
+
+Menu_HOURANNOUNCEMENTSOFF{
+	hourannounce = 0
+	"ok.\e"
+
+}
+
+Menu_HOURANNOUNCEMENTSON{
+	hourannounce = 1
+	"ok.\e"
+
+}

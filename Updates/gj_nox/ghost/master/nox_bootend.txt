@@ -1,0 +1,141 @@
+//******************************************************************************
+// YAYA@Ghost Template
+// Boot and Close Dialogue
+//******************************************************************************
+
+//******************************************************************************
+//OnFirstBoot
+//******************************************************************************
+
+OnFirstBoot
+{
+	//---- variable set up
+	username         = "User"
+	teachusername    = 0	// haven't learned the name yet
+	relationship	 = 0
+	questioncooldown = 0
+	empyria          = 0
+	hourannounce     = 1
+	userthey		 = "they"
+	userthem		 = "them"
+	usertheirs		 = "theirs"
+
+	//---- The real first time they've spawned
+	if reference[0] == 0
+	{
+		//---- ほんとうに初めての起動
+		"\u\0%(noxNeutral)First time boot.\e"
+	}
+	else
+	{
+		//---- 再インストール後の初回起動
+		"\1\s[-1]\0"
+		--
+		if reference[0] == 1
+		{
+			//vanish１回なら誤射かもしれない
+			"%(noxNeutral)Huh, second time installed."
+		}
+		--
+		"\n\nWe'll see where this goes...\e"
+	}
+}
+
+
+//******************************************************************************
+//通常の起動 OnBoot
+//******************************************************************************
+
+OnBoot
+{
+	//---- surface set up
+	"\1\s[-1]\0%(noxNeutral)"
+	--
+	//---- boot checks
+	_timeslot = GetTimeSlot
+	
+	case _timeslot{
+	when "morning"
+	{
+		"Good morning.\e"
+	}
+	when "lunch"
+	{
+		"Have you eaten?\e"
+
+	}
+	when "afternoon"
+	{
+		"Good afternoon.\e"
+	}
+	when "evening"
+	{
+		"Good evening.\e"
+	}
+	others
+	{
+		//other times
+		"\0It's really dark outside, isn't it?\e"
+	}
+	}//caseの終わり
+}
+
+//------------------------------------------------------------------------------
+//朝/昼/夜などをおおざっぱに調べる関数
+//------------------------------------------------------------------------------
+GetTimeSlot
+{
+	case hour{
+	when 22,23,0,1,2,3 {'midnight'}
+	when 4,5,6,7,8,9,10,11 {'morning'}
+	when 12,13 {'lunch'}
+	when 14,15,16,17 {'afternoon'}
+	when 18,19,20,21 {'evening'}
+	}//caseの終わり
+}
+
+
+//******************************************************************************
+//終了 OnClose
+//******************************************************************************
+
+OnClose
+{
+	"%(noxNeutral)\1\s[-1]\0"
+	--
+	//variables and timeslot
+	//\ e is handled at the end
+	
+	_timeslot = GetTimeSlot
+	if _timeslot == "morning"
+	{
+		//---- 朝に終了
+		"Morning close."
+	}
+	elseif _timeslot == "midnight" || _timeslot == "evening"
+	{
+		//---- 昼/日中に終了
+		"%(noxNeutral)Sleep well."
+	}
+	elseif _timeslot == "lunch"
+	{
+		"%(noxNeutral)Don't forget to have lunch."
+	}
+	else
+	{
+		//---- afternoon
+		"Maybe go take a walk and get some fresh air."
+	}
+	--
+	"\w9\w9\-\e"
+}
+
+
+//******************************************************************************
+//Return OnWindowStateRestore from minimized
+//******************************************************************************
+
+OnWindowStateRestore
+{
+	"%(noxNeutral)No longer banished to the task bar.\e"
+}
