@@ -2,35 +2,56 @@
 
 
 
-
+//EMOTIONS AND THEIR NARRATION COUNTERPARTS
 noxNeutral{
-
 	"\0\s[1000]"
-
 }
 
 
 noxNarNeutral{
-
 	"\0\s[1001]"
-	
+}
+
+noxCurious{
+	"\0\s[2000]"
+}
+
+
+noxNarCurious{
+	"\0\s[2001]"
 }
 
 noxAnnoyed{
-
 	"\0\s[3000]"
-
 }
 
 
 noxNarAnnoyed{
-
 	"\0\s[3001]"
-	
 }
 
-noxEyesClosed{
-	
-	"\i[63]"
+noxAngry{
+	"\0\s[4000]"
+}
 
+
+noxNarAngry{
+	"\0\s[4001]"
+}
+
+
+
+
+
+
+noxEyesClosed{
+	"\i[63]"
+}
+
+noxMouthOpen{
+	"\i[94]"
+}
+
+noxYawn{
+	"\i[95]"
 }

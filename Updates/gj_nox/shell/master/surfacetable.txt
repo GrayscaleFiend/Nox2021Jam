@@ -8,17 +8,21 @@ group,__disabled
 	
 	//BASES
 	10000,__parts
+	20000,__parts
 	30000,__parts
-	
-	
-	//WINGS
-	10100,__parts
-	30100,__parts
+	40000,__parts
 	
 	
 	//ARMS
+	10100,__parts
+	20100,__parts
+	30100,__parts
+	40100,__parts
+	
+	
+	//WINGS
 	15000,__parts
-	35000,__parts
+	
 	
 	
 	//NEUTRAL EYES
@@ -27,15 +31,34 @@ group,__disabled
 	10011,__parts
 	10012,__parts
 	
+	//CURIOUS EYES
+	20010,__parts
+	//blinks
+	20011,__parts
+	20012,__parts
+	
 	//ANNOYED EYES
 	30010,__parts
 	//blinks
 	30011,__parts
 	30012,__parts
 	
+	//ANGERY EYES
+	40010,__parts
+	//blinks
+	40011,__parts
+	40012,__parts
+	
+	
+	
 	//NOSE..............
 	10090,__parts
+	20090,__parts
 	30090,__parts
+	40090,__parts
+
+
+	
 	
 	//MOUTHS
 	10040,__parts
@@ -43,11 +66,25 @@ group,__disabled
 	10041,__parts
 	10042,__parts
 	
+	//CURIOUS MOUTHS
+	20040,__parts
+	//talkframes
+	20041,__parts
+	20042,__parts
+	
 	//ANNOYED MOUTHS
 	30040,__parts
 	//talkframes
 	30041,__parts
 	30042,__parts
+	
+	//ANGERY MOUTHS
+	40040,__parts
+	//talkframes
+	40041,__parts
+	40042,__parts
+	
+	
 	
 	//ANNOYED TAILS
 	38000,__parts

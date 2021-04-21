@@ -22,49 +22,121 @@
 //******************************************************************************
 MouseMove0Head
 {
-	addFriendship
-	if relationship > POSITIVER1{
-		"positive route pet\e"
-	
-	}elseif relationship < ANNOYEDR1{
-		"negative route pet\e"
+	if petsthishour > MAXPETS{
+		relationship += RAND(2)+1
+	}
+	//pets++
+	if relationship > ANNOYEDR2{
+		"%(noxCurious)Oh? I don't think I have ever been petted up there before."
+		"%(noxNeutral)Huh. This oddly feels nice."
 	
 	}else{
-		//neutral pet
-		"neutral pet\e"
+		"negative pet\e"
 	
 	}
+	--
+	"\e"
 }
 
 MouseMove0Face
 {
-	if relationship > POSITIVER1{
-		"positive route face pet\e"
+	if petsthishour > MAXPETS{
+		relationship += RAND(2)
+	}
+	//pets++
 	
-	}elseif relationship < ANNOYEDR1{
-		"negative route face pet\e"
+	if relationship > ANNOYEDR2{
+		{
+			"%(noxNeutral)That's my face- Why are you petting there?"
+			"%(noxCurious)Are you trying to pet my nose? I would suggest under my chin more."
+		}
+		{
+			"%(noxNeutral)%(noxEyesClosed)...You poked me in the eye.\w[16]%(noxNeutral) Oh wait, I don't have normal eyes."
+			"%(noxNeutral)Why are you petting my face?"
+		}
+		
+		if relationship > POSITIVER2{
+			"%(noxCurious)Why do you insist on petting my face? I don't mind, but I would prefer other places."
+			"%(noxCurious)Hmm. I'm not sure if I wholly like pets there."
+			"%(noxNeutral)You know, it would be a lot easier to reach my chin- %(noxCurious)Wait.\w[16] %(noxNeutral)No I suppose I'm still tiny here."
+		
+		}
+		
 	
-	}else{
-		//neutral pet
-		"neutral face pet\e"
+	}elseif relationship < ANNOYEDR2{
+		"%(noxNarAnnoyed)(He growls at you.)"
+		"%(noxNarAnnoyed)(He bites your mouse cursor.)\n%(noxAnnoyed) That's enough. Stop it."
+		"%(noxAnnoyed)Would you stop that?"
+		"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
+
 	
 	}
 }
 
-MouseMove0Wings
+MouseMove0Chin
 {
-	subFriendship
-	if relationship > POSITIVER1{
-		"positive route wing pet\e"
+	if petsthishour > MAXPETS{
+		relationship += RAND(3)+1
+	}
+	//pets++
 	
-	}elseif relationship < ANNOYEDR1{
-		"negative route wing pet\e"
+	if relationship > ANNOYEDR2{
+		{
+			"%(noxNarNeutral)%(noxEyesClosed)(Is hec purring?)"
+			"%(noxNarNeutral)%(noxEyesClosed)(He seems to enjoy that spot.)"
+		}
+		{
+			"%(noxNeutral)%(noxEyesClosed)Mmm yes. That's the spot."
+			"%(noxNarNeutral)%(noxEyesClosed)(He seems incredibly pleased.)"
+		}
+		
+		if relationship > POSITIVER2{
+			"%(noxNeutral)Vanta likes to pet me there all the time. I'm not sure why, but it feels really calming to me."
+			"%(noxNeutral)%(noxEyesClosed)Mmmm that's the good spot."
+		
+		}
+		
+	
+	}elseif relationship < ANNOYEDR2{
+		"%(noxNarAnnoyed)(He grumbles a bit, but it seems like hefs letting you pet there.)"
+		"%(noxNarAnnoyed)(He lets you scritch under his chin.)"
+		"%(noxNarAnnoyed)(He goes to bite you, but then seems to think otherwise of it.)"
+		"%(noxAnnoyed)What do you hope to gain from petting me?"
+
 	
 	}else{
 		//neutral pet
-		"neutral wing pet\e"
+		"this is a bug if it occurs rip\e"
 	
 	}
+	--
+	"\e"
+
+}
+
+MouseMove0Wings{
+
+	relationship+= RAND(4) - 3
+	relationship-= RAND(4) - 3
+	if relationship > ANNOYEDR1{
+		"%(noxCurious)Ah- I would prefer if you didnft touch there. That feels weird."
+		"%(noxAnnoyed)Please donft."
+		"%(noxCurious)Please donft touch me there."
+		"%(noxAnnoyed)That feels weird."
+		"%(noxAnnoyed)I really donft like that."
+	
+	}else{
+		"%(noxNarAngry)(Hefs growling at you.)"
+		"%(noxAnnoyed)Do you want to lose a hand?"
+		"%(noxAngry)I may be a shadow in physical form, but I can still bite."
+		"%(noxAngry)Touch me there again, and I will bite you."
+		"%(noxNarAngry)(Maybe thatfs not a good idea.)"
+		"%(noxNarAngry)(He bites your mouse cursor. It doesnft hurt, but he still bit it.)"
+	
+	}
+	--
+	"\e"
+
 
 }
 //******************************************************************************
@@ -75,23 +147,29 @@ MouseMove0Wings
 MouseDoubleClick0Head
 {
 	subFriendship
-	if relationship > POSITIVER1{
-		"positive route head hit\e"
+	if relationship > POSITIVER2{
+		"%(noxCurious)Wh- Why?? What was that for?"
 	
 	}elseif relationship < ANNOYEDR1{
 		"negative route head hit\e"
 	
 	}else{
 		//neutral hit
-		"neutral head hit\e"
+		"neutral or pos 1 head hit\e"
 	
 	}
+	--
+	"\e"
 }
 
 MouseDoubleClick0Face
 {
 	subFriendshipBig
-	if relationship > POSITIVER1{
+	if relationship > POSITIVER3{
+		"WHAT! WHAT WAS THAT FOR!"
+		relationship-= 30
+	
+	}elseif relationship > POSITIVER1{
 		"positive route punch\e"
 	
 	}elseif relationship < ANNOYEDR1{
@@ -100,6 +178,23 @@ MouseDoubleClick0Face
 	}else{
 		//neutral hit
 		"neutral punch\e"
+	
+	}
+}
+
+
+MouseDoubleClick0Chin
+{
+	subFriendshipBig
+	if relationship > POSITIVER1{
+		"positive route.... chin hit?\e"
+	
+	}elseif relationship < ANNOYEDR1{
+		"negative route... chin hit?\e"
+	
+	}else{
+		//neutral hit
+		"neutral chin jaw bonkadoodle\e"
 	
 	}
 }
@@ -161,10 +256,13 @@ addFriendshipBig{
 subFriendship{
 	if relationship > POSITIVER2{
 		relationship-=2
+		annoyance+=2
 	}elseif relationship < ANNOYEDR2{
 		relationship-=2
+		annoyance+=2
 	}else{
 		relationship--
+		annoyance++
 	}
 
 }
@@ -173,18 +271,25 @@ subFriendship{
 subFriendshipBig{
 	if relationship > POSITIVER3{
 		relationship-=13
+		annoyance+=13
 	}elseif relationship > POSITIVER2{
 		relationship-=8
+		annoyance+=8
 	}elseif relationship > POSITIVER1{
 		relationship-=5
+		annoyance+=5
 	}elseif relationship > ANNOYEDR1{
 		relationship-=3
+		annoyance+=3
 	}elseif relationship > ANNOYEDR2{
 		relationship-=4
+		annoyance+=4
 	}elseif relationship > ANNOYEDR3{
 		relationship-=6
+		annoyance+=6
 	}else{
 		relationship-=8
+		annoyance+=8
 	}
 
 }

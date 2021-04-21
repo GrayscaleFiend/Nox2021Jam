@@ -8,6 +8,18 @@
 // íPåÍ
 //******************************************************************************
 
+//Constants
+#globaldefine ANNOYEDR3 -25
+#globaldefine ANNOYEDR2 -15
+#globaldefine ANNOYEDR1 -5
+#globaldefine POSITIVER1 5
+#globaldefine POSITIVER2 15
+#globaldefine POSITIVER3 25
+
+#globaldefine QPERHOUR 5
+#globaldefine MAXPETS 5
+
+
 //------------------------------------------------------------------------------
 //êlñºëSî 
 //------------------------------------------------------------------------------

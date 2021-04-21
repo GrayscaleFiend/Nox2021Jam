@@ -39,7 +39,9 @@ OnGhostChanging_Emily
 //Emily‚©‚çØ‚è‘Ö‚è
 OnGhostChanged_Emily
 {
-	"Have fun with Emily."
+	ONBOOTVARS
+	--
+	"Bye, Emily!"
 }
 
 
@@ -52,6 +54,8 @@ OnGhostChangingOther
 //‚»‚Ì‘¼‚ÌƒS[ƒXƒg‚©‚çØ‚è‘Ö‚è
 OnGhostChangedOther
 {
+	ONBOOTVARS
+	--
 	"%(noxNeutral)Later %reference[0]."
 }
 
