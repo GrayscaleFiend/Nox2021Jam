@@ -117,7 +117,7 @@ MouseMove0Chin
 MouseMove0Wings{
 
 	relationship+= RAND(4) - 3
-	relationship-= RAND(4) - 3
+	annoyance-= RAND(4) - 3
 	if relationship > ANNOYEDR1{
 		"%(noxCurious)Ah- I would prefer if you didnft touch there. That feels weird."
 		"%(noxAnnoyed)Please donft."

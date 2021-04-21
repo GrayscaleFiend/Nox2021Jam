@@ -6,4 +6,4 @@ homeurl,https://raw.githubusercontent.com/GrayscaleFiend/Nox2021Jam/master/Updat
 update_result,OK(0)
 firstboot,671298470
 commitmemorysize,6727129
-lastboot,672341119
+lastboot,672354650

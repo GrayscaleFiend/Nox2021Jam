@@ -23,6 +23,25 @@ RandomTalkEx : nonoverlap
 	"\b1"
 	--
 	"%(noxNeutral)Placeholder randomtalk.\e"
+	"beep boop skedebnebbnpiofdsgvp\e"
+	"cheese wiz\e"
+	"https://c.xkcd.com/random/comic/  \e"
+	"BOMP BOMP\e"
+	"hsdrajvbfgd\e"
+	"miette craves violence\e"
+	"bedmepbemopp\e"
+	"hi i am nox yes\e"
+	"much nox mmmmmm\e"
+	"very nox\e"
+	"nox hours\e"
+	"hhhhhhhhhhhhhhhHHHHHHHHHHHHHHHHHHHHHHHHHHHH\e"
+	"NOXNOXNOXNOXNOXNOX\e"
+	"noxie woxie\e"
+	"mistew obamwa is dat ewe\e"
+	"I AM BECOME NOX\e"
+	"i am nocc\e"
+	"guess my myspace username %username \e"
+	"hello i am nox i am doing noxc thingksdsfajhbhjka\e"
 }
 
 //------------------------------------------------------------------------------
@@ -177,6 +196,12 @@ OnSecondChange
 		EndMikireTalk
 	}
 	AYATEMPLATE.mikireflag = reference[1]
+	
+	if annoyance >= 100{
+		OnForceClose
+	
+	
+	}
 }
 
 //------------------------------------------------------------------------------

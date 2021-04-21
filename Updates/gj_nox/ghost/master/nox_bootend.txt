@@ -12,7 +12,7 @@ OnFirstBoot
 	//---- variable set up
 	username         = "User"
 	teachusername    = 0	// haven't learned the name yet
-	relationship	 = 0.01
+	relationship	 = 0
 	questioncooldown = 0
 	cdmultiplier	 = 1
 	empyria          = 0
@@ -28,7 +28,30 @@ OnFirstBoot
 	wasnegative 	 = 0
 	petsthishour	 = 0
 	annoyance		 = 0
+	//Inventory will be a double array in the f
+	inventory 		 = IARRAY
+	inventorylength	 = 0
+	inventoryweight  = 0
 	
+	
+	//THE WHAT HAPPENED TODAY SYSTEM
+	//Arrays are location - mood - special event - outstanding mood gain from gifts
+	
+	//VANTA
+	vantaknown 		 = 0
+	vanta 			 = IARRAY
+	
+	//ROOK
+	rookknown 		 = 0
+	rook  	 		 = IARRAY
+	
+	//KORI/ANNE
+	korianneknown	 = 0
+	korianne 		 = IARRAY
+	
+	--
+	OnWhatHappenedToday
+	--
 
 	//---- The real first time they've spawned
 	if reference[0] == 0
@@ -520,27 +543,51 @@ OnWindowStateRestore
 
 
 
-
-
-
-
-
-
-
-
-
 ONBOOTVARS{
 	if relationship < POSITIVER1{
 		annoyance = RAND(20)
 	
 	}
-	if today == day{
-		OnReboot
+	//if today == day{
+		//OnReboot
 	
 	
-	}
+	//}else{
+		OnWhatHappenedToday
+	
+	//}
 	today = day
 	
+
+
+}
+
+
+
+OnWhatHappenedToday{
+
+	//VANTA
+	
+	
+	
+	//ROOK
+	
+	
+	
+	//KORI/ANNE
+	//korianne = 
+	
+	if RAND(2) == 0{
+		koriHe = "she"
+		koriHim = "her"
+		koriHis = "hers"
+	}else{
+		koriHe = "he"
+		koriHim = "him"
+		koriHis = "his"
+	
+	}
+
 
 
 }
