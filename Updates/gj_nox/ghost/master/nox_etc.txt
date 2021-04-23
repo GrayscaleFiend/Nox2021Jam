@@ -490,6 +490,11 @@ OnDisplayChange
 	displayheight = reference[2]
 }
 
+OnDisplayHandover{
+	displaynumber = reference[3]
+
+}
+
 //------------------------------------------------------------------------------
 //URLドロップ
 //CROW でゴーストインストーラからゴーストをインストールを始めた時にも呼ばれます

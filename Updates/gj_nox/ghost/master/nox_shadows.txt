@@ -1,0 +1,124 @@
+/*
+//******************************************************************************
+// Nox Shadow Tendril System/Game
+// Because I Think it Sounds Interesting And I Crave Code and Creativity 
+// And Dransnake Said It Was Ok
+//******************************************************************************
+
+//******************************************************************************
+//Setting Up A Tendril
+//wish I could do cross out text and cross out "birthing" before setting there, lel
+//******************************************************************************
+
+
+//we have variables displaywidth and displayheight for ref
+//there will be a calculated maxtendrils for how many can grow at once
+
+
+//tendrils are in an array
+//tendril number - screen # (will spawn on the same as Nox, but Nox can move) -- x location -- current growth (y) -- growth rate multiplier
+//Tendrils die when current growth <= 10 
+*/
+
+OnStartNoxTendrils
+{
+	
+	tendrilgrow = 1
+	freetendrils = IARRAY	
+	activetendrils = 0
+	maxtendrils = 2
+	for _i = 0 ; _i < maxtendrils ; _i++ {
+	
+		freetendrils,= IARRAY
+	}
+	
+	OnInstantiateTendril
+	
+
+}
+
+OnEndTendrils
+{
+
+	tendrilgrow = 0
+	
+}
+
+OnInstantiateTendril
+{
+	
+	//if we're at the suggested max tendrils, just don't spawn another
+	if activetendrils < maxtendrils{
+	
+		//find first open slot, _i will be the index
+		_i= 0
+		while _i < maxtendrils && freetendrils[_i] > 0{
+			_i++
+		
+		}
+		//there, create the tendril at RAND(displaywidth)
+		reference[0] = _i
+		OnCreateTendril
+		
+	}
+
+
+
+}
+
+//Spawn a Tendril
+OnCreateTendril{
+	
+	_index = reference[0]
+	_numbertendril = activetendrils
+	_xloc = RAND(displaywidth - 100) + 50
+	_growth = 50
+	_growthrate = RAND(6)*.25
+	
+	activetendrils++
+	
+	//The data it will need to live
+	freetendrils[_index] = (_numbertendril,displaynumber,_xloc,_growth,_growthrate)
+	
+	//display it
+	_tendril = _numbertendril + 5
+	_yloc = 800 + RAND(100) + 20
+//	"\p[%(_tendril)]\s[99000]\![anim,add,overlay,99000,_xloc,_growth-displayheight]\0"
+
+
+	_xloc = RAND(displaywidth - 100) + 50
+	_yloc = RAND(500) + 20
+	--
+	"\p[2]\s[99000]\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=1,--base=primaryscreen]"
+	--
+	//"\p[%(_tendril)]\![move,--base=me,--y=10,--time=0]\0"
+
+}
+
+//called every second while tendrilgrow = 1
+//needs to be as light as possible
+OnGrowTendrils
+{
+	//self: remember they will have to be saved as a string and then returned bc l00ps
+
+}
+
+
+
+OnKillTendril
+{
+	activetendrils = 0
+	freetendrils[0] = IARRAY
+	
+	_tendril = freetendrils[0][0] + 5
+	"\p[5]\s[-1]\0"
+
+
+}
+
+
+//maybe we'll need something that will EVAL a given bit
+OnClickTendril{
+
+
+}

@@ -137,7 +137,9 @@ OnMinuteChange
 	{
 		//variables
 		questioncooldown = 0
-		petthishour = 0
+		petsthishour = 0
+		//with each hour here you hurt Vanta's feelings :(
+		vanta[3]-=1
 		
 		//can be turned off in settings
 		if hourannounce > 1{
@@ -150,7 +152,7 @@ OnMinuteChange
 			}
 			elseif hour == 1
 			{
-				"1 AM, you good?"
+				"It's.... one AM."
 			}
 			elseif hour == 12
 			{
@@ -296,14 +298,18 @@ OnSurfaceRestore
 //the OnTranslate function so that script input debug can actually happen
 OnTranslate
 {
+	
     _talk = reference0;
 	
-	if "\q" _in_ _talk{
-	
-	}else{
+	if !("\q" _in_ _talk){
 		_talk = REPLACE(_talk,". ",".\w[12] ")
 		_talk = REPLACE(_talk,"? ","?\w[22] ")
 		_talk = REPLACE(_talk,", ",",\w8 ")
+		_talk = REPLACE(_talk,"Vanta","Vanta\![raise,OnMetVanta,0]")
+		_talk = REPLACE(_talk,"Rook","Rook\![raise,OnMetRook,0]")
+		_talk = REPLACE(_talk,"Kori ","Kori \![raise,OnMetKorianne,0]")
+		_talk = REPLACE(_talk,"Korianne ","Korianne \![raise,OnMetKorianne,0]")
+		_talk = REPLACE(_talk,"Empyria ","Empyria \![raise,OnHeardEmpyria,0]")
 	}
 	
      
@@ -335,3 +341,22 @@ OnTranslateInternal
 	_text
 }
 */
+
+
+//just a few quick things that'll set some variables
+OnMetVanta{
+	vantaknown = 1
+}
+
+
+OnMetRook{
+	rookknown = 1
+}
+
+OnMetKorianne{
+	korianneknown = 1
+}
+
+OnHeardEmpyria{
+	empyria = 1
+}

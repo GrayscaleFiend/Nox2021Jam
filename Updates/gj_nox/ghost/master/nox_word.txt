@@ -20,6 +20,51 @@
 #globaldefine MAXPETS 5
 #globaldefine MAXWEIGHT 20
 
+//******************************************************************************
+//Envelopes
+//******************************************************************************
+
+geo{
+	"mountains"
+	"forest"
+	"plains"
+	"wastes"
+
+
+}
+
+
+animals{
+
+	"skvaders"
+	"jackalopes"
+	"wolpertingers"
+	"mimics"
+	"dire wolves"
+
+}
+
+songfeel{
+
+	{
+		" quiet"
+		" sad"
+		" carefree"
+		" wistful"
+		" happy"
+		" joyous"
+		" whimsical"
+		" sorrowful"
+	}
+	if annoyance > 50{
+		"n impatient"
+		"n aggressive"
+		"n upset"
+	}
+
+
+
+}
 
 
 //******************************************************************************

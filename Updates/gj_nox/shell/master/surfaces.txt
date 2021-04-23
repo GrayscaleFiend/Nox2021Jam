@@ -262,8 +262,9 @@ animation62.pattern5,overlayfast,10010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,10011,0,0,0
-animation63.pattern1,overlayfast,10012,50,0,0
+animation63.pattern3,overlayfast,10012,50,0,0
 
 //MOUTHS
 animation90.interval,runonce
@@ -581,6 +582,7 @@ animation62.pattern5,overlayfast,10010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,10011,0,0,0
 animation63.pattern1,overlayfast,10012,50,0,0
 
@@ -874,6 +876,7 @@ animation62.pattern5,overlayfast,20010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,20011,0,0,0
 animation63.pattern1,overlayfast,20012,50,0,0
 
@@ -1194,6 +1197,7 @@ animation62.pattern5,overlayfast,20010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,20011,0,0,0
 animation63.pattern1,overlayfast,20012,50,0,0
 
@@ -1518,6 +1522,7 @@ animation62.pattern5,overlayfast,30010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,30011,0,0,0
 animation63.pattern1,overlayfast,30012,50,0,0
 
@@ -1846,6 +1851,7 @@ animation62.pattern5,overlayfast,30010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,30011,0,0,0
 animation63.pattern1,overlayfast,30012,50,0,0
 
@@ -2157,6 +2163,7 @@ animation62.pattern5,overlayfast,40010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,40011,0,0,0
 animation63.pattern1,overlayfast,40012,50,0,0
 
@@ -2487,6 +2494,7 @@ animation62.pattern5,overlayfast,40010,50,0,0
 //Eyes closed
 animation63.interval,never + runonce
 animation63.pattern0,stop,61
+animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,40011,0,0,0
 animation63.pattern1,overlayfast,40012,50,0,0
 
@@ -2515,5 +2523,29 @@ animation95.pattern6,start,90
 animation110.interval,runonce
 animation110.pattern0,overlayfast,40090,0,0,0
 
+	
+}
+
+
+
+surface99000{
+	
+	//TENDRIL PULSE
+	animation10.interval,always
+	animation10.pattern0,overlay,990000,0,0,0
+	animation10.pattern0,overlay,990001,90,0,0
+//	animation10.pattern0,overlay,990002,90,0,0
+//	animation10.pattern0,overlay,990003,90,0,0
+//	animation10.pattern0,overlay,990004,90,0,0
+//	animation10.pattern0,overlay,990003,90,0,0
+//	animation10.pattern0,overlay,990002,90,0,0
+	animation10.pattern0,overlay,990001,90,0,0
+	animation10.pattern0,overlay,990000,90,0,0
+
+	//flick
+	//animation11.interval,sometimes
+	//animation11.pattern0,stop,50
+	
+	
 	
 }

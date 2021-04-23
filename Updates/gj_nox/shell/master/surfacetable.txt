@@ -93,6 +93,14 @@ group,__disabled
 	
 	
 	
+	//TENDRIL PARTS
+	990000,__parts
+	990001,__parts
+	990002,__parts
+	990003,__parts
+	990004,__parts
+	
+	
 }
 
 group,Nox

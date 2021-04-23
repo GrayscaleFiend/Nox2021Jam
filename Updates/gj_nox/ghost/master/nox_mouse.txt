@@ -58,7 +58,7 @@ MouseMove0Face
 		if relationship > POSITIVER2{
 			"%(noxCurious)Why do you insist on petting my face? I don't mind, but I would prefer other places."
 			"%(noxCurious)Hmm. I'm not sure if I wholly like pets there."
-			"%(noxNeutral)You know, it would be a lot easier to reach my chin- %(noxCurious)Wait.\w[16] %(noxNeutral)No I suppose I'm still tiny here."
+			"%(noxNeutral)You know, it would be a lot easier to reach my chin- %(noxCurious)Wait.\w[16] No I suppose I'm still tiny here."
 		
 		}
 		
@@ -86,7 +86,7 @@ MouseMove0Chin
 			"%(noxNarNeutral)%(noxEyesClosed)(He seems to enjoy that spot.)"
 		}
 		{
-			"%(noxNeutral)%(noxEyesClosed)Mmm yes. That's the spot."
+			"%(noxNeutral)%(noxEyesClosed)Mmm yes. \w8That's the spot."
 			"%(noxNarNeutral)%(noxEyesClosed)(He seems incredibly pleased.)"
 		}
 		

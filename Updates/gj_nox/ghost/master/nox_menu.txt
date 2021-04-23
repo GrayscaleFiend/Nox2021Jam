@@ -12,28 +12,43 @@
 // 3 second character string = line feed amount / 50% increments / 100% if omitted (= \ n)
 //******************************************************************************
 
+//Constants
+#globaldefine ANNOYEDR3 -25
+#globaldefine ANNOYEDR2 -15
+#globaldefine ANNOYEDR1 -5
+#globaldefine POSITIVER1 5
+#globaldefine POSITIVER2 15
+#globaldefine POSITIVER3 25
+
+#globaldefine QPERHOUR 5
+#globaldefine MAXPETS 5
+#globaldefine MAXWEIGHT 20
+
 //------------------------------------------------------------------------------
 //Main menu
 //------------------------------------------------------------------------------
 OpenMenu
 {
-	if relationship > POSITIVER3{
-		"\b1%(noxNeutral)I like you a lot!"
-	}elseif relationship > POSITIVER2{
-		"\b1%(noxNeutral)You're cool."
-	}elseif relationship > POSITIVER1{
-		"\b1%(noxNeutral)You're ok."
-	
-	}elseif relationship > ANNOYEDR1{
-		"\b1%(noxNeutral)Here's the menu."
-	
-	}elseif relationship > ANNOYEDR2{
-		"\b1%(noxNeutral)You're meh."
-	
-	}elseif relationship > ANNOYEDR3{
-		"\b1%(noxAnnoyed)You bother me."
+	"\b1"
+	--
+	//N, P1, P2, P3
+	if relationship > ANNOYEDR1{
+		"%(noxCurious)Oh? Do you need something?"
+		"%(noxNeutral)Hmm?"
+		"%(noxNeutral)Need something?"
 	}else{
-		"\b1%(noxAnnoyed)You annoy and anger me deeply."
+	//A3, A2, A1
+		"%(noxAnnoyed)What?"
+	
+	}
+	
+	if relationship < ANNOYEDR2{
+		"%(noxNarAngry)(He glares at you.)"
+	}
+	
+	//A1, N, P1, P2, P3
+	if relationship > ANNOYEDR2 && RAND(2)==0{
+		"%(noxCurious)What is it?"
 	
 	}
 	
@@ -60,7 +75,25 @@ OpenMenu
 //------------------------------------------------------------------------------
 OnChoiceTimeout
 {
-	"\b1%(noxNeutral)Timed out.\e"
+	"\b1"
+	--
+	//N, P1, P2, P3
+	if relationship > ANNOYEDR1{
+		"%(noxNeutral)ItÅfs okay, take your time."
+		"%(noxNeutral)Let me know if you need me."
+	}else{
+	//A3, A2, A1
+		"%(noxNarAnnoyed)(He loses interest.)"
+	
+	}
+	
+	//A1, N, P1, P2, P3
+	if relationship > ANNOYEDR2 && RAND(2)==0{
+		"%(noxCurious)Uuh- Alright?"
+	
+	}
+	--
+	"\e"
 
 }
 
@@ -147,6 +180,11 @@ Menu_QUESTION_SELF{
 		"%(noxCurious) Depending on where youÅfre from, you might have heard of me before. %(noxNeutral) Well, I am a dragon. I likely already have several legends surrounding me."
 	
 	}
+	
+	if relationship < ANNOYEDR1 && relationship > ANNOYEDR3{
+		"%(noxNarAnnoyed)(You ask Nox if he has ever eaten someone.)\n\n\%(noxCurious)Wh- what do you mean by that?\n(noxNarAnnoyed)(He isn't denying it.)"
+	
+	}
 	--
 	"\e"
 	
@@ -174,7 +212,7 @@ Menu_QUESTION_MAGIC{
 Menu_QUESTION_DRAGONS{
 	if relationship > ANNOYEDR2{
 		"%(noxNeutral)Including myself, there are six dragons in total. That leaves one dragon per element. Granted, IÅfm only on good terms with about one of them. \w[16]Well maybe two, but I havenÅft seen him in a century at least."
-		"%(noxCurious)I wonder who the current Fire dragon is. I have not made in contact with the latest one yet, so I can only wonder what theyÅfre like.\n%(noxNeutral)If I have to be blunt, theyÅfre probably just as hotheaded as the last one."
+		"%(noxCurious)I wonder who the current Fire dragon is. I have not made contact with the latest one yet, so I can only wonder what theyÅfre like.\w[16]\n%(noxNeutral)If I have to be blunt, theyÅfre probably just as hotheaded as the last one."
 	
 	}elseif relationship < ANNOYEDR3{
 		"%(noxAngry) You remind me of one of them. \w[16]%(noxAnnoyed) That is not a compliment."
@@ -199,22 +237,21 @@ Menu_QUESTION_ARIA : sequential {
 	"\b1"
 	--
 	if relationship > POSITIVER3{
-		"%(noxNarNeutral)(Nox frowns.)\n\n\w8\w8%(noxNeutral)I need to keep her safe. Not only for my sake, but on the promise of a friend as well. I can't say who this friend is, young one, but I don't think he would be well pleased with how events are currently turning out."
-		"%(noxNarNeutral)(Nox frowns.)\n\n\w8\w8%(noxNeutral)Hm? Why would my friend not like current events? Simple. I got her thrown out of her village. Literally. Some guardian I am. I can't even protect one person."
-	
+		"%(noxNeutral) I need to keep her safe. Not only for my sake, but on the promise of a friend as well. I can't say who this friend is, young one, but I don't think he would be well pleased with how events are currently turning out. \x%(noxCurious) (He frowns)\n\nHm? Why would my friend not like current events? Simple. I got her thrown out of her village. Literally. Some guardian I am. I can't even protect one person."
+		
 	}elseif relationship > POSITIVER2{
 		"Hmm. That isÅc not a name you should know, and yet you know it anyways."
 		"%(noxNeutral) I'm not sure how you came to know I was following her. No one else was in Death's Cliffs as far as I was aware."
 		"%(noxNeutral)%(noxEyesClosed) She's a powerful magic user, and a wind mage at that. \w[16]%(noxNeutral) Ever since the fall of Empyria, those are hard to come by."
 	
-	}if relationship > ANNOYEDR2{
+	}elseif relationship > ANNOYEDR2{
 		"%(noxCurious) Who?"
 		"%(noxNarNeutral)(He seems to be confused by your question.)"
 		"%(noxNeutral)Hmm. I'm afraid the name doesn't ring a bell."
 		"%(noxNeutral)I don't know someone named Aria."
 		"%(noxNarNeutral) (He remained silent.)"
 	
-	}if relationship > ANNOYEDR3{
+	}elseif relationship > ANNOYEDR3{
 		"%(noxAnnoyed) Why is this something you need to know?"
 	
 	}else{
