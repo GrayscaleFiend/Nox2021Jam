@@ -25,6 +25,7 @@ dic, nox_mouse.txt
 dic, nox_menu.txt			
 dic, nox_etc.txt			
 dic, nox_surfacing.txt
+dic, nox_whathappened.txt
 dic, nox_shadows.txt			//heeheehoohoohooooooooooooooooooo shadow tiem
 
 //------------------------------------------------------------------------------

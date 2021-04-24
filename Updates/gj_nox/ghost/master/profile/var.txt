@@ -5,5 +5,5 @@ surfacecount,45
 homeurl,https://raw.githubusercontent.com/GrayscaleFiend/Nox2021Jam/master/Updates/gj_nox/
 update_result,OK(0)
 firstboot,671298470
-commitmemorysize,7841325
-lastboot,672591395
+commitmemorysize,11739410
+lastboot,672622888

@@ -192,6 +192,7 @@ FirstBoot_REINTRO{
 
 FirstBoot_END{
 	inlockedevent = 0
+	teachusername = 1
 	"%(noxNeutral)Wonderful! Now. \n\w[16]%(noxCurious)Where am I?"
 
 }
@@ -223,14 +224,14 @@ OnBoot
 		
 			//A1, A2, N, P1, P2
 			if relationship < POSITIVER3{
-				"%(noxAnnoyed)ItÅfs very early. What do you need?"
+				"%(noxAnnoyed)It's very early. What do you need?"
 			}
 		
 		}
 		
 		//N, P1, P2, P3
 		if relationship > ANNOYEDR1{
-			"%(noxNarNeutral)%(noxEyesClosed)%(noxYawn)(He quietly yawned)\w[40]%(noxNeutral)ItÅfs quite early, do you need something?"
+			"%(noxNarNeutral)%(noxEyesClosed)%(noxYawn)(He quietly yawned)\w[40]%(noxNeutral)It's quite early, do you need something?"
 		}else{	//A1, A2, A3
 			"%(noxAnnoyed)It is %(hour12). \w[16]I was asleep. \w[16]What do you want?"
 		}
@@ -511,8 +512,8 @@ GetTimeSlot
 OnForceClose{
 	forceclose = 1
 	ONCLOSEVARS
-	"%(noxAngry)IÅfve had about enough of this."
-	"%(noxAnnoyed)If you are just going to pick on me, then IÅfm leaving."
+	"%(noxAngry)I've had about enough of this."
+	"%(noxAnnoyed)If you are just going to pick on me, then I'm leaving."
 	--
 	"\w[30]\-"
 
@@ -522,7 +523,7 @@ OnForceCloseReboot{
 	_timeslot = GetTimeSlot
 	case _timeslot{
 		when "early"
-			"%(noxNarAngry)(HeÅfs glaring at you. He probably wanted to sleep.)"
+			"%(noxNarAngry)(He's glaring at you. He probably wanted to sleep.)"
 		when "morning", "afternoon", "night"
 			"%(noxAngry)Why did you bring me back?"
 		
@@ -548,7 +549,7 @@ OnClose
 	{
 		//A1, N, P1, P2, P3
         if relationship > ANNOYEDR2{
-			"%(noxNarNeutral)%(noxEyesClose)%(noxYawn)\w6(He gently yawned) \w[50]%(noxNarNeutral)Is that all? \w6IÅfm going to sleep then."
+			"%(noxNarNeutral)%(noxEyesClose)%(noxYawn)\w6(He gently yawned) \w[50]%(noxNarNeutral)Is that all? \w6I'm going to sleep then."
         
             //A1, N, P1, P2
             if relationship < POSITIVER3{
@@ -591,7 +592,7 @@ OnClose
         
         //N, P1, P2, P3
         if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? ThatÅfs alright. It is still early in the day, so there is plenty of time to go out and do things."
+			"%(noxNeutral)Going so soon? That's alright. It is still early in the day, so there is plenty of time to go out and do things."
         
         }
 		
@@ -624,7 +625,7 @@ OnClose
         
         //N, P1, P2, P3
         if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? ThatÅfs alright. I feel like the sun is still up high, so why not go take a walk outside?"
+			"%(noxNeutral)Going so soon? That's alright. I feel like the sun is still up high, so why not go take a walk outside?"
         
         }
 		
@@ -658,7 +659,7 @@ OnClose
         
         //N, P1, P2, P3
         if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? ThatÅfs alright. The sun is likely setting soon, so go get some well deserved rest."
+			"%(noxNeutral)Going so soon? That's alright. The sun is likely setting soon, so go get some well deserved rest."
         
         }
 		

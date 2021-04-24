@@ -29,8 +29,6 @@ geo{
 	"forest"
 	"plains"
 	"wastes"
-
-
 }
 
 
@@ -41,13 +39,10 @@ animals{
 	"wolpertingers"
 	"mimics"
 	"dire wolves"
-
 }
 
 songfeel{
-
 	{
-		" quiet"
 		" sad"
 		" carefree"
 		" wistful"
@@ -61,7 +56,115 @@ songfeel{
 		"n aggressive"
 		"n upset"
 	}
+}
 
+beachshiny{
+	"seashells"
+	"shiny rocks"
+	"rocks"
+	"coins"
+	"sand dollars"
+	"lost items"
+}
+
+roar{
+	"Rumble"
+	"Rwoar"
+	"Roar"
+	"Rabble"
+	"Rarar"
+	"Rrbrr"
+	"Raer"
+	"Rerble"
+}
+
+growl{
+	"Grumble"
+	"Groar"
+	"Grabble"
+	"Gararr"
+	"Grrumph"
+	"Grbrbrr"
+	"Girble"
+}
+
+bookgenre{
+	"romance"
+	"action"
+	"tragedy"
+	"comedy"
+	"mugs"
+	"dragons"
+	"history"
+	"magic"
+	"ducks"
+	"bears"
+	"dogs"
+	"food"
+	"medicine"
+	"anime"
+
+}
+
+treasure{
+	"%(beachshiny)"
+	"silver coins"
+	"pyrite"
+	"quartz"
+	"fake jewelry"
+	"Legos"
+	"fish bowl pebbles"
+	"holographic Pokemon cards"
+	"dice"
+	"metal dice"
+	"a single D20"
+	"a broken cell phone"
+	"empty soda cans"
+	"enamel pins"
+	"a tamagotchi"
+}
+
+sweetfood{
+	"gummy worms"
+	"gummy bears"
+	"chocolate cake"
+	"apple pie"
+	"vanilla pudding"
+	"black tie mousse cake"
+	"tiramisu"
+	"chocolate malt balls"
+	"a chocolate bar"
+	"strawberries"
+
+}
+
+
+spicyfood{
+	"a bag of hot cheetos"
+	"a bag of doritos"
+	"hot buffalo wings"
+	"a single ghost pepper"
+	"a death pepper"
+	"spicy chicken curry"
+	"kimchi"
+	"takis"
+	"spicy corn chips"
+
+}
+
+sourfood{
+	"sour patch kids"
+	"skittles"
+	"a green apple"
+	"lemon"
+	"warhead candy"
+	"lime"
+	"grapefruit"
+	"sour jolly ranchers"
+	"key lime pie"
+	"sour cream"
+	"tart cherries"
+	"gooseberries"
 
 
 }
@@ -114,182 +217,5 @@ On_\mp
 On_\dms
 {
 	dms
-}
-
-
-
-
-
-
-
-
-//Generate numbers that indicate how a friend of Nox's is doing on a given day. 
-OnWhatHappenedToday{
-
-	//character arrays in the format of:
-	//location -- mood -- special -- outstanding mood change -- pronouns (if applicable)
-
-	//VANTA
-	_vantalocation = RAND(3 + mugkingdom)			//home, village, beach, ALL HAIL MUG KINGDOM!!!
-	_vantamood = vanta[1] + RAND(10) - 5 + vanta[3]
-	_vantaspecial =  (RAND(20) == 8)
-	//moods go below 1 or exceed max
-	if _vantamood <= 0{
-		vanta = (_vantalocation,1,_vantaspecial,0)
-	}elseif _vantamood < 60{
-		vanta = (_vantalocation,_vantamood,_vantaspecial,0)
-	}else{
-		vanta = (_vantalocation,60,_vantaspecial,0)
-	}
-	
-	
-	//ROOK
-	_rooklocation = RAND(3)							//Home, village, beach, Hungry Table Tavern
-	_rookmood = rook[1] + RAND(10) - 5 + rook[3]
-	_rookspecial =  (RAND(20) == 8)
-	//moods go below 1 or exceed max
-	if _rookmood <= 0{
-		rook = (_rooklocation,1,_rookspecial,0)
-	}elseif _rookmood < 80{
-		rook = (_rooklocation,_rookmood,_rookspecial,0)
-	}else{
-		rook = (_rooklocation,80,_rookspecial,0)
-	}
-	
-	
-	//KORI/ANNE
-	_korilocation = RAND(3)							//Village, Hungry Table Tavern, traveling
-	_korimood = korianne[1] + RAND(10) - 5 + korianne[3]
-	_korispecial =  (RAND(20) == 8)
-	_korigender = RAND(2)
-	//moods go below 1 or exceed max
-	if _koriannemood <= 0{
-		korianne = (_korilocation,1,_korispecial,0,_korigender)
-	}elseif _korimood < 100{
-		korianne = (_korilocation,_korimood,_korispecial,0, _korigender)
-	}else{
-		korianne = (_korilocation,100,_korispecial,0, _korigender)
-	}
-	
-	
-	if _korigender == 0{
-		koriHe = "she"
-		koriHim = "her"
-		koriHis = "hers"
-	}else{
-		koriHe = "he"
-		koriHim = "him"
-		koriHis = "his"
-	
-	}
-
-}
-
-//Vanta's max is 60
-vantaMood{
-
-	//Really good
-	if vanta[1] > 50{
-		"he seemed to be in high spirits, I've never seen him smile so much."
-		"he seemed to be in high spirits."
-		"he seemed to be more than content. It was a nice sight."
-		"he was just about grinning."
-	
-	//Good
-	}elseif vanta[1] > 36{
-		"he had a gentle smile on his face."
-		"he had a soft smile."
-		"he seemed peaceful."
-		"he was quite relaxed."
-	
-	//Neutral
-	}elseif vanta[1] > 24{
-		"he seemed like he was doing okay."
-		"he seemed fine."
-		"he seemed alright."
-		"he was maybe tired, but overall okay."
-	
-	//Bad
-	}elseif vanta[1] > 12{
-		"%(noxAnnoyed)he looked like something was troubling him, I worry about him sometimes."
-		"%(noxAnnoyed)he looked like something was troubling him."
-		"%(noxAnnoyed)he seemed like something was wearing on him."
-		"he seemed.\w4.\w4.%(noxAnnoyed)\w[22] quite worn."
-	
-	//Really Bad
-	}else{
-		"%(noxAnnoyed)he was crying a lot. I wonder if I did anything wrong..."
-		"%(noxAnnoyed)he was crying a lot."
-		"%(noxAnnoyed)he was sobbing."
-		"%(noxAnnoyed)he was sobbing. I wonder what happened..."
-		"%(noxAnnoyed)he looked like he was ready to break down, but I'm not sure why..."
-	
-	}
-
-}
-
-
-//Rook's max is 80
-rookMood{
-	//Really good
-	if rook[1] > 66{
-	
-	
-	//Good
-	}elseif rook[1] > 48{
-	
-	
-	//Neutral
-	}elseif rook[1] > 32{
-	
-	
-	//Bad
-	}elseif rook[1] > 16{
-	
-	
-	//Really Bad
-	}else{
-	
-	
-	}
-
-}
-
-//Kori/anne's max is 100
-korianneMood{
-	//Really good
-	if korianne[1] > 82{
-	
-	
-	//Good
-	}elseif korianne[1] > 60{
-	
-	
-	//Neutral
-	}elseif korianne[1] > 40{
-	
-	
-	//Bad
-	}elseif korianne[1] > 20{
-	
-	
-	//Really Bad
-	}else{
-	
-	
-	}
-
-}
-
-
-kori{
-
-	if korianne[4] == 0{
-		"Korianne"
-	}else{
-		"Kori"
-	}
-
-
 }
 

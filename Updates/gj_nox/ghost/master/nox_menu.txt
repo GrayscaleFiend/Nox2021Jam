@@ -87,7 +87,7 @@ OnChoiceTimeout
 	--
 	//N, P1, P2, P3
 	if relationship > ANNOYEDR1{
-		"%(noxNeutral)ItÅfs okay, take your time."
+		"%(noxNeutral)It's okay, take your time."
 		"%(noxNeutral)Let me know if you need me."
 	}else{
 	//A3, A2, A1
@@ -104,6 +104,58 @@ OnChoiceTimeout
 	"\e"
 
 }
+
+
+
+
+//---- Talk with the user
+Menu_COMMUNICATEOPEN
+{
+	"%(noxNeutral)What is it?\![open,communicatebox]\e"
+}
+
+//---- talk to a friendghost
+Menu_GHOSTCOMSTART
+{
+	StartCommunicate
+}
+
+//---- Nevermind
+Menu_CANCEL
+{
+	"\b1"
+	--
+	//A1, N, P1, P2, P3
+	if relationship > ANNOYEDR2{
+		"%(noxNeutral)Oh, alright then."
+		"%(noxNeutral)Oh was that all?"
+	
+	}
+	
+	//A2, A1, N, P1, P2, P3
+	if relationship > ANNOYEDR3{
+		"%(noxNeutral)Alright."
+
+	}
+	
+	//A2, A1, N
+	if relationship < POSITIVER1 && relationship > ANNOYEDR3{
+		"%(noxNeutral)Mmm."
+	}
+	
+	if relationship < ANNOYEDR2{
+		"%(noxNarAnnoyed)(He continues glaring at you.)"
+	}
+	
+	
+	
+	--
+	"\e"
+}
+
+
+
+
 
 
 //******************************************************************************
@@ -192,8 +244,8 @@ Menu_QUESTION_SELF{
 	
 	if relationship > ANNOYEDR1 && relationship < POSITIVER2{
 		"%(noxNeutral)My name is Nox. Clearly, as you might be able to tell, I am a dragon."
-		"%(noxCurious)IÅfm curious as to why you ask that. \w8%(noxNeutral) Seeing as IÅfm trapped here, perhaps you simply want to get to know me better. Hmmm... \w[16] Well, I have a preference of strongly seasoned foods. Will that suffice?"
-		"%(noxCurious) Depending on where youÅfre from, you might have heard of me before. %(noxNeutral) Well, I am a dragon. I likely already have several legends surrounding me."
+		"%(noxCurious)I'm curious as to why you ask that. \w8%(noxNeutral) Seeing as I'm trapped here, perhaps you simply want to get to know me better. Hmmm... \w[16] Well, I have a preference of strongly seasoned foods. Will that suffice?"
+		"%(noxCurious) Depending on where you're from, you might have heard of me before. %(noxNeutral) Well, I am a dragon. I likely already have several legends surrounding me."
 	
 	}
 	
@@ -227,8 +279,8 @@ Menu_QUESTION_MAGIC{
 
 Menu_QUESTION_DRAGONS{
 	if relationship > ANNOYEDR2{
-		"%(noxNeutral)Including myself, there are six dragons in total. That leaves one dragon per element. Granted, IÅfm only on good terms with about one of them. \w[16]Well maybe two, but I havenÅft seen him in a century at least."
-		"%(noxCurious)I wonder who the current Fire dragon is. I have not made contact with the latest one yet, so I can only wonder what theyÅfre like.\w[16]\n%(noxNeutral)If I have to be blunt, theyÅfre probably just as hotheaded as the last one."
+		"%(noxNeutral)Including myself, there are six dragons in total. That leaves one dragon per element. Granted, I'm only on good terms with about one of them. \w[16]Well maybe two, but I haven't seen him in a century at least."
+		"%(noxCurious)I wonder who the current Fire dragon is. I have not made contact with the latest one yet, so I can only wonder what they're like.\w[16]\n%(noxNeutral)If I have to be blunt, they're probably just as hotheaded as the last one."
 	
 	}elseif relationship < ANNOYEDR3{
 		"%(noxAngry) You remind me of one of them. \w[16]%(noxAnnoyed) That is not a compliment."
@@ -477,11 +529,11 @@ Menu_GIFTS.DENIAL{
 Menu_SETTINGS{
 	"%(noxBase)Here are the settings, what do you need to change?"
 	--
-	//AYATEMPLATE.MenuItem("Change name","Menu_UPDATENAME",200)
+	AYATEMPLATE.MenuItem("Change name from %username","Menu_UPDATENAME",200)
 	--
-	//AYATEMPLATE.MenuItem("Change pronouns","Menu_UPDATEPRONOUNS",200)
+	AYATEMPLATE.MenuItem("Change pronouns from %userthey/%userthem","Menu_UPDATEPRONOUNS",100)
 	--
-	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL",200)
+	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL",100)
 	--
 	if hourannounce >= 1{
 		AYATEMPLATE.MenuItem("Turn off hourly announcements","Menu_HOURANNOUNCEMENTSOFF",100)
@@ -500,6 +552,93 @@ Menu_SETTINGS{
 
 }
 
+Menu_UPDATENAME{
+	"What would you like me to call you?\![open,inputbox,OnMenu_NAMEUPDATED,0,]"
+}
+
+OnMenu_NAMEUPDATED{
+	username = reference[0]
+	"%(noxNeutral)Nice to meet you,\w8 %(username)."
+
+}
+
+Menu_UPDATEPRONOUNS{
+	"\tPray tell,\w8 what pronouns do you prefer?"
+	--
+	AYATEMPLATE.MenuItem("They/Them/Theirs","Menu_THEY",200)
+	--
+	AYATEMPLATE.MenuItem("She/Her/Hers","Menu_SHE")
+	--
+	AYATEMPLATE.MenuItem("He/Him/His","Menu_HE")
+	--
+	AYATEMPLATE.MenuItem("Something else","Menu_NEO_A")
+
+
+}
+
+
+Menu_NEO_A{
+	"%(noxCurious)Other pronouns? \w[16]%(noxNeutral)Alright then. \xWhat would go in place of they?\![open,inputbox,OnMenu_NEO_B,0,]"
+
+}
+
+OnMenu_NEO_B{
+	userthey = reference0
+	"What would go in place of them?\![open,inputbox,OnMenu_NEO_C,0,]"
+
+}
+
+OnMenu_NEO_C{
+	userthem = reference0
+	"What would go in place of their? \![open,inputbox,OnMenu_NEO_D,0,]"
+
+}
+
+OnMenu_NEO_D{
+	usertheir = reference0
+	"What would go in place of theirs? \![open,inputbox,OnMenu_NEO_End,0,]"
+
+}
+
+OnMenu_NEO_End{
+	usertheirs = reference0
+	"Okay, you'll use %userthey/%userthem/%usertheirs pronouns.\e"
+}
+
+
+
+Menu_HE{
+	userthey		 = "he"
+	userthem		 = "him"
+	usertheir		 = "his"
+	usertheirs		 = "his"
+	OnMenu_PronounEnd
+
+}
+
+Menu_SHE{
+	userthey		 = "she"
+	userthem		 = "her"
+	usertheir		 = "her"
+	usertheirs		 = "hers"
+	OnMenu_PronounEnd
+
+}
+
+
+Menu_THEY{
+	userthey		 = "they"
+	userthem		 = "them"
+	usertheir 		 = "their"
+	usertheirs		 = "theirs"
+	OnMenu_PronounEnd
+
+}
+
+OnMenu_PronounEnd{
+	"Okay, you'll use %userthey/%userthem/%usertheirs pronouns.\e"
+
+}
 
 //------------------------------------------------------------------------------
 //Talk intervals
@@ -521,23 +660,7 @@ Menu_TALKINTERVAL
 	AYATEMPLATE.MenuItem("Nevermind","OpenMenu",150)
 }
 
-//---- Talk with the user
-Menu_COMMUNICATEOPEN
-{
-	"%(noxNeutral)What is it?\![open,communicatebox]\e"
-}
 
-//---- talk to a friendghost
-Menu_GHOSTCOMSTART
-{
-	StartCommunicate
-}
-
-//---- Nevermind
-Menu_CANCEL
-{
-	"%(noxNeutral)You closed the menu.\e"
-}
 
 //---- talk the most frequently
 Menu_TALKMAX

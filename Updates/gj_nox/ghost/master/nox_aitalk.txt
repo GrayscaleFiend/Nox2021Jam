@@ -20,36 +20,138 @@ RandomTalk
 //------------------------------------------------------------------------------
 RandomTalkEx : nonoverlap
 {
+	_timeslot = GetTimeSlot
 	"\b1"
 	--
-	"%(noxNeutral)Placeholder randomtalk.\e"
-	"beep boop skedebnebbnpiofdsgvp\e"
-	"cheese wiz\e"
-	"https://c.xkcd.com/random/comic/  \e"
-	"BOMP BOMP\e"
-	"hsdrajvbfgd\e"
-	"miette craves violence\e"
-	"bedmepbemopp\e"
-	"hi i am nox yes\e"
-	"much nox mmmmmm\e"
-	"very nox\e"
-	"nox hours\e"
-	"hhhhhhhhhhhhhhhHHHHHHHHHHHHHHHHHHHHHHHHHHHH\e"
-	"NOXNOXNOXNOXNOXNOX\e"
-	"noxie woxie\e"
-	"mistew obamwa is dat ewe\e"
-	"I AM BECOME NOX\e"
-	"i am nocc\e"
-	"guess my myspace username %username \e"
-	"hello i am nox i am doing noxc thingksdsfajhbhjka\e"
+		//ANY ROUTE
+		{
+			"%(noxCurious)What is this thing you are using? The in..ter...net?\w[16] Inter net? That's odd, it doesn't look like a net.\e"
+			//NOTE TO SELF: in a later update actually check if Discord is open
+			"This thing you are using is called Discord... You put words in it quickly. %(noxCurious)Is it a quick way to send letters? No that doesn't seem correct... hmm...\e:chain=whatsdiscord"
+			"%(noxBase)You know, this place is different from any other place I've been to. There doesn't seem to be any natural shadows.\e"
+			"%(noxBase)This place is strange. There is a completely lit up area, but it is only in a rectangular shape. Beyond that? Complete darkness as far as I can see.\e"
+		}
+		{
+			"%(noxBase)I'm not sure why, but it feels like there's something off about this place."
+			"%(noxNarNeutral)(He quietly starts humming a%(songfeel) tune to himself.)"
+			"%(noxBase)There seems to be no way to tell time in this place. There's some tiny numbers, but I'm having a hard time reading them."
+			"%(noxCurious)Have you ever wondered why the second moon only comes out when the first one is full?\n%(noxNarCurious)\w[16]........\n\w[16]%(noxAnnoyed)I certainly haven't."
+			--
+			"\e"
+		}
+		{
+			"%(noxBase)%(roar) %(growl)."
+			"%(noxBase)%(growl) %(roar)."
+			"%(noxNarBase)(Dragon sounds commence.)"
+			--
+			"\e"
+		
+		
+		}
+		
+		
+	    //A1, N, P1, P2, P3
+        if relationship > ANNOYEDR2{
+			if _timeslot == "early" || _timeslot == "night"{
+				"%(noxNeutral)%(noxEyesClosed)%(noxYawn)(He yawns) I'm starting to feel tired, but it's still light in here. How odd."
+			}
+			
+			"%(noxBase)Are you able to see the stars where you are at, %(username)? They're beautiful. I love the night sky. Out of everything, it seems to be the only thing that never changes."
+			"%(noxBase)What do you think of the moon? Personally, I'm not much of a fan."
+			"%(noxBase)The other day I was walking through the %(geo) and saw some wild %(animals) roaming about. Have you ever seen one before?"
+			"%(noxCurious)%(username), have you stood up and stretched recently? If not, I would suggest doing so."
+			--
+			"\e"
+			
+            //A1, A2, N, P1, P2
+            if relationship < POSITIVER3{
+                
+            }
+        
+        }
+        
+        //N, P1, P2, P3
+        if relationship > ANNOYEDR1{
+			"%(noxNeutral)What kinds of food do you like, young one? I like more savory meals personally."
+			"%(noxNeutral)What kinds of food do you like, %(username)? I like more savory meals personally."
+			"%(noxCurious)Hey, are you taking care of yourself out there? If you haven't already, I would suggest getting a drink of water. Perhaps a snack too."
+			--
+			"\e"
+		
+        }else{
+		//A1, A2, A3
+			"%(noxAnnoyed)Why do you keep me trapped here? I have much better things to do than be stuck here with someone aggravating."
+			"%(noxNarAnnoyed)(He's ignoring you.)"
+			"%(noxNarAnnoyed)(He isn't paying attention to you.)"
+			"%(noxNarAnnoyed)(He shot you a dirty look.)"
+			
+            //A1, A2
+            if relationship < ANNOYEDR3{
+            
+            }
+			
+			--
+			"\e"
+        }
+        
+		
+        //P1, P2, P3
+        if relationship > POSITIVER1{
+        
+        
+        }
+		
+        
+        //P2, P3
+        if relationship > POSITIVER2{
+			"%(noxCurious)Have you ever met a mimic before? \w8\w8%(noxNeutral)I have. Some friends of mine own one named Table Scraps. He's friendly. \w8\w8For a table."
+			"%(noxCurious)Sometimes I wonder why my house has a bunch of %(beachshiny). %(noxNeutral)Then I remember Rook visits often."
+			--
+			"\e"
+        }
+        
+		
+        //N, A1, A2, A3
+        if relationship > ANNOYEDR1{
+        
+            //N, A1, A2
+            if relationship > ANNOYEDR3{
+            
+            
+            }
+        }
+        
+		
+        //A2, A3
+        if relationship < ANNOYEDR2{
+			"%(noxNeutral)Here's an idea. Why not let me go home?\n.\w8.\w8.\w8.\nNo?\w8 %(noxAnnoyed)Fine."
+			--
+			"\e"
+        
+        }
+		
+		
+		
+		
+		if whathappened == 1{
+		
+			"%(WhatHappenedDialogue)"
+			--
+			"\e"
+		}
+		
+
+               
 }
 
 //------------------------------------------------------------------------------
 //Chains
 //------------------------------------------------------------------------------
-siritori
+whatsdiscord
 {{CHAIN
-	"%(noxNeutral)\e"
+
+	"%(noxNeutral)Aha! I got it! It's a way you can talk without using your mouth. I know someone who would love that.\e:chain=end"
+	
 }}CHAIN
 
 
@@ -131,8 +233,8 @@ OnMinuteChange
 	}
 	
 	
-	//See if we should spawn a tendril -- after the user hasn't interacted with Nox in more than 3 minutes, 1 in 5 chance
-	if activetendrils == 0 && tendiesallowed == 1 && lastinteraction > 3 && RAND(5) == 1{
+	//See if we should spawn a tendril -- after the user hasn't interacted with Nox in more than 3 minutes, 1 in 10 chance
+	if activetendrils == 0 && tendiesallowed == 1 && lastinteraction > 3 && RAND(10) == 1{
 		//Later after bugfixes, this will be OnInstantiateTendril, but for now... it's all the same.
 		OnStartNoxTendrils
 	

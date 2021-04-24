@@ -34,7 +34,7 @@ OnOtherGhostChanged When another ghost switches to another ghost and the startup
 //その他のゴーストへ切り替え
 OnGhostChangingOther
 {
-	"Swapping to %reference[0]."
+	"%(noxCurious)Oh, you want to swap to %reference[0]? %(noxNeutral)Alright, I'll take my leave then."
 }
 
 //その他のゴーストから切り替り

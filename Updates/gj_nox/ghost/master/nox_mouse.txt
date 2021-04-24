@@ -22,6 +22,7 @@
 //******************************************************************************
 MouseMove0Head
 {
+	lastinteraction = 0
 	if petsthishour > MAXPETS{
 		relationship += RAND(2)+1
 	}
@@ -31,21 +32,23 @@ MouseMove0Head
 		"%(noxCurious)Oh? I don't think I have ever been petted up there before."
 		"%(noxNeutral)Huh. This oddly feels nice."
 	
-	}else{
-		"negative pet\e"
-	
 	}
+	"%(MouseMoveGeneral)"
 	--
 	"\e"
 }
 
 MouseMove0Face
 {
+	lastinteraction = 0
 	if petsthishour > MAXPETS{
 		relationship += RAND(2)
 	}
 	pets++
 	petsthishour++
+	
+	"%(MouseMoveGeneral)"
+	
 	if relationship > ANNOYEDR2{
 		{
 			"%(noxNeutral)That's my face- Why are you petting there?"
@@ -76,11 +79,15 @@ MouseMove0Face
 
 MouseMove0Chin
 {
+	lastinteraction = 0
 	if petsthishour > MAXPETS{
 		relationship += RAND(3)+1
 	}
 	pets++
 	petsthishour++
+	
+	"%(MouseMoveGeneral)"
+	
 	if relationship > ANNOYEDR2{
 		{
 			"%(noxNarNeutral)%(noxEyesClosed)(Is heÅc purring?)"
@@ -99,7 +106,7 @@ MouseMove0Chin
 		
 	
 	}elseif relationship < ANNOYEDR2{
-		"%(noxNarAnnoyed)(He grumbles a bit, but it seems like heÅfs letting you pet there.)"
+		"%(noxNarAnnoyed)(He grumbles a bit, but it seems like he's letting you pet there.)"
 		"%(noxNarAnnoyed)(He lets you scritch under his chin.)"
 		"%(noxNarAnnoyed)(He goes to bite you, but then seems to think otherwise of it.)"
 		"%(noxAnnoyed)What do you hope to gain from petting me?"
@@ -117,25 +124,34 @@ MouseMove0Chin
 
 MouseMove0Wings{
 
+	lastinteraction = 0
 	relationship+= RAND(4) - 3
 	annoyance-= RAND(4) - 3
 	
 	wingtouch++
 	
 	if relationship > ANNOYEDR1{
-		"%(noxCurious)Ah- I would prefer if you didnÅft touch there. That feels weird."
-		"%(noxAnnoyed)Please donÅft."
-		"%(noxCurious)Please donÅft touch me there."
+		"%(noxCurious)Ah- I would prefer if you didn't touch there. That feels weird."
+		"%(noxAnnoyed)Please don't."
+		"%(noxCurious)Please don't touch me there."
 		"%(noxAnnoyed)That feels weird."
-		"%(noxAnnoyed)I really donÅft like that."
+		"%(noxAnnoyed)I really don't like that."
 	
 	}else{
-		"%(noxNarAngry)(HeÅfs growling at you.)"
+		"%(noxNarAngry)(He's growling at you.)"
 		"%(noxAnnoyed)Do you want to lose a hand?"
 		"%(noxAngry)I may be a shadow in physical form, but I can still bite."
 		"%(noxAngry)Touch me there again, and I will bite you."
-		"%(noxNarAngry)(Maybe thatÅfs not a good idea.)"
-		"%(noxNarAngry)(He bites your mouse cursor. It doesnÅft hurt, but he still bit it.)"
+		"%(noxNarAngry)(Maybe that's not a good idea.)"
+		"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
+	
+	}
+	
+	
+	{
+		"%(noxAnnoyed)%(roar) %(growl)"
+		"%(noxAnnoyed)%(growl) %(roar)"
+		"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
 	
 	}
 	--
@@ -143,6 +159,22 @@ MouseMove0Wings{
 
 
 }
+
+MouseMoveGeneral{
+
+	if relationship > ANNOYREDR1{
+		"%(noxNeutral)%(noxEyesClosed)%(roar) %(growl)"
+		"%(noxNeutral)%(noxEyesClosed)%(growl) %(roar)"
+		"%(noxNarNeutral)(You pet the dragon. He seems okay with this.)"
+	
+	}else{
+		"%(noxAnnoyed)%(roar) %(growl)"
+		"%(noxAnnoyed)%(growl) %(roar)"
+		"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
+	}
+
+}
+
 //******************************************************************************
 //Ç¬Ç¬Ç©ÇÍîΩâû
 //******************************************************************************
@@ -150,42 +182,48 @@ MouseMove0Wings{
 //ñ{ëÃë§ÇÃÇ¬Ç¬Ç©ÇÍîΩâû
 MouseDoubleClick0Head
 {	
-	punches++
-	subFriendship
-	if relationship > POSITIVER2{
-		"%(noxCurious)Wh- Why?? What was that for?"
-	
-	}elseif relationship < ANNOYEDR1{
-		"negative route head hit\e"
-	
-	}else{
-		//neutral hit
-		"neutral or pos 1 head hit\e"
-	
-	}
-	--
-	"\e"
+	MouseDoubleClickAny
 }
 
 MouseDoubleClick0Face
 {
+	MouseDoubleClickAny
+}
+
+
+MouseDoubleClickAny : sequential{
+	lastinteraction = 0
 	punches++
 	subFriendshipBig
-	if relationship > POSITIVER3{
-		"WHAT! WHAT WAS THAT FOR!"
+	--
+	if relationship > POSITIVER2{
+		"%(noxCurious)Wh- Why?? What was that for?"
+		"%(noxNarCurious)(He looks at you wide eyed.)"
+		"%(noxAnnoyed)I thought we were friends."
+		"%(noxAnnoyed)%(noxEyesClosed)IÅc\w8\w8 I thought we were friendsÅc"
+		"%(noxAnnoyed)These punches don't even hurt. What hurts more is the feeling of betrayal."
 		relationship-= 30
 	
-	}elseif relationship > POSITIVER1{
-		"positive route punch\e"
-	
-	}elseif relationship < ANNOYEDR1{
-		"negative route punch\e"
+	}elseif relationship > ANNOYEDR2{
+		"%(noxCurious)Excuse me, but what was that for?"
+		"%(noxCurious)Ow?"
+		"%(noxCurious)What are you trying to accomplish here?"
+		"%(noxAnnoyed)That's annoying. Please stop."
+		"%(noxAnnoyed)Please stop."
+		"%(noxCurious)What was that for?"
 	
 	}else{
 		//neutral hit
-		"neutral punch\e"
+		"%(noxNarAngry)(He recoils in anger.)"
+		"%(noxNarAngry)(He bites your mouse cursor in return.)"
+		"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
+		"%(noxAngry)%(growl) %(growl) %(roar)"
+		"%(noxAngry)Would you knock that off?"
 	
 	}
+	--
+	"\e"
+
 }
 
 
