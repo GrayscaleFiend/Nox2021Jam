@@ -281,3 +281,15 @@ korianneMood{
 
 }
 
+
+kori{
+
+	if korianne[4] == 0{
+		"Korianne"
+	}else{
+		"Kori"
+	}
+
+
+}
+

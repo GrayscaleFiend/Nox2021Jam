@@ -106,7 +106,11 @@ OnMinuteChange
 {
 	"\b1"
 	--
-	//Minute checks
+	
+	//general updates
+	lastinteraction++
+	
+	//Minute checks for relationship tiers (for betrayal and recovery)
 	
 	if relationship > POSITIVER3{
 		cdmultiplier = 3
@@ -126,6 +130,13 @@ OnMinuteChange
 		cdmultiplier = 1
 	}
 	
+	
+	//See if we should spawn a tendril -- after the user hasn't interacted with Nox in more than 3 minutes, 1 in 5 chance
+	if activetendrils == 0 && tendiesallowed == 1 && lastinteraction > 3 && RAND(5) == 1{
+		//Later after bugfixes, this will be OnInstantiateTendril, but for now... it's all the same.
+		OnStartNoxTendrils
+	
+	}
 	
 	
 	
@@ -171,7 +182,9 @@ OnMinuteChange
 	{
 		//---- 分 != 0 、かつ見切れておらず本体とkeroが重なっていたら重なり処理
 		//---- 大抵はkero側を引き離す処理を行う
-		"%(noxNeutral)Overlapping hopefully nonexistent kero.\4\e"
+		
+		//yeah we have tendrils now, we don't need this.
+		//"%(noxNeutral)Overlapping hopefully nonexistent kero.\4\e"
 	}
 }
 

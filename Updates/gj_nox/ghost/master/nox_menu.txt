@@ -29,6 +29,10 @@
 //------------------------------------------------------------------------------
 OpenMenu
 {
+	lastinteraction = 0
+	if tendiesallowed == 1{
+		OnEndTendrils
+	}
 	"\b1"
 	--
 	//N, P1, P2, P3
@@ -473,6 +477,10 @@ Menu_GIFTS.DENIAL{
 Menu_SETTINGS{
 	"%(noxBase)Here are the settings, what do you need to change?"
 	--
+	//AYATEMPLATE.MenuItem("Change name","Menu_UPDATENAME",200)
+	--
+	//AYATEMPLATE.MenuItem("Change pronouns","Menu_UPDATEPRONOUNS",200)
+	--
 	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL",200)
 	--
 	if hourannounce >= 1{
@@ -585,8 +593,9 @@ Menu_HOURANNOUNCEMENTSON{
 
 Menu_TENDIESOFF{
 	OnEndTendrils
+	--
 	tendiesallowed = 0
-	"Ah, ok.\e"
+	"Ah, ok."
 
 }
 

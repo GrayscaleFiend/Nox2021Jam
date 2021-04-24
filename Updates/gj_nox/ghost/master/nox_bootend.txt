@@ -30,6 +30,7 @@ OnFirstBoot
 	petsthishour	 = 0
 	annoyance		 = 0
 	tendiesallowed	 = 1		//release the shadow tenders
+	lastinteraction	 = 0
 	
 	//Inventory will store a list of IDs of items
 	inventory 		 = IARRAY
@@ -703,6 +704,7 @@ OnWindowStateRestore
 
 ONBOOTVARS{
 	
+	lastinteraction = 0
 	if today == day{
 		
 		//Same day is treated differently, and Nox's annoyed ragequits are Special

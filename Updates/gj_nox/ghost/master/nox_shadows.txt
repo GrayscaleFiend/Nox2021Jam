@@ -33,7 +33,10 @@ OnStartNoxTendrils
 	SETDELIM(freetendrils,"#")
 	activetendrils = 0
 	maxtendrils = 2
-	yboundary = 800 //probs will need to be calculated, but it's 800ish for my computer
+	//ok so my main monitor is 1920x1080, secondary is 1680x1050, Dran's is in the 1600x900s area and had trouble killing them at yboundary == 800...
+	//the high should be gettin up there
+	yboundarylow = displayheight - (displayheight / 4)
+	yboundaryhigh = displayheight / 11
 	for _i = 0 ; _i < maxtendrils ; _i++ {
 	
 		
@@ -54,6 +57,8 @@ OnEndTendrils
 	OnKillTendril
 	
 }
+
+
 
 //Plant one tendril
 OnInstantiateTendril
@@ -89,8 +94,8 @@ OnCreateTendril{
 	_index = reference[0]
 	
 	_numbertendril = activetendrils //+ TENDRILSTARTINDEX
-	_xloc = RAND(displaywidth - 100) + 50
-	_yloc =  800 + RAND(50)
+	_xloc = RAND(displaywidth - 100)
+	_yloc =  yboundarylow + RAND(50)
 	_growthrate = (RAND(6)+1)*.25
 	
 	activetendrils++
@@ -223,14 +228,14 @@ OnClickTendril{
 	_growthrate = _thistendril[4,","]
 			
 	//make it go down some
-	_yloc += (25)
+	_yloc += (30)
 			
 	//update the new info into the recorded data!
 	_thistendril[3,","] = _yloc
 	freetendrils[_index,"#"] = _thistendril
 			
 	
-	if _yloc > yboundary{
+	if _yloc > yboundarylow{
 		OnKillTendril
 	
 	}else{

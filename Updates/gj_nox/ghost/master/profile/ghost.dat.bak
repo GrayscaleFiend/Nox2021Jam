@@ -9,13 +9,13 @@ SurfaceTest.visible,1
 Char.VirtualDesktop,64085923-795f-4cdc-8664-ed87320dd4a1
 Char2.center,2685
 Update.TestMode,0
-Char0.center,1211
+Char0.center,3239
 scriptbox.top,427
 shell,shell\master\
 FirstBoot,booted
-Char1.center,1689
+Char1.center,1286
 shell.ischanged.2,1
 inputbox.top,436
-update.lastexec,672537070
+update.lastexec,672597996
 DeveloperPalette.visible,1
 __system_written_flag_do_not_remove__,written
