@@ -13,23 +13,32 @@
 
 //we have variables displaywidth and displayheight for ref
 //there will be a calculated maxtendrils for how many can grow at once
+*/
 
+//This should be the first number item that a tendril can use (currently broke, in the future cannot be the 0 or 1)
+#globaldefine TENDRILSTARTINDEX 1
 
+/*
 //tendrils are in an array
 //tendril number - screen # (will spawn on the same as Nox, but Nox can move) -- x location -- current growth (y) -- growth rate multiplier
 //Tendrils die when current growth <= 10 
 */
 
+//Starting variables for the tendril game
 OnStartNoxTendrils
 {
 	
-	tendrilgrow = 1
+	tendrilgrow = 1			//whether or not they will be growing each second
 	freetendrils = IARRAY	
+	SETDELIM(freetendrils,"#")
 	activetendrils = 0
 	maxtendrils = 2
+	yboundary = 800 //probs will need to be calculated, but it's 800ish for my computer
 	for _i = 0 ; _i < maxtendrils ; _i++ {
 	
-		freetendrils,= IARRAY
+		
+		freetendrils+= " #"
+		
 	}
 	
 	OnInstantiateTendril
@@ -37,13 +46,16 @@ OnStartNoxTendrils
 
 }
 
+//Kill all tendrils (useless until I can have more than one, so not done yet, lol) (I say even though other parts are set up for multiple tendies)
 OnEndTendrils
 {
 
 	tendrilgrow = 0
+	OnKillTendril
 	
 }
 
+//Plant one tendril
 OnInstantiateTendril
 {
 	
@@ -52,10 +64,15 @@ OnInstantiateTendril
 	
 		//find first open slot, _i will be the index
 		_i= 0
-		while _i < maxtendrils && freetendrils[_i] > 0{
+		SETDELIM(freetendrils,"#")
+		_check = freetendrils[_i, "#"]
+		while _i < maxtendrils && _check != " " && _check != ""{
 			_i++
+			_check = freetendrils[_i, "#"]			
 		
 		}
+	//	"s%_check!"
+		
 		//there, create the tendril at RAND(displaywidth)
 		reference[0] = _i
 		OnCreateTendril
@@ -66,59 +83,165 @@ OnInstantiateTendril
 
 }
 
-//Spawn a Tendril
+//Spawn a Tendril at the given index 
 OnCreateTendril{
 	
 	_index = reference[0]
-	_numbertendril = activetendrils
+	
+	_numbertendril = activetendrils //+ TENDRILSTARTINDEX
 	_xloc = RAND(displaywidth - 100) + 50
-	_growth = 50
-	_growthrate = RAND(6)*.25
+	_yloc =  800 + RAND(50)
+	_growthrate = (RAND(6)+1)*.25
 	
 	activetendrils++
 	
 	//The data it will need to live
-	freetendrils[_index] = (_numbertendril,displaynumber,_xloc,_growth,_growthrate)
+//	freetendrils[_index] = IARRAY
+	freetendrils[_index] = "%_numbertendril,0,%_xloc,%_yloc,%_growthrate"
 	
 	//display it
-	_tendril = _numbertendril + 5
-	_yloc = 800 + RAND(100) + 20
+	//_yloc = 800 + RAND(100) + 20
 //	"\p[%(_tendril)]\s[99000]\![anim,add,overlay,99000,_xloc,_growth-displayheight]\0"
 
-
-	_xloc = RAND(displaywidth - 100) + 50
-	_yloc = RAND(500) + 20
 	--
-	"\p[2]\s[99000]\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=1,--base=primaryscreen]"
+	//when this is working \1 will be \[p%(_numbertendril)]
+	"\c\1\s[99000]\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=0,--base=primaryscreen]"
 	--
-	//"\p[%(_tendril)]\![move,--base=me,--y=10,--time=0]\0"
 
 }
+
+
 
 //called every second while tendrilgrow = 1
-//needs to be as light as possible
+//needs to be as light as possible (pfft)
 OnGrowTendrils
 {
-	//self: remember they will have to be saved as a string and then returned bc l00ps
+	_growresult = ""
+	_index = 0
+	_check = freetendrils[0, "#"]
+	//l00ps
+	
+	//while the index is less than the max
+	while _index < maxtendrils {
+		
+		
+		if _index < maxtendrils && _check != " " && _check != ""{
+			_thistendril = freetendrils[_index, "#"]
+			_numbertendril = _thistendril[0,","]
+			_displaynumber = _thistendril[1,","]
+			_xloc = _thistendril[2,","]				//stays the same
+			_yloc = _thistendril[3,","]				//changing
+			_growthrate = _thistendril[4,","]
+			
+			
+			//if it's not already too large,
+			if _yloc > 100{
+				//actually make it grow
+				_yloc -= (25)
+				
+				//update the new info into the recorded data!
+				_thistendril[3,","] = _yloc
+				freetendrils[_index,"#"] = _thistendril
+				
+				
+				//\1 should become \p[%(numbertendril)] when we have it fully working
+				_growresult+= "\1\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=1000,--base=primaryscreen]"
+				
+				//OH MY **** IT ACTUALLY WORKS I'M SO RELIEVED
+				//Y'ALL
+				//I CAN GROW A S T I C K
+				//AND LATER A SHADOW TENTACLE WHEN I CHANGE THE SURFACE BUT FOR NOW IT IS A STICK
+				//DOES THIS MAKE ME A FATHER NOW
+				//oh well uh ignoring the fact you click em to death but I haven't coded that part yet
+			}
+			
+		}
+		
+		_index++
+		_check = freetendrils[_index, "#"]
+	}
+	
+	//return it
+	_growresult
 
 }
 
 
-
+//delete a tendril and free up its space
+//for the moment we can only have 1 so its simple
 OnKillTendril
 {
-	activetendrils = 0
-	freetendrils[0] = IARRAY
+	activetendrils--
 	
-	_tendril = freetendrils[0][0] + 5
-	"\p[5]\s[-1]\0"
+	if activetendrils == 0 {
+		tendrilgrow = 0
+	
+	}
+	
 
+	"\1\s[-1]\0"
+	freetendrils = IARRAY
+	
+	
 
 }
 
 
-//maybe we'll need something that will EVAL a given bit
+//maybe we'll need something that will EVAL a given bit?
+//When clicked, the tendril gets set back and may be low enough to die and, in the 1-tendril version, immediately spawn another
 OnClickTendril{
-
+	//reference3 is which spot its in as far as control/character numbers
+	
+	
+	//cancel anim
+	//move it back a little
+	//check if it's y coord is low enough to "kill" it
+	
+	
+	//_growresult = ""
+	_index = 0
+	_check = freetendrils[0, "#"]
+	_check = _check[0,","]
+	
+	//while the index is less than the max
+	while _check != (reference3 - TENDRILSTARTINDEX) {
+		
+		//move to the next location in the array
+		_index++
+		_check = freetendrils[_index, "#"]
+		_check = _check[0,","] 
+		
+		
+	}
+	//index is now at the correct location
+	
+	
+	_thistendril = freetendrils[_index, "#"]
+	_displaynumber = _thistendril[1,","]
+	_xloc = _thistendril[2,","]				//stays the same (where its planted)
+	_yloc = TOINT(_thistendril[3,","])		//changing
+	_growthrate = _thistendril[4,","]
+			
+	//make it go down some
+	_yloc += (25)
+			
+	//update the new info into the recorded data!
+	_thistendril[3,","] = _yloc
+	freetendrils[_index,"#"] = _thistendril
+			
+	
+	if _yloc > yboundary{
+		OnKillTendril
+	
+	}else{
+		//\1 should become \p[%(reference3)] when we have it fully working
+		"\c\1\![moveasync,cancel]\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=2,--base=primaryscreen]"
+		//"%_thistendril"
+	}
+	
+			
+	
+	//return it
+	//_growresult
 
 }

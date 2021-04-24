@@ -13,15 +13,17 @@
 
 OnShellChanging
 {
-	"Okay, I'll swap.\e"
+	"%(noxCurious)You want a different color? Alright.\s[-1]\w8\w8\w8\e"
 }
 
 //------------------------------------------------------------------------------
 //After
 //------------------------------------------------------------------------------
 OnShellChanged
-{
-	"%(noxNeutral)New shell: %(reference[0])!\e"
+{	
+	//reference[0] is the new shell's name
+	
+	"%(noxBase)\e"
 }
 
 
@@ -95,7 +97,7 @@ OnAYATEMPLATE.InstallChange
 //------------------------------------------------------------------------------
 OnInstallFailure
 {
-	"It failed.\e"
+	"That didn't work.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -116,7 +118,7 @@ OnInstallRefuse
 //------------------------------------------------------------------------------
 OnVanishSelecting
 {
-	"%(noxNeutral)what?\e"
+	"%(noxCurious)Are you sure.\w4.\w4.?\e"
 }
 
 //------------------------------------------------------------------------------
@@ -124,7 +126,12 @@ OnVanishSelecting
 //------------------------------------------------------------------------------
 OnVanishSelected
 {
-	"%(noxNeutral)No!\e"
+	if RAND(100) == 0{
+		"%(noxNeutral)Change da world, \w8my final message.\w8\w8 Goodbye\w4"
+	}else{
+		"%(noxAnnoyed)Alright. Goodbye.\\w8e"
+	}
+	
 }
 
 //------------------------------------------------------------------------------
@@ -132,7 +139,7 @@ OnVanishSelected
 //------------------------------------------------------------------------------
 OnVanishCancel
 {
-	"%(noxNeutral)That's not funny.\e"
+	"%(noxAnnoyed)That's not funny.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -140,7 +147,8 @@ OnVanishCancel
 //------------------------------------------------------------------------------
 OnVanished
 {
-	"%(noxNeutral)Don't like that.\e"
+	relationship-=5
+	"%(noxCurious)What happened to %reference[0]...?\e"
 }
 
 
@@ -211,7 +219,9 @@ OnBIFFFailure
 //------------------------------------------------------------------------------
 OnUpdateBegin
 {
-	"%(noxNeutral)Beginning update...\e"
+	"%(noxNarBase)Looking at the shadows...\e"
+	"%(noxNarBase)Merging with the shadows...\e"
+	"%(noxNarBase)Merging into the shadows...\e"
 }
 
 //------------------------------------------------------------------------------
@@ -219,7 +229,7 @@ OnUpdateBegin
 //------------------------------------------------------------------------------
 OnUpdateReady
 {
-	"%(noxNeutral)%(TOINT(reference[0])+1) files.\e"
+	"%(noxNeutral)\_q%(TOINT(reference[0])+1) elements located.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -230,12 +240,20 @@ OnUpdateComplete
 	if reference[0] == "none"
 	{
 		//---- no new files
-		"%(noxNeutral)Oh, nothing new.\e"
+		//positive
+		if relationship > ANNOYEDR1{
+			"%(noxNeutral)Hm, nothing has changed in the order.\e"
+		
+		//negative route
+		}else{
+			"%(noxAnnoyed)Things are the same as always.\e"
+		}
+		
 	}
 	else
 	{
 		//---- genuine completion
-		"%(noxNeutral)That's done.\e"
+		"%(noxBase)Everything is in.\w4.\w4. proper order.\e"
 	}
 }
 
@@ -247,20 +265,20 @@ OnUpdateFailure
 	if reference[0] == "timeout"
 	{
 		//---- タイムアウトした
-		"%(noxNeutral)Update timed out."
+		"%(noxAnnoyed)Update timed out."
 	}
 	elseif reference[0] == "md5 miss"
 	{
 		//---- MD5値が一致しなかった
-		"%(noxNeutral)The MD5 is wrong."
+		"%(noxAnnoyed)The MD5 value isn't aligned."
 	}
 	else
 	{
 		//---- 上記以外の理由で失敗した
-		"%(noxNeutral)%(reference[0]) error."
+		"%(noxAnnoyed)%(reference[0]) error--"
 	}
 	--
-	"\n\nYou might want to bring this up to someone.\e"
+	"\n\nPerhaps you should bring this up to someone.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -276,7 +294,11 @@ OnUpdate.OnDownloadBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareBegin
 {
-	"%(noxNeutral)Comparing...\e"
+	"\_q"
+	--
+	"%(noxNarBase)(Checking the stars...)\e"
+	"%(noxNarBase)(Looking for accurate reflections...)\e"
+	"%(noxNarBase)(Aligning shadows...)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -284,7 +306,7 @@ OnUpdate.OnMD5CompareBegin
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareComplete
 {
-	"%(noxNeutral)Ok, that MD5 is fine.\e"
+	"%(noxNarBase)\_q(They're aligned.)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -292,7 +314,8 @@ OnUpdate.OnMD5CompareComplete
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareFailure
 {
-	"%(noxNeutral)That's not the right MD5 value.\e"
+	"%(noxBase)That's not right.\e"
+	"%(noxBase)They're not matched up.\e"
 }
 
 //******************************************************************************
@@ -304,7 +327,8 @@ OnUpdate.OnMD5CompareFailure
 //------------------------------------------------------------------------------
 OnHeadlinesenseBegin
 {
-	"%(noxNeutral)%(reference[0])\e"
+	//reference[0] is what the headlines are from (ie ref0 = Game Watch)
+	"%(noxNeutral)Ah, here we are.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -364,7 +388,7 @@ OnHeadlinesenseComplete
 //------------------------------------------------------------------------------
 OnHeadlinesenseFailure
 {
-	"%(noxNeutral)It failedm, because"
+	"%(noxNeutral)It failed, because "
 	--
 	if reference[0] == "can't download"
 	{
@@ -376,7 +400,7 @@ OnHeadlinesenseFailure
 	}
 	else
 	{
-		"...well, not sure."
+		"...well, I'm not sure..."
 	}
 	--
 	"\e"
@@ -392,7 +416,8 @@ OnHeadlinesenseFailure
 //------------------------------------------------------------------------------
 OnUpdatedataCreating
 {
-	"%(noxNeutral)Building...\e"
+	"%(noxNarBase)(Assembling data...)\e"
+	"%(noxNarBase)(Organizing your components...)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -400,7 +425,7 @@ OnUpdatedataCreating
 //------------------------------------------------------------------------------
 OnUpdatedataCreated
 {
-	"%(noxNeutral)Update created.\e"
+	"%(noxBase)Update data assembled and shadows put where needed.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -408,7 +433,12 @@ OnUpdatedataCreated
 //------------------------------------------------------------------------------
 OnNarCreating
 {
-	"%(noxNeutral)Making a nar...\e"
+	if relationship > ANNOYEDR2{
+		"%(noxNeutral)I'll prepare those elements for you.\w4.\w4.\e"
+	}else{
+		"%(noxAnnoyed)Fine, I'll prepare it for you.\e"
+	}
+	
 }
 
 //------------------------------------------------------------------------------
@@ -416,7 +446,7 @@ OnNarCreating
 //------------------------------------------------------------------------------
 OnNarCreated
 {
-	"%(noxNeutral)Okay, it's where you told me to put it.\e"
+	"%(noxNeutral)NAR assembled.\e"
 }
 
 
@@ -456,7 +486,7 @@ OnSNTPCompare
 	--
 	if reference[3] == 0
 	{
-		"That's correct.\e"
+		"Everything seems to be in order, %username.\e"
 	}
 	else
 	{
@@ -470,7 +500,7 @@ OnSNTPCompare
 //------------------------------------------------------------------------------
 OnSNTPFailure
 {
-	"%(noxNeutral)The clock adjustment... failed?\e"
+	"%(noxNeutral)The clock adjustment... failed. That is certainly odd.\e"
 }
 
 
@@ -490,6 +520,7 @@ OnDisplayChange
 	displayheight = reference[2]
 }
 
+//i dont't think this is working right: note to self for when I can have Multiple Tendies
 OnDisplayHandover{
 	displaynumber = reference[3]
 
@@ -525,7 +556,7 @@ OnNekodorifExist
 //------------------------------------------------------------------------------
 OnScreenSaverStart
 {
-	"%(noxNeutral)Screensaver start\w8\e"
+	"%(noxNeutral)Oh, it's dark!\w8\e"
 }
 
 //------------------------------------------------------------------------------
@@ -533,7 +564,7 @@ OnScreenSaverStart
 //------------------------------------------------------------------------------
 OnScreenSaverEnd
 {
-	"%(noxNeutral)Screensaver end\e"
+	"%(noxNeutral)Back into the light.\e"
 }
 
 

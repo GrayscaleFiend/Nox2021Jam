@@ -60,12 +60,16 @@ OpenMenu
 	}
 	--
 	AYATEMPLATE.MenuItem("Hey\, I have a question","Menu_QUESTION")
+	AYATEMPLATE.MenuItem("Hey\, I have a question","Menu_QUESTION")
+	AYATEMPLATE.MenuItem("I have a question...","Menu_QUESTION")
 	--
-	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL")
+	AYATEMPLATE.MenuItem("I have something for you","Menu_GIFTS")
+	AYATEMPLATE.MenuItem("I have something for you","Menu_GIFTS")
+	AYATEMPLATE.MenuItem("I got you something","Menu_GIFTS")
 	--
 	AYATEMPLATE.MenuItem("Talk to another ghost","Menu_GHOSTCOMSTART")
 	--
-	AYATEMPLATE.MenuItem("Settings","Menu_SETTINGS")
+	AYATEMPLATE.MenuItem("Settings","Menu_SETTINGS",150)
 	--
 	AYATEMPLATE.MenuItem("Nevermind","Menu_CANCEL",150)
 }
@@ -115,8 +119,16 @@ Menu_LASTTALK
 }
 
 
+
+
+
+
+//------------------------------------------------------------------------------
+//Questions menu
+//------------------------------------------------------------------------------
+
 Menu_QUESTION{
-	"\b2%(noxNarNeutral)(Ask about...)"
+	"\b2%(noxNarBase)(Ask about...)"
 	--
 	AYATEMPLATE.MenuItem("I need to say something","Menu_COMMUNICATEOPEN",200)
 	--
@@ -374,9 +386,116 @@ Menu_QUESTION.negDenial{
 
 
 
+//------------------------------------------------------------------------------
+//Gift Menu
+//------------------------------------------------------------------------------
+
+Menu_GIFTS{
+	"What is it?"
+	"What did you get?"
+	"Oh...?"
+	--
+	"\_q\n\n\*"
+	--
+	//and now it is time for me to figure out how to manually space these instead of using AYATEMPLATE stuff, lol
+	"\![*]\q[A book,Menu_GIFTS.BOOK]                   \![*]\q[Something shiny,Menu_GIFTS.SHINY]\n"
+	--
+	"\![*]\q[Something sweet,Menu_GIFTS.SWEET]     \![*]\q[Something spicy,Menu_GIFTS.SPICY]\n"
+	--
+	"\![*]\q[Something sour,Menu_GIFTS.SOUR]       \![*]\q[Bandages,Menu_GIFTS.BANDAGES]"
+	--
+	"\e"
+
+}
+
+//spicy things like hot cheetos, takis, buffalo wings
+
+
+Menu_GIFTS.BOOK{
+	"succ is short for success"
+}
 
 
 
+
+
+Menu_GIFTS.DENIAL{
+	//first check if there's room, and then play out denials for relationship tiers
+	if inventoryweight >= 20{
+		//some overlap but not a ton, it's a good place to subly indicate exactly how comfortable Nox is with you
+		
+		//P3
+		if relationship > POSITIVER3{
+		
+		//P2
+		}elseif relationship > POSITIVER2{
+		
+		//P1
+		}elseif relationship > POSITIVER1{
+		
+		//N
+		}elseif relationship > ANNOYEDR1{
+		
+		//A1
+		}elseif relationship > ANNOYEDR2{
+		
+		//A2
+		}elseif relationship > ANNOYEDR3{
+		
+		//A3
+		}else{
+		
+		}
+	
+	}else{
+	
+	
+	
+	}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+//------------------------------------------------------------------------------
+//Config menu
+//------------------------------------------------------------------------------
+
+Menu_SETTINGS{
+	"%(noxBase)Here are the settings, what do you need to change?"
+	--
+	AYATEMPLATE.MenuItem("Change talk rate","Menu_TALKINTERVAL",200)
+	--
+	if hourannounce >= 1{
+		AYATEMPLATE.MenuItem("Turn off hourly announcements","Menu_HOURANNOUNCEMENTSOFF",100)
+	}else{
+		AYATEMPLATE.MenuItem("Turn on hourly announcements","Menu_HOURANNOUNCEMENTSON",100)
+	}
+	--
+	if tendiesallowed >= 1{
+		AYATEMPLATE.MenuItem("Turn off tendrils","Menu_TENDIESOFF",100)
+	}else{
+		AYATEMPLATE.MenuItem("Turn on tendrils","Menu_TENDIESON",100)
+	}
+	--
+	AYATEMPLATE.MenuItem("Back","OpenMenu",150)
+
+
+}
+
+
+//------------------------------------------------------------------------------
+//Talk intervals
+//------------------------------------------------------------------------------
 
 //---- トーク頻度の調整
 Menu_TALKINTERVAL
@@ -424,55 +543,60 @@ Menu_TALKNORMAL
 {
 	//---- talk an average amount
 	aitalkinterval = 180
-	"Yeah ok\e"
+	"Every three minutes, then.\e"
 }
 
 Menu_TALKPOOR
 {
 	//---- talk infrequently
 	aitalkinterval = 300
-	"Comfortable rate.\e"
+	"Alright, sounds good.\e"
+	"Every five minutes, then.\e"
 }
 
 Menu_TALKNONE
 {
 	//---- 話さない
 	aitalkinterval = 0
-	"I'll be quiet.\e"
+	"Alright, I'll be quiet for now.\e"
 }
 
 //---- ヘッドライン
 Menu_HEADLINECANCEL
 {
 	//---- キャンセルされた
-	"Headline canceled.\e"
+	"Alright, I'll put that away.\e"
 }
 
 
 
-
-Menu_SETTINGS{
-	"Here's the settings. Barren... for now."
-	--
-	if hourannounce > 1{
-		AYATEMPLATE.MenuItem("Turn off hourly announcements","Menu_HOURANNOUNCEMENTSOFF",200)
-	}else{
-		AYATEMPLATE.MenuItem("Turn on hourly announcements","Menu_HOURANNOUNCEMENTSON",200)
-	}
-	--
-	AYATEMPLATE.MenuItem("Back","OpenMenu",150)
-
-
-}
 
 Menu_HOURANNOUNCEMENTSOFF{
 	hourannounce = 0
-	"ok.\e"
+	"Alright.\e"
 
 }
 
 Menu_HOURANNOUNCEMENTSON{
 	hourannounce = 1
-	"ok.\e"
+	"Alright, I'll tell you on the hour.\e"
+
+}
+
+Menu_TENDIESOFF{
+	OnEndTendrils
+	tendiesallowed = 0
+	"Ah, ok.\e"
+
+}
+
+//Turn it on, and have one spawn immediately for fun!
+Menu_TENDIESON{
+	tendiesallowed = 1
+	"Alright then."
+	//same energy as "so you have chosen death"
+	//Dransnake: PEACE WAS NEVER AN OPTION
+	--
+	OnStartNoxTendrils
 
 }

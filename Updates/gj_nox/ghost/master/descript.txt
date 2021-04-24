@@ -6,6 +6,8 @@ type,ghost
 sakura.name,Nox
 kero.name,N/A
 
+sakura.seriko.defaultsurface,1000
+
 sstp.allowunspecifiedsend,1
 
 icon,icon.ico

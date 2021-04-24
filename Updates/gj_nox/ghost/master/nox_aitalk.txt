@@ -143,24 +143,20 @@ OnMinuteChange
 		
 		//can be turned off in settings
 		if hourannounce > 1{
-			"%(noxNeutral)"
+			"%(noxNarBase)"
 			--
 			//---- 特定の時間（正午など）ではさらに追加で話す
 			if hour == 0
 			{
-				"Midnight."
-			}
-			elseif hour == 1
-			{
-				"It's.... one AM."
+				"(It's midnight.)"
 			}
 			elseif hour == 12
 			{
-				"%(noxNeutral)It's lunchtime."
+				"(It's about lunchtime.)"
 			}
 			else
 			{
-				"%(noxNeutral)It's %hour12."
+				"(It's %hour12.)"
 			}
 			--
 			"\e"
@@ -200,10 +196,20 @@ OnSecondChange
 	AYATEMPLATE.mikireflag = reference[1]
 	
 	if annoyance >= 100{
+		OnEndTendrils //just in case ykno
+		--
 		OnForceClose
+		
 	
+	}else{
 	
+		//IJHEBAFGTVLKJHBNTFDLJKHGBKDJFH IT'S MOSTLY WORKIN DUDE I'M GROWIN A PLACEHOLDER STICK
+		if tendrilgrow {
+			"\![embed,OnGrowTendrils]"
+		}
 	}
+	
+	
 }
 
 //------------------------------------------------------------------------------
@@ -253,7 +259,8 @@ MikireTalk : nonoverlap
 EndMikireTalk
 {
 	offscreen = 0
-	"%(noxNeutral)No longer offscreen.\e:chain=mikirego"
+	relationship+= RAND(4) + 1
+	"%(noxNeutral)No longer offscreen.\e"
 }
 
 
@@ -261,29 +268,10 @@ EndMikireTalk
 //見切れ後の初回のランダムトークは見切れ関連のトークを行う。
 //これをチェインで実現している
 //------------------------------------------------------------------------------
-mikirego
-{{CHAIN
-	"%(noxNeutral)Being offscreen is weird.\e"
-
-}}CHAIN
 
 //******************************************************************************
 //サーフィス復元
 //******************************************************************************
-
-//------------------------------------------------------------------------------
-//OnSurfaceRestoreイベント
-//------------------------------------------------------------------------------
-OnSurfaceRestore
-{
-	if relationship < ANNOYEDR2{
-		"\1\s[-1]%(noxAnnoyed)\e"
-	}else{
-	
-		"\1\s[-1]%(noxNeutral)\e"
-	}
-	
-}
 
 //******************************************************************************
 //トランスレータ

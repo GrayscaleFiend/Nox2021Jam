@@ -25,7 +25,8 @@ MouseMove0Head
 	if petsthishour > MAXPETS{
 		relationship += RAND(2)+1
 	}
-	//pets++
+	pets++
+	petsthishour++
 	if relationship > ANNOYEDR2{
 		"%(noxCurious)Oh? I don't think I have ever been petted up there before."
 		"%(noxNeutral)Huh. This oddly feels nice."
@@ -43,8 +44,8 @@ MouseMove0Face
 	if petsthishour > MAXPETS{
 		relationship += RAND(2)
 	}
-	//pets++
-	
+	pets++
+	petsthishour++
 	if relationship > ANNOYEDR2{
 		{
 			"%(noxNeutral)That's my face- Why are you petting there?"
@@ -78,8 +79,8 @@ MouseMove0Chin
 	if petsthishour > MAXPETS{
 		relationship += RAND(3)+1
 	}
-	//pets++
-	
+	pets++
+	petsthishour++
 	if relationship > ANNOYEDR2{
 		{
 			"%(noxNarNeutral)%(noxEyesClosed)(Is hec purring?)"
@@ -118,6 +119,9 @@ MouseMove0Wings{
 
 	relationship+= RAND(4) - 3
 	annoyance-= RAND(4) - 3
+	
+	wingtouch++
+	
 	if relationship > ANNOYEDR1{
 		"%(noxCurious)Ah- I would prefer if you didnft touch there. That feels weird."
 		"%(noxAnnoyed)Please donft."
@@ -145,7 +149,8 @@ MouseMove0Wings{
 
 //–{‘Ì‘¤‚Ì‚Â‚Â‚©‚ê”½‰ž
 MouseDoubleClick0Head
-{
+{	
+	punches++
 	subFriendship
 	if relationship > POSITIVER2{
 		"%(noxCurious)Wh- Why?? What was that for?"
@@ -164,6 +169,7 @@ MouseDoubleClick0Head
 
 MouseDoubleClick0Face
 {
+	punches++
 	subFriendshipBig
 	if relationship > POSITIVER3{
 		"WHAT! WHAT WAS THAT FOR!"
@@ -178,23 +184,6 @@ MouseDoubleClick0Face
 	}else{
 		//neutral hit
 		"neutral punch\e"
-	
-	}
-}
-
-
-MouseDoubleClick0Chin
-{
-	subFriendshipBig
-	if relationship > POSITIVER1{
-		"positive route.... chin hit?\e"
-	
-	}elseif relationship < ANNOYEDR1{
-		"negative route... chin hit?\e"
-	
-	}else{
-		//neutral hit
-		"neutral chin jaw bonkadoodle\e"
 	
 	}
 }
@@ -235,9 +224,17 @@ OnMouseWheel
 	_result
 }
 
+//Normally I'd leave this alone, but for the sake of Tendie Game I must interfere
 OnMouseDoubleClick
 {
-	AYATEMPLATE.MouseEventExec('MouseDoubleClick');
+	//reference3 is the character number
+	if reference3 > 0{
+		OnClickTendril
+	
+	}else{
+		AYATEMPLATE.MouseEventExec('MouseDoubleClick');
+	}
+	
 }
 
 

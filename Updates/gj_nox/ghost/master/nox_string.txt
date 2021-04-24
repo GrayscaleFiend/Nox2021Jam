@@ -33,6 +33,10 @@ On_portalrootbutton.caption
 //------------------------------------------------------------------------------
 On_sakura.portalsites_EX : array
 {
+	"Arcane Gourmet Comic  | http://arcanegourmet.thecomicseries.com/comics/1#content-start       | "
+	"Dransnake             | https://dransnake.carrd.co/         | "
+	"GrayArea              | https://grayscalefiend.github.io/ghost-hub/         | "
+	"Ukagaka Dream Team    | https://ukagakadreamteam.tumblr.com/        | "
 	"SSP BUGTRAQ           | http://ssp.shillest.net/         | "
 	"Maintenance           | http://ms.shillest.net/          | "
 }
@@ -60,7 +64,7 @@ On_sakura.recommendsites_EX : array
 //------------------------------------------------------------------------------
 On_kero.recommendbuttoncaption
 {
-	"ƒ}ƒbƒN˜N‚Ì‚¨‚·‚·‚ß"
+	"Reccomend"
 }
 
 //------------------------------------------------------------------------------

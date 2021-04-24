@@ -17,11 +17,6 @@ StartCommunicate
 	AYATEMPLATE.ExecuteTalkToTalk
 }
 
-//エミリに話しかける
-TalkTo_Emily{
-	"%(noxNeutral)Hey Emily."
-}
-
 
 //その他の人に話しかける
 TalkToOther{
@@ -89,18 +84,24 @@ ReplyToUser
 //ユーザーへの返事（名前覚え以外）
 //------------------------------------------------------------------------------
 TalkToUser
-{
-	if "hello" _in_ reference[1]
+{	
+	_text = TOLOWER(reference[1])
+	if "hello" _in_ _text || "hi" == _text || "howdy" _in_ _text
 	{
-		"%(noxNeutral)Hi!\e"
+		"%(noxBase)Oh, hello. Is that all?\e"
 	}
-	elseif "how are you" _in_ reference[1]
-	{
-		"%(noxNeutral)I'm doing fine.\e"
+	elseif "how are you" _in_ _text
+	{	
+		if annoyance > 50{
+			"%(noxAnnoyed)I'm a little bothered."
+		}else{
+			"%(noxBase)I'm doing fine, thank you.\e"
+		}
+		
 	}
 	else
 	{
-		"%(noxNeutral)Pardon?\e"
+		"%(noxNarBase)(He quietly and intently listens.)\e"
 	}
 }
 
@@ -108,24 +109,17 @@ TalkToUser
 //ゴーストからの話しかけ
 //------------------------------------------------------------------------------
 
-//エミリから話しかけられた
-ReplyTo_Emily{
-	res_reference0=reference[0]	//さらに相手に話しかける
-	"%(noxNeutral)Hey! I'm good.\e"
-}
-
-
 
 //その他の人から話しかけられた
 ReplyToOther{
 	if "Hello" _in_ reference[1] || "Hi" _in_ reference[1]
 	{
 		res_reference0=reference[0]	//さらに相手に話しかける
-		"%(noxNeutral)Howdy, %(res_reference0). What's up?\e"
+		"%(noxBase)Howdy, %(res_reference0). What's up?\e"
 	}
 	else
 	{
-		"%(noxNeutral)What was that, %(res_reference0)?\e"
+		"%(noxBase)What was that, %(res_reference0)?\e"
 	}
 }
 

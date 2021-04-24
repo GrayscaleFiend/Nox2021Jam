@@ -30,20 +30,6 @@ OnOtherGhostChanged When another ghost switches to another ghost and the startup
 */
 
 
-//Emily‚ÖØ‚è‘Ö‚¦
-OnGhostChanging_Emily
-{
-	"%(noxNeutral)Changing to Emily. \w9\w9\e"
-}
-
-//Emily‚©‚çØ‚è‘Ö‚è
-OnGhostChanged_Emily
-{
-	ONBOOTVARS
-	--
-	"Bye, Emily!"
-}
-
 
 //‚»‚Ì‘¼‚ÌƒS[ƒXƒg‚ÖØ‚è‘Ö‚¦
 OnGhostChangingOther

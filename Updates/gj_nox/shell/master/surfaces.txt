@@ -2529,22 +2529,23 @@ animation110.pattern0,overlayfast,40090,0,0,0
 
 
 surface99000{
+//collision0,0,0,500,500,Tendril
 	
-	//TENDRIL PULSE
-	animation10.interval,always
-	animation10.pattern0,overlay,990000,0,0,0
-	animation10.pattern0,overlay,990001,90,0,0
-//	animation10.pattern0,overlay,990002,90,0,0
-//	animation10.pattern0,overlay,990003,90,0,0
-//	animation10.pattern0,overlay,990004,90,0,0
-//	animation10.pattern0,overlay,990003,90,0,0
-//	animation10.pattern0,overlay,990002,90,0,0
-	animation10.pattern0,overlay,990001,90,0,0
-	animation10.pattern0,overlay,990000,90,0,0
+//TENDRIL PULSE
+animation10.interval,always
+animation10.pattern0,overlay,990000,0,0,0
+animation10.pattern0,overlay,990001,90,0,0
+//animation10.pattern0,overlay,990002,90,0,0
+//animation10.pattern0,overlay,990003,90,0,0
+//animation10.pattern0,overlay,990004,90,0,0
+//animation10.pattern0,overlay,990003,90,0,0
+//animation10.pattern0,overlay,990002,90,0,0
+animation10.pattern0,overlay,990001,90,0,0
+animation10.pattern0,overlay,990000,90,0,0
 
-	//flick
-	//animation11.interval,sometimes
-	//animation11.pattern0,stop,50
+//flick
+//animation11.interval,sometimes
+//animation11.pattern0,stop,50
 	
 	
 	

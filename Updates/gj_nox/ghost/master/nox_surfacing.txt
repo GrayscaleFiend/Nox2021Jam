@@ -2,7 +2,45 @@
 
 
 
-//EMOTIONS AND THEIR NARRATION COUNTERPARTS
+//------------------------------------------------------------------------------
+//OnSurfaceRestore
+//------------------------------------------------------------------------------
+OnSurfaceRestore
+{
+	if relationship < ANNOYEDR2{
+		"%(noxAnnoyed)\e"
+	}else{
+	
+		"%(noxNeutral)\e"
+	}
+	
+}
+
+
+
+
+//------------------------------------------------------------------------------
+//Surfaces and their Narration Counterparts
+//------------------------------------------------------------------------------
+
+//bases just will return Neutral or Annoyed based on relationship
+noxBase{
+	if relationship > ANNOYEDR2{
+		"\0\s[1000]"
+	}else{
+		"\0\s[3000]"
+	}
+}
+
+noxNarBase{
+	if relationship > ANNOYEDR2{
+		"\0\s[1001]"
+	}else{
+		"\0\s[3001]"
+	}
+
+}
+
 noxNeutral{
 	"\0\s[1000]"
 }
