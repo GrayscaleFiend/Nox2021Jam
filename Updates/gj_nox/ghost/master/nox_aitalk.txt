@@ -186,13 +186,13 @@ OnKeyPress
 			}
 		}
 		when "p"{
-			relationship++
-			"%relationship\e"
+		//	relationship++
+		//	"%relationship\e"
 		}
-		when "-"{
-			relationship--
-			"%relationship\e"
-		}
+	//	when "-"{
+	//		relationship--
+	//		"%relationship\e"
+	//	}
 	}
 }
 
@@ -248,32 +248,8 @@ OnMinuteChange
 	//---- When it's a new hour
 	if minute == 0
 	{
-		//variables
-		questioncooldown = 0
-		petsthishour = 0
-		//with each hour here you hurt Vanta's feelings :(
-		vanta[3]-=1
+		OnHourChange
 		
-		//can be turned off in settings
-		if hourannounce > 1{
-			"%(noxNarBase)"
-			--
-			//---- 特定の時間（正午など）ではさらに追加で話す
-			if hour == 0
-			{
-				"(It's midnight.)"
-			}
-			elseif hour == 12
-			{
-				"(It's about lunchtime.)"
-			}
-			else
-			{
-				"(It's %hour12.)"
-			}
-			--
-			"\e"
-		}
 	}
 	elseif AYATEMPLATE.mikireflag == 1
 	{
@@ -290,7 +266,41 @@ OnMinuteChange
 	}
 }
 
+OnHourChange{
 
+	//variables
+	questioncooldown = 0
+	petsthishour = 0
+	//with each hour here you hurt Vanta's feelings :(
+	vanta[3]-=1
+		
+	//can be turned off in settings
+	if hourannounce >= 1 {
+		"%(noxNarBase)"
+		--
+		//---- 特定の時間（正午など）ではさらに追加で話す
+		case hour{
+			when 0
+			{
+				"(It's midnight.)"
+			}
+			when 12
+			{
+				"(It's about lunchtime.)"
+			}
+			others
+			{
+				"(It's %(hour12).)"
+			}
+		}
+		--
+		"\e"
+			
+	}
+
+
+
+}
 //******************************************************************************
 //見切れ
 //******************************************************************************
@@ -375,7 +385,9 @@ EndMikireTalk
 {
 	offscreen = 0
 	relationship+= RAND(4) + 1
-	"%(noxNeutral)No longer offscreen.\e"
+	"%(noxBase)Thank you.\e"
+	"%(noxNarNeutral)%(noxEyesClose)(He seems to be a little more at ease.)\e"
+	"%(noxNeutral)That’s better."
 }
 
 
@@ -408,13 +420,10 @@ OnTranslate
 		_talk = REPLACE(_talk,". ",".\w[12] ")
 		_talk = REPLACE(_talk,"? ","?\w[22] ")
 		_talk = REPLACE(_talk,", ",",\w8 ")
-		_talk = REPLACE(_talk,"Vanta","Vanta\![raise,OnMetVanta,0]")
-		_talk = REPLACE(_talk,"Rook","Rook\![raise,OnMetRook,0]")
-		_talk = REPLACE(_talk,"Kori ","Kori \![raise,OnMetKorianne,0]")
-		_talk = REPLACE(_talk,"Korianne ","Korianne \![raise,OnMetKorianne,0]")
-		_talk = REPLACE(_talk,"Empyria ","Empyria \![raise,OnHeardEmpyria,0]")
+		
 	}
 	
+	_talk = REPLACE(_talk,"Empyria ","Empyria \![raise,OnHeardEmpyria,0]")
      
     if reference1 == "" && reference2 == ""
     { //send input box : no event (ref2) , no special flag (ref1)

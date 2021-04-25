@@ -16,7 +16,16 @@
 //See bottom of document for friendship increment/decrement functions.
 //******************************************************************************
 
+#globaldefine ANNOYEDR3 -250
+#globaldefine ANNOYEDR2 -150
+#globaldefine ANNOYEDR1 -50
+#globaldefine POSITIVER1 50
+#globaldefine POSITIVER2 150
+#globaldefine POSITIVER3 250
 
+#globaldefine QPERHOUR 5
+#globaldefine MAXPETS 5
+#globaldefine MAXWEIGHT 20
 //******************************************************************************
 //•‚Å”½‰ž
 //******************************************************************************
@@ -28,9 +37,11 @@ MouseMove0Head
 	}
 	pets++
 	petsthishour++
+	//A1, N, P1, P2, P3
 	if relationship > ANNOYEDR2{
 		"%(noxCurious)Oh? I don't think I have ever been petted up there before."
 		"%(noxNeutral)Huh. This oddly feels nice."
+		"%(noxNarNeutral)%(noxEyesClosed)(He leans into the pet.)"
 	
 	}
 	"%(MouseMoveGeneral)"

@@ -1,4 +1,4 @@
 charset, Shift_JIS
 type,ghost
-name,Nox‚N/A
+name,Nox‚none
 directory,gj_nox

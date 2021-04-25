@@ -13,12 +13,12 @@
 //******************************************************************************
 
 //Constants
-#globaldefine ANNOYEDR3 -25
-#globaldefine ANNOYEDR2 -15
-#globaldefine ANNOYEDR1 -5
-#globaldefine POSITIVER1 5
-#globaldefine POSITIVER2 15
-#globaldefine POSITIVER3 25
+#globaldefine ANNOYEDR3 -250
+#globaldefine ANNOYEDR2 -150
+#globaldefine ANNOYEDR1 -50
+#globaldefine POSITIVER1 50
+#globaldefine POSITIVER2 150
+#globaldefine POSITIVER3 250
 
 #globaldefine QPERHOUR 5
 #globaldefine MAXPETS 5
@@ -188,25 +188,23 @@ Menu_QUESTION{
 	--
 	AYATEMPLATE.MenuItem("I need to say something","Menu_COMMUNICATEOPEN",200)
 	--
-	AYATEMPLATE.MenuItem("I have something for you","Menu_GIFT")
-	--
 	if questioncooldown > ((QPERHOUR-1) * cdmultiplier){
 		AYATEMPLATE.MenuItem("Himself","Menu_QUESTION.cooldown",150)
 		--
-		AYATEMPLATE.MenuItem("His past","Menu_QUESTION.cooldown")
+	//	AYATEMPLATE.MenuItem("His past","Menu_QUESTION.cooldown")
 		--
 		AYATEMPLATE.MenuItem("His home","Menu_QUESTION.cooldown")
 		--
 	}else{
 		AYATEMPLATE.MenuItem("Himself","Menu_QUESTION_SELF",150)
 		--
-		AYATEMPLATE.MenuItem("His past","Menu_QUESTION_PAST")
+	//	AYATEMPLATE.MenuItem("His past","Menu_QUESTION_PAST")
 		--
 		AYATEMPLATE.MenuItem("His home","Menu_QUESTION_HOME")
 		--
 	}
 	--
-	AYATEMPLATE.MenuItem("Magic","Menu_QUESTION_MAGIC")
+//	AYATEMPLATE.MenuItem("Magic","Menu_QUESTION_MAGIC")
 	--
 	AYATEMPLATE.MenuItem("Other dragons","Menu_QUESTION_DRAGONS")
 	--
@@ -230,6 +228,21 @@ Menu_QUESTION{
 		
 	}
 	--
+	if whathappened == 1{
+	
+		if vantaknown
+			AYATEMPLATE.MenuItem("Vanta","Menu_QUESTION_VANTA")
+			
+		--
+		if rookknown
+			AYATEMPLATE.MenuItem("Rook","Menu_QUESTION_ROOK")
+			
+		--
+		if korianneknown
+			AYATEMPLATE.MenuItem("%(kori)","Menu_QUESTION_KORIANNE")
+	
+	}
+	--
 	if empyria > 0{
 		AYATEMPLATE.MenuItem("Empyria","Menu_QUESTION_EMPYRIA")
 	}
@@ -242,16 +255,28 @@ Menu_QUESTION{
 Menu_QUESTION_SELF{
 	questioncooldown++
 	
+	//P1,P2,P3
+	if relationship > POSITIVER1{
+		"%(noxNarBase)(You ask Nox why he eats all of your gifts.)\n\n%(noxCurious)Where else would I put them? My robes?"
+	}
+	
+	//A1, N, P1
 	if relationship > ANNOYEDR1 && relationship < POSITIVER2{
+		relationship+= RAND(3) + 3
 		"%(noxNeutral)My name is Nox. Clearly, as you might be able to tell, I am a dragon."
 		"%(noxCurious)I'm curious as to why you ask that. \w8%(noxNeutral) Seeing as I'm trapped here, perhaps you simply want to get to know me better. Hmmm... \w[16] Well, I have a preference of strongly seasoned foods. Will that suffice?"
 		"%(noxCurious) Depending on where you're from, you might have heard of me before. %(noxNeutral) Well, I am a dragon. I likely already have several legends surrounding me."
 	
 	}
 	
+	//A1, A2
 	if relationship < ANNOYEDR1 && relationship > ANNOYEDR3{
 		"%(noxNarAnnoyed)(You ask Nox if he has ever eaten someone.)\n\n\%(noxCurious)Wh- what do you mean by that?\n(noxNarAnnoyed)(He isn't denying it.)"
 	
+	}
+	
+	if relationship < ANNOYEDR3{
+		Menu_QUESTION.negDenial
 	}
 	--
 	"\e"
@@ -259,6 +284,7 @@ Menu_QUESTION_SELF{
 
 }
 
+//future update will implement
 Menu_QUESTION_PAST{
 	questioncooldown++
 
@@ -267,10 +293,38 @@ Menu_QUESTION_PAST{
 
 Menu_QUESTION_HOME{
 	questioncooldown++
-
+	whathappened = 1
+	
+	//P1, P2, P3
+	if relationship > POSITIVER1{
+		"%(noxBase)Hmmm. You seem trustworthy enough. I live in a village called Nighthaven with my people and family. ItÅfs a quiet place, separated away from the three magical kingdoms.\n\nWell, maybe it isnÅft quiet. %(noxNarNeutral)(He quietly chuckled to himself.)"
+		"\![raise,OnMetVanta]%(noxNeutral)I have an adopted son named Vanta who lives with me. IÅfve taught him nearly everything I know about magic. The rest however? Well he learned himself! HeÅfs such a smart boy.\n\n%(noxNarNeutral)(HeÅfs absolutely beaming.)"
+		"\![raise,OnMetRook]%(noxNeutral)If thereÅfs a notable resident of my home, it would be Rook. HeÅfs such an odd fellow whoÅfs always laughing and joking around. Life would be absolutely dull without him."
+		"\![raise,OnMetKorianne]%(noxBase)Nighthaven used to have a doctor named %(kori), but %(koriHe) decided %(koriHe) would be better suited to life on the road. I hope that %(koriHe) is doing well.\n\nAh! I should also mention %(koriHe) goes by two names, being Kori and Korianne. Each name has their own set of pronouns, and I will be using those with their respective name."
+	
+	
+	//A1, N
+	}elseif relationship > ANNOYEDR2{
+		"%(noxBase)Some secrets are best kept to oneself. Where I live isnÅft somewhere IÅfd be willing to disclose. Not yet."
+	
+	}
+	
+	//P2, P3
+	if relationship > POSITIVER2{
+		"%(noxNeutral)Really, Nighthaven was a lucky find for me. If it werenÅft for Eddy, I never would have been able to find out there was a nearby island. And an uninhabited one at that. So it was there I started a village.\n\n%(noxCurious)Granted, I had to befriend some pirates who kept their treasure there first."
+		"%(noxNeutral)A lot of the older buildings at Nighthaven I built myself. Of course, after the population started to grow, the people started building them on their own. A lot of the original architecture is still in effect however."
+	}
+	
+	if relationship < ANNOYEDR2{
+		Menu_QUESTION.negDenial
+	}else{
+		relationship+= RAND(3) + 3
+	}
+	--
+	"\e"
 }
 
-
+//future update will have
 Menu_QUESTION_MAGIC{
 
 
@@ -278,15 +332,31 @@ Menu_QUESTION_MAGIC{
 
 
 Menu_QUESTION_DRAGONS{
+
+	//A1, N, P1, P2, P3
 	if relationship > ANNOYEDR2{
+
 		"%(noxNeutral)Including myself, there are six dragons in total. That leaves one dragon per element. Granted, I'm only on good terms with about one of them. \w[16]Well maybe two, but I haven't seen him in a century at least."
 		"%(noxCurious)I wonder who the current Fire dragon is. I have not made contact with the latest one yet, so I can only wonder what they're like.\w[16]\n%(noxNeutral)If I have to be blunt, they're probably just as hotheaded as the last one."
+		"%(noxNeutral)If I had to pick the most agreeable dragon, it would likely be Nymph the Plant Dragon. SheÅfs the kindest of the lot and the only one whoÅfs really willing to talk to me."
+		"%(noxCurious)I wonder where Eddy wentÅc I havenÅft seen him in at least a century. Then again, he isnÅft exactly good at staying in one place.\w8.\w8.\w8\n\n%(noxNeutral)Ah, what were we talking about again?"
+		"%(noxNarCurious)(You ask Nox about the Dragon of Light.)\n.\w8.\w8.\w8.\w8.\w8.\w8.\n%(noxAnnoyed)....No."
+		//rip Shard
+		"%(noxNeutral)Frankly, I havenÅft spoken much with the new Wind Dragon. I know her name is Ariel and she takes an unusual serpentine shape, but beyond that IÅfm not sure."
+	
+		//rip Shard pt2
+		if relationship > POSITIVER3{
+			"%(noxNarCurious)(You ask Nox about the Dragon of Light.)\n.\w8.\w8.\w8.\w8.\w8.\w8.\n%(noxAnnoyed)%(noxEyesClose).\w8.\w8.\w8.His name is Shard. HeÅfs just as ancient as myself, and a traitor. I still donÅft know why to this day why he tried to kill me.\n\n%(noxAnnoyed)....We used to be such good friendsÅc."
+			"%(noxNeutral)A long time ago, dragons agreed on a sort of rule where they werenÅft supposed to have children. A dumb rule, I know.\w8\w8\n\nSadly though, most of the dragons at the time agreed to it. And since then, I know of at least one dragon who broke that rule. And if my theory is correctÅc\w8\w8 There may be another."
+		}
+	
 	
 	}elseif relationship < ANNOYEDR3{
 		"%(noxAngry) You remind me of one of them. \w[16]%(noxAnnoyed) That is not a compliment."
 	
 	}else{
 		//A2
+		Menu_QUESTION.negDenial
 	
 	}
 	--
@@ -296,7 +366,15 @@ Menu_QUESTION_DRAGONS{
 
 
 Menu_QUESTION_HUMANS{
-
+	"\b1"
+	--
+	if relationship > ANNOYEDR1{
+		"%(noxAnnoyed)Phosphrinians are sometimes called Expanders because of how much land the country tries to grab all at once. Their actions make me upset, but at least theyÅfre nicer than you."
+	}else{
+		"%(noxNeutral)Sequoia is one of the three major magical kingdoms. ItÅfs more plant based than any of them, which cause a lot of the residents to become farmers. There isnÅft any other place in the world that has more fertile soil than them."
+		"%(noxNeutral)Infernus is technically a country, but in name only. The reality of the situation is that the land is broken up by tribes. However, due to the threat Phosphrin poses, they all agree to pose as one entity to prevent any more land being stolen."
+		"%(noxNeutral)I remember a time where Phosphrin was just a small country that no one paid much attention to. However, about a century ago, they started conquering the neighboring territories. The country grew fast, but its growth has stopped due to EmpyriaÅfs territory becoming hostile itself and Infernus refusing to give away to any more territory."
+	}
 
 }
 
@@ -305,9 +383,11 @@ Menu_QUESTION_ARIA : sequential {
 	"\b1"
 	--
 	if relationship > POSITIVER3{
+		relationship+= RAND(3) + 3
 		"%(noxNeutral) I need to keep her safe. Not only for my sake, but on the promise of a friend as well. I can't say who this friend is, young one, but I don't think he would be well pleased with how events are currently turning out. \x%(noxCurious) (He frowns)\n\nHm? Why would my friend not like current events? Simple. I got her thrown out of her village. Literally. Some guardian I am. I can't even protect one person."
 		
 	}elseif relationship > POSITIVER2{
+		relationship+= RAND(3) + 3
 		"Hmm. That isÅc not a name you should know, and yet you know it anyways."
 		"%(noxNeutral) I'm not sure how you came to know I was following her. No one else was in Death's Cliffs as far as I was aware."
 		"%(noxNeutral)%(noxEyesClosed) She's a powerful magic user, and a wind mage at that. \w[16]%(noxNeutral) Ever since the fall of Empyria, those are hard to come by."
@@ -337,6 +417,7 @@ Menu_QUESTION_ROWAN{
 	"\b1"
 	--
 	if relationship > POSITIVER2{
+		relationship+= RAND(3) + 3
 		{
 			"%(noxCurious)It is strange to me that you mention him. Are you from Sequoia perhaps? \x %(noxNeutral) No matter. He's a good man, but he seems to be walking misguided footsteps."
 			"%(noxNeutral)It's true that he transitioned his magic from plant to fire. But is he more powerful for it? \w[16]%(noxAnnoyed)No. He is much weaker."
@@ -372,9 +453,12 @@ Menu_QUESTION_ROWAN{
 
 Menu_QUESTION_WREN{
 	questioncooldown++
+	
 	"\b1"
 	--
 	if relationship > ANNOYEDR2{
+		relationship+= RAND(3) + 3
+	
 		"%(noxCurious) Who?"
 		"%(noxNarNeutral)(He seems to be confused by your question.)"
 		"%(noxNeutral)Hmm. I'm afraid the name doesn't ring a bell."
@@ -390,11 +474,39 @@ Menu_QUESTION_WREN{
 }
 
 
+Menu_QUESTION_VANTA{
+	"I spoke to Vanta earlier today and %(vantaMood)"
+	"Oh Vanta? I checked in on him recently and %(vantaMood)"
+	--
+	"\e"
+
+
+}
+
+Menu_QUESTION_ROOK{
+	"I spoke to Rook earlier today and %(rookMood)"
+	"Oh Rook? I checked in on him recently and %(rookMood)"
+	--
+	"\e"
+
+}
+
+Menu_QUESTION_KORIANNE{
+	"I spoke to %(kori) earlier today and %(koriMood)"
+	"Oh %(kori)? I checked in on %(koriHim) recently and %(korianneMood)"
+	--
+	"\e"
+
+}
+
+
+
 Menu_QUESTION_EMPYRIA{
 	questioncooldown++
 	"\b1"
 	--
 	if relationship > ANNOYEDR2{
+		relationship+= RAND(3) + 3
 		"%(noxNeutral)AhÅc such a shame what happened to it. I was not around when it all happened, but the kingdom was torn apart by a feral magic user. There were so many casualtiesÅc\w[16] the landscape is still recovering, and rumor has it the feral is still out there. I would advise against traveling through the ruins."
 	}else{
 		Menu_QUESTION.negDenial
@@ -447,6 +559,8 @@ Menu_QUESTION.negDenial{
 //------------------------------------------------------------------------------
 
 Menu_GIFTS{
+	"%(noxCurious)\b1"
+	--
 	"What is it?"
 	"What did you get?"
 	"Oh...?"
@@ -458,58 +572,249 @@ Menu_GIFTS{
 	--
 	"\![*]\q[Something sweet,Menu_GIFTS.SWEET]     \![*]\q[Something spicy,Menu_GIFTS.SPICY]\n"
 	--
-	"\![*]\q[Something sour,Menu_GIFTS.SOUR]       \![*]\q[Bandages,Menu_GIFTS.BANDAGES]"
+	"\![*]\q[Something sour,Menu_GIFTS.SOUR]       \![*]\q[Bandages,Menu_GIFTS.BANDAGES]\n"
+	--
+	"\![*]\q[A mug,Menu_GIFTS.MUG]"
+	--
+	AYATEMPLATE.MenuItem("Nevermind","Menu_CANCEL",150)
 	--
 	"\e"
 
 }
 
-//spicy things like hot cheetos, takis, buffalo wings
 
 
+
+//buffs Vanta
 Menu_GIFTS.BOOK{
-	"succ is short for success"
+	_gift = bookgenre
+	
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox a book about %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox a book about %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		vanta[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(4) + 3
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox a book about %(_gift).)\n\n"
+		--
+		"%(noxCurious)Oh, a book? %(noxNeutral)Thank you, IÅfll put it in my library at home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
+	
+	}
+	--
+	"\e"
+}
+
+//buffs Rook
+Menu_GIFTS.SHINY{
+	_gift = treasure
+	
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		rook[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(3) + 2
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox %(_gift).)\n\n"
+		--
+		"%(noxCurious)Oh whatÅfs this? How odd, IÅfll have to take a look at it when I get home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
+	
+	}
+	--
+	"\e"
+}
+
+
+
+//buffs Vanta
+Menu_GIFTS.SWEET{
+	_gift = sweetfood
+	
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox some sweet food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox some sweet food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		vanta[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(7)
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox some sweet food.)\n\n"
+		--
+		"%(noxCurious)What is this? Some %_gift you say? Well, IÅfm sure IÅfll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+	
+	}
+	--
+	"\e"
+	
+}
+
+
+
+//buffs Rook
+Menu_GIFTS.SPICY{
+	_gift = spicyfood
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox some spicy food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox some spicy food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		rook[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(7)
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox some spicy food.)\n\n"
+		--
+		"%(noxCurious)What is this? Some %_gift you say? Well, IÅfm sure IÅfll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+	
+	}
+	--
+	"\e"
+}
+
+
+
+//buffs Kori/anne
+Menu_GIFTS.SOUR{
+	_gift = sourfood
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox some sour food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox some sour food.)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		korianne[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(7)
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox some sour food.)\n\n"
+		--
+		"%(noxCurious)What is this? Some %_gift you say? Well, IÅfm sure IÅfll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+	
+	}
+	--
+	"\e"
+}
+
+
+
+//buffs Kori/anne
+Menu_GIFTS.BANDAGES{
+	_gift = bandages
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox %(_gift).)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		korianne[3]++
+		inventory+= "," + _gift
+		relationship+= RAND(4) + 1
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox %(_gift).)\n\n"
+		--
+		"%(noxCurious)WhatÅfs this? Medical supplies? What use would I have for those? %(noxNeutral)Well, I do have a friend who could make use of it.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
+	
+	}
+	--
+	"\e"
+}
+
+
+
+//MUG.... EVENTUAL MUG KINGDOM
+Menu_GIFTS.MUG{
+	_gift = mugdesc
+	//deny by relationship
+	if relationship < (ANNOYEDR3 + 50){
+		"%(noxNarBase)(You tried to give Nox a %(_gift) mug.)\n\n"
+		--
+		Menu_GIFTS.DENYBYRELATIONSHIP
+	//deny by weight
+	}elseif inventoryweight >= 20{
+		"%(noxNarBase)(You tried to give Nox a %(_gift) mug.)\n\n"
+		--
+		Menu_GIFTS.DENYBYWEIGHT
+	//accept
+	}else{
+		inventory+= "," + _gift
+		relationship+= RAND(2) + 1
+		inventoryweight+=1
+		inventorylength++
+		"%(noxNarBase)(You give Nox a %(_gift) mug.)\n\n"
+		--
+		"%(noxCurious)Oh whatÅfs this? How odd, IÅfll have to take a look at it when I get home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
+	
+	}
+	--
+	"\e"
 }
 
 
 
 
 
-Menu_GIFTS.DENIAL{
-	//first check if there's room, and then play out denials for relationship tiers
-	if inventoryweight >= 20{
-		//some overlap but not a ton, it's a good place to subly indicate exactly how comfortable Nox is with you
-		
-		//P3
-		if relationship > POSITIVER3{
-		
-		//P2
-		}elseif relationship > POSITIVER2{
-		
-		//P1
-		}elseif relationship > POSITIVER1{
-		
-		//N
-		}elseif relationship > ANNOYEDR1{
-		
-		//A1
-		}elseif relationship > ANNOYEDR2{
-		
-		//A2
-		}elseif relationship > ANNOYEDR3{
-		
-		//A3
-		}else{
-		
-		}
-	
-	}else{
-	
-	
-	
-	}
 
+Menu_GIFTS.DENYBYWEIGHT{
+	"%(noxNeutral)Oh, another gift? IÅfm sorry.\w8\w8 IÅfm afraid I canÅft fit anything else in my inventory.\w8\n%(noxNarNeutral)(He gives it back.)"
+	"%(noxNeutral)Oh, another gift? IÅfm sorry.\w8\w8 IÅfm afraid I canÅft fit anything else in me.\w8\n%(noxNarNeutral)(He gives it back.)"
+	//""
+	
+}
 
+Menu_GIFTS.DENYBYRELATIONSHIP{
+	"%(noxNarAngry)(He grabs your gift, eats it, and spits it out destroyed.)"
 
 }
 

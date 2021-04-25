@@ -89,6 +89,11 @@ growl{
 }
 
 bookgenre{
+
+	ANY(bookgenreA)
+}
+
+bookgenreA : array{
 	"romance"
 	"action"
 	"tragedy"
@@ -107,6 +112,10 @@ bookgenre{
 }
 
 treasure{
+	ANY(treasureA)
+}
+
+treasureA : array{
 	"%(beachshiny)"
 	"silver coins"
 	"pyrite"
@@ -125,6 +134,10 @@ treasure{
 }
 
 sweetfood{
+	ANY(sweetfoodA)
+}
+
+sweetfoodA: array{
 	"gummy worms"
 	"gummy bears"
 	"chocolate cake"
@@ -139,7 +152,12 @@ sweetfood{
 }
 
 
+
 spicyfood{
+	ANY(spicyfoodA)
+}
+
+spicyfoodA : array{
 	"a bag of hot cheetos"
 	"a bag of doritos"
 	"hot buffalo wings"
@@ -152,7 +170,14 @@ spicyfood{
 
 }
 
+
+
 sourfood{
+
+	ANY(sourfoodA)
+}
+
+sourfoodA : array{
 	"sour patch kids"
 	"skittles"
 	"a green apple"
@@ -168,6 +193,63 @@ sourfood{
 
 
 }
+
+
+bandages{
+
+	ANY(bandagesA)
+}
+
+
+bandagesA : array{
+	"some bandaids"
+	"gauze pads"
+	"medical tape"
+	"a single bandaid"
+
+}
+
+
+
+mugdesc{
+
+	ANY(mugdescA)
+}
+
+mugdescA : array{
+
+	"floral patterned"
+	"Santa shaped"
+	"plain blue"
+	"plain red"
+	"snowman shaped"
+	"hot pink"
+	"coffee"
+	"dragon shaped"
+	"plain purple"
+	"plain gray"
+	"plain black"
+	"plain white"
+	"plain green"
+	"plain yellow"
+	"yellow striped"		//bee,,,,,,,,,,,,,,,,,
+	"bumble bee shaped"		//BEE PART TWO I'M READING WHAT DRANSNAKE PUT AS I COPY IT IN
+	"generic"
+	"Number #1 Dad"
+	"Number #1 Mom"			//Dang....... Dransnake really is outdoing herself, these are hilarious!
+	"Number #1 Teacher"
+	"pony shaped"
+	"kitty face"
+	"''Not a Mimic'' mimic"
+	"wooden"
+	"metal"
+	"plastic"
+	"Lego"
+	"glass"
+	"ceramic"
+}
+
+
 
 
 //******************************************************************************

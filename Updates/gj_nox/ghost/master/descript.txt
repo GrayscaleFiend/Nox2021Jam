@@ -4,7 +4,7 @@ name,Nox
 type,ghost
 
 sakura.name,Nox
-kero.name,N/A
+kero.name,none
 
 sakura.seriko.defaultsurface,1000
 

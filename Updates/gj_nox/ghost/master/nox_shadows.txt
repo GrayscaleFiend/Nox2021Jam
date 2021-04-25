@@ -35,7 +35,7 @@ OnStartNoxTendrils
 	maxtendrils = 2
 	//ok so my main monitor is 1920x1080, secondary is 1680x1050, Dran's is in the 1600x900s area and had trouble killing them at yboundary == 800...
 	//the high should be gettin up there
-	yboundarylow = displayheight - (displayheight / 4) //- 10
+	yboundarylow = displayheight - (displayheight / 4) - 125
 	yboundaryhigh = displayheight / 11
 	for _i = 0 ; _i < maxtendrils ; _i++ {
 	
@@ -94,7 +94,7 @@ OnCreateTendril{
 	_index = reference[0]
 	
 	_numbertendril = activetendrils //+ TENDRILSTARTINDEX
-	_xloc = RAND(displaywidth - 100)
+	_xloc = RAND(displaywidth - 400)
 	_yloc =  yboundarylow + RAND(50)
 	_growthrate = (RAND(6)+1)*.25
 	
@@ -152,7 +152,7 @@ OnGrowTendrils
 				//\1 should become \p[%(numbertendril)] when we have it fully working
 				_growresult+= "\1\![moveasync,--x=%(_xloc),--y=%(_yloc),--time=1000,--base=primaryscreen]"
 				
-				//OH MY **** IT ACTUALLY WORKS I'M SO RELIEVED
+				//OH MY IT ACTUALLY WORKS I'M SO RELIEVED
 				//Y'ALL
 				//I CAN GROW A S T I C K
 				//AND LATER A SHADOW TENTACLE WHEN I CHANGE THE SURFACE BUT FOR NOW IT IS A STICK

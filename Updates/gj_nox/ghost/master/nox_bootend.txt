@@ -46,17 +46,17 @@ OnFirstBoot
 	//VANTA
 	vantaknown 		 = 0
 	vanta 			 = IARRAY
-	vanta 			 = (0,60,0,0,0)
+	vanta 			 = (0,30,0,0)
 	
 	//ROOK
 	rookknown 		 = 0
 	rook  	 		 = IARRAY
-	rook			 = (0,80,0,0,0)
+	rook			 = (0,55,0,0)
 	
 	//KORI/ANNE
 	korianneknown	 = 0
 	korianne 		 = IARRAY
-	korianne		 = (0,100,0,0,0)
+	korianne		 = (0,55,0,0,0)
 	
 	--
 	OnWhatHappenedToday
@@ -727,6 +727,9 @@ ONBOOTVARS{
 			annoyance = RAND(20)
 	
 		}
+		inventoryweight = 0
+		inventory = IARRAY
+		
 	
 	}
 	today = day

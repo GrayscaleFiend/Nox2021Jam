@@ -72,3 +72,24 @@
 //	0‚É‚·‚é‚ÆAreference0 ‚Æ‚¢‚Á‚½•Ï”‚ğì¬‚µ‚Ü‚·i‰ß‹ŒİŠ·ˆ—j
 //------------------------------------------------------------------------------
 #globaldefine	SHIORI3FW.REF_ACCEL				0
+
+
+
+
+
+
+
+
+
+//Nox Stuff!
+
+#globaldefine ANNOYEDR3 -250
+#globaldefine ANNOYEDR2 -150
+#globaldefine ANNOYEDR1 -50
+#globaldefine POSITIVER1 50
+#globaldefine POSITIVER2 150
+#globaldefine POSITIVER3 250
+
+#globaldefine QPERHOUR 5
+#globaldefine MAXPETS 5
+#globaldefine MAXWEIGHT 20

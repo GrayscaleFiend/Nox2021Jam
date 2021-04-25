@@ -48,7 +48,7 @@ OnWhatHappenedToday{
 	_korispecial =  (RAND(20) == 8)
 	_korigender = RAND(2)
 	//moods go below 1 or exceed max
-	if _koriannemood <= 0{
+	if _korimood <= 0{
 		korianne = (_korilocation,1,_korispecial,0,_korigender)
 	}elseif _korimood < 100{
 		korianne = (_korilocation,_korimood,_korispecial,0, _korigender)
@@ -85,27 +85,29 @@ WhatHappenedDialogue{
 	
 	//location (0)
 	//home, village, beach, ALL HAIL MUG KINGDOM!!!
-	case vanta[0]{
-	
-		//home
-		when 0{
-			"%(noxNeutral)Today I saw Vanta reading in his personal library. While he was reading, %(vantaMood)"
-		}
-		//village
-		when 1{
-			"%(noxNeutral)Vanta and myself were going around Nighthaven today. I looked over at him and %(vantaMood)"
-		}
-		//beach
-		when 2{
-			""
-		}
-		//Mug Kingdom
-		when 3{
-			"%(noxCurious)When I got home today, I saw Vanta making a book castle next to that pile of mugs you gave me. Looking at him build, %(vantaMood) Really, you gave me an outrageous amount of mugs."
-		}
-		others{
-			"[INDEX OUT OF BOUNDS ERROR: vanta[0]"
+	if vantaknown{
+		case vanta[0]{
 		
+			//home
+			when 0{
+				"%(noxNeutral)Today I saw Vanta reading in his personal library. While he was reading, %(vantaMood)"
+			}
+			//village
+			when 1{
+				"%(noxNeutral)Vanta and myself were going around Nighthaven today. I looked over at him and %(vantaMood)"
+			}
+			//beach
+			when 2{
+				"%(noxNeutral)Vanta dashed out to the beach to see if Rook was there today. He wasn’t there but %(vantaMood)"
+			}
+			//Mug Kingdom
+			when 3{
+				"%(noxCurious)When I got home today, I saw Vanta making a book castle next to that pile of mugs you gave me. Looking at him build, %(vantaMood) Really, you gave me an outrageous amount of mugs."
+			}
+			others{
+				"[INDEX OUT OF BOUNDS ERROR: vanta[0]"
+			
+			}
 		}
 	}
 	
@@ -116,27 +118,29 @@ WhatHappenedDialogue{
 	
 	//location (0)
 	//Home, village, beach, Hungry Table Tavern
-	case rook[0]{
-	
-		//home
-		when 0{
-			"%(noxNeutral)Rook dropped by for a visit by my house earlier. He was looking for Vanta, but he wasn't home. I asked him how he was doing and %(rookMood)"
-		}
-		//village
-		when 1{
-			"I saw Rook walk into Nighthaven, carrying some imports from the docks. Walking past, %(rookMood)"
-		}
-		//beach
-		when 2{
-			"Rook was out on the beach searching for.\w8.\w8.\w8 %(beachshiny) I think? Observing him, %(rookMood)"
-		}
-		//Hungry Table Tavern
-		when 3{
-			"Rook came with me to Glitterstone, and of course we went to The Hungry Table to visit some friends. I had to hide in the shadows for the whole trip, but as for Rook, %(rookMood)"
-		}
-		others{
-			"[INDEX OUT OF BOUNDS ERROR: rook[0]"
+	if rookknown == 1{
+		case rook[0]{
 		
+			//home
+			when 0{
+				"%(noxNeutral)Rook dropped by for a visit by my house earlier. He was looking for Vanta, but he wasn't home. I asked him how he was doing and %(rookMood)"
+			}
+			//village
+			when 1{
+				"I saw Rook walk into Nighthaven, carrying some imports from the docks. Walking past, %(rookMood)"
+			}
+			//beach
+			when 2{
+				"Rook was out on the beach searching for.\w8.\w8.\w8 %(beachshiny) I think? Observing him, %(rookMood)"
+			}
+			//Hungry Table Tavern
+			when 3{
+				"Rook came with me to Glitterstone, and of course we went to The Hungry Table to visit some friends. I had to hide in the shadows for the whole trip, but as for Rook, %(rookMood)"
+			}
+			others{
+				"[INDEX OUT OF BOUNDS ERROR: rook[0]"
+			
+			}
 		}
 	}
 	
@@ -147,24 +151,27 @@ WhatHappenedDialogue{
 	
 	//location (0)
 	//Village, Hungry Table Tavern, traveling
-	case korianne[0]{
-	
-		//village
-		when 0{
-			"%(kori) dropped by Nighthaven for a visit. It's so rare to see %(koriHim) there, so of course I had to have a chat with %(koriHim). Talking with %(koriHim), %(korianneMood)"
-		}
-		//Hungry Table Tavern
-		when 1{
-			"I happened to see %(kori) in The Hungry Table while I was lurking in there. While I couldn't talk, %(korianneMood)"
-		}
-		//traveling
-		when 2{
-			"I came across %(kori) while %(koriHe) was out traveling. We discussed travel routes and %(korianneMood)"
-		}
-		others{
-			"[INDEX OUT OF BOUNDS ERROR: korianne[0]"
+	if korianneknown == 1{
+		case korianne[0]{
 		
+			//village
+			when 0{
+				"%(kori) dropped by Nighthaven for a visit. It's so rare to see %(koriHim) there, so of course I had to have a chat with %(koriHim). Talking with %(koriHim), %(korianneMood)"
+			}
+			//Hungry Table Tavern
+			when 1{
+				"I happened to see %(kori) in The Hungry Table while I was lurking in there. While I couldn't talk, %(korianneMood)"
+			}
+			//traveling
+			when 2{
+				"I came across %(kori) while %(koriHe) was out traveling. We discussed travel routes and %(korianneMood)"
+			}
+			others{
+				"[INDEX OUT OF BOUNDS ERROR: korianne[0]"
+			
+			}
 		}
+	
 	}
 	
 	
@@ -196,11 +203,26 @@ WhatHappenedDialogue{
 		"Rook was messing around at The Hungry Table, as he usually does. %(kori) happened to be there, but %(koriHe) was just shaking %(koriHis) head at Rook's shenanigans."
 	}
 	
+	if vanta[0] == 1 && korianne[0] == 0{
+		"Vanta and I ran into %(kori) while traveling through Nighthaven. While I said hi to %(koriHim), Vanta hid behind me. He’s so shy sometimes."
+	
+	}
+	
+	if vanta[0] == 1 && rook[0] == 1 && korianne[0] == 0{
+	
+		"Apparently Rook and %(kori) had an argument in the middle of town today. Not sure what it was about, as Vanta was telling me what happened and the fight was completely verbal. Rook refuses to talk about it though, saying it was ''Just somethin' stupid.''\e"
+	}
+
+	
 	
 	//SPECIAL EVENTS (2)
 	
 	if vanta[2] == 1{
 		"%(noxNeutral)I was taking a quiet stroll in the forest next to Nighthaven, when I heard some odd sounds. Taking to the shadows to investigate it, I saw Vanta practicing his magic on his own.\n\nI quietly observed him and %(vantaMood)"
+	}
+	
+	if rook[2] == 1{
+		"Rook was showing off a technique he’s been developing with his magic today. As I observed, %(rookMood)"
 	}
 	
 	if korianne[2] == 1{

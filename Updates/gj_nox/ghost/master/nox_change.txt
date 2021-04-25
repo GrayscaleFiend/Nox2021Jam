@@ -37,15 +37,7 @@ OnGhostChangingOther
 	"%(noxCurious)Oh, you want to swap to %reference[0]? %(noxNeutral)Alright, I'll take my leave then."
 }
 
-//ÇªÇÃëºÇÃÉSÅ[ÉXÉgÇ©ÇÁêÿÇËë÷ÇË
-OnGhostChangedOther
-{
-	ONBOOTVARS
-	--
-	"%(noxNeutral)Later %reference[0]."
-}
 
- 
 //******************************************************************************
 // Below this is for switching talk processing
 // No need to tweak normally, but please change as needed.
