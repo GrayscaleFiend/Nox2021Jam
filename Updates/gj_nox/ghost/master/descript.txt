@@ -3,8 +3,20 @@ charset,Shift_JIS
 name,Nox
 type,ghost
 
+craftman,Dransnake and GrayArea
+craftmanw,Dransnake & GrayArea
+
 sakura.name,Nox
 kero.name,none
+
+sakura.menu,auto
+
+sakura.bindgroup60.default,1
+
+sakura.bindgroup60.name,Texture,Scrolling
+sakura.bindgroup59.name,Texture,Stagnant
+
+sakura.bindoption600.group,Texture,mustselect
 
 sakura.seriko.defaultsurface,1000
 

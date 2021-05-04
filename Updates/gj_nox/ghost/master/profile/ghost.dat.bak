@@ -2,20 +2,18 @@ Charset,UTF-8
 __system_settings_version__,2
 balloon,C:\Users\ihave\Desktop\Ukagaka\Ghost Jam 2021\balloon\z_undertale\
 inputbox.left,2737
-scriptbox.left,2943
+scriptbox.left,2486
 shiori.debugnotify,0
 Char5.center,1269
-SurfaceTest.visible,1
-Char.VirtualDesktop,dee5533a-6eb1-4a86-81fa-47eb55a76156
+Char.VirtualDesktop,b605d94e-8c9e-49f7-9629-dac59b2fdf5b
 Char2.center,2685
 Update.TestMode,0
-Char0.center,3266
-scriptbox.top,361
+Char0.center,2536
+scriptbox.top,194
 shell,shell\master\
 FirstBoot,booted
-Char1.center,1195
+Char1.center,720
 shell.ischanged.2,1
 inputbox.top,288
 update.lastexec,672623280
-DeveloperPalette.visible,1
 __system_written_flag_do_not_remove__,written

@@ -21,10 +21,11 @@
 /*
 //tendrils are in an array
 //tendril number - screen # (will spawn on the same as Nox, but Nox can move) -- x location -- current growth (y) -- growth rate multiplier
-//Tendrils die when current growth <= 10 
+//Tendrils die when current growth is less than a calculated y boundary based on screen height
 */
 
 //Starting variables for the tendril game
+
 OnStartNoxTendrils
 {
 	

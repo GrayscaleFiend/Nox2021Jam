@@ -36,12 +36,13 @@ animation41.pattern11,overlay,15000,150,0,-3
 animation41.pattern12,overlay,15000,150,0,-1
 animation41.pattern13,overlay,15000,150,0,2
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -356,12 +357,13 @@ animation41.pattern11,overlay,15000,150,0,-3
 animation41.pattern12,overlay,15000,150,0,-1
 animation41.pattern13,overlay,15000,150,0,2
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -580,7 +582,7 @@ animation62.pattern4,overlayfast,10011,50,0,0
 animation62.pattern5,overlayfast,10010,50,0,0
 
 //Eyes closed
-animation63.interval,never + runonce
+animation63.interval,never
 animation63.pattern0,stop,61
 animation63.pattern1,stop,62
 animation63.pattern2,overlayfast,10011,0,0,0
@@ -622,10 +624,11 @@ animation110.pattern0,overlayfast,10090,0,0,0
 //Curious
 surface2000
 {
-collision0,40,120,150,160,Head
-collision1,40,160,150,210,Face
+collisionex0,Head,polygon,23,150,39,184,127,129,102,106
+collisionex1,Face,polygon,39,184,60,216,148,166,127,129
 collisionex2,Wings,polygon,151,199,164,69,330,3,399,33,389,168,313,243,223,253
-collision3,40,210,150,240,Chin
+collisionex3,Chin,polygon,60,216,79,237,161,194,148,166
+
 //BASE
 element2,overlayfast,surface20000,0,0
 
@@ -652,10 +655,13 @@ animation0.pattern13,overlay,15000,150,0,2
 animation3.interval,base + runonce
 animation3.pattern0,overlay,20000,0,0,0
 
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
+
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -942,10 +948,10 @@ animation110.pattern0,overlayfast,20090,0,0,0
 //Curious Nar
 surface2001
 {
-collision0,40,120,150,160,Head
-collision1,40,160,150,210,Face
+collisionex0,Head,polygon,23,150,39,184,127,129,102,106
+collisionex1,Face,polygon,39,184,60,216,148,166,127,129
 collisionex2,Wings,polygon,151,199,164,69,330,3,399,33,389,168,313,243,223,253
-collision3,40,210,150,240,Chin
+collisionex3,Chin,polygon,60,216,79,237,161,194,148,166
 
 //BASE
 element2,overlayfast,surface20000,0,0
@@ -973,10 +979,13 @@ animation0.pattern13,overlay,15000,150,0,2
 animation3.interval,base + runonce
 animation3.pattern0,overlay,20000,0,0,0
 
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
+
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -1296,12 +1305,13 @@ animation51.pattern2,overlay,38004,150,0,0
 animation51.pattern3,overlay,38002,100,0,0 
 animation51.pattern4,overlay,38000,100,0,0 
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -1625,12 +1635,13 @@ animation51.pattern2,overlay,38004,150,0,0
 animation51.pattern3,overlay,38002,100,0,0 
 animation51.pattern4,overlay,38000,100,0,0 
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -1937,12 +1948,13 @@ animation51.pattern3,overlay,38004,150,0,0
 animation51.pattern4,overlay,38002,100,0,0 
 animation51.pattern5,overlay,38000,100,0,0 
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8
@@ -2268,12 +2280,13 @@ animation51.pattern3,overlay,38004,150,0,0
 animation51.pattern4,overlay,38002,100,0,0 
 animation51.pattern5,overlay,38000,100,0,0 
 
-
+animation59.interval,runonce + bind
+animation59.pattern0,overlayfast,00001,0,-25,-40
 
 //Warbling effect goes here
 //here we go, doin it again, second year but this time I'm using a different SERIKO format
 //I think, not going to look at the code from last year to see until I have this code working
-animation60.interval,always
+animation60.interval,always + bind
 animation60.pattern0,overlayfast,00001,0,40,10
 animation60.pattern0,overlayfast,00001,20,39,9
 animation60.pattern0,overlayfast,00001,20,38,8

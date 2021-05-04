@@ -98,7 +98,7 @@ WhatHappenedDialogue{
 			}
 			//beach
 			when 2{
-				"%(noxNeutral)Vanta dashed out to the beach to see if Rook was there today. He wasn’t there but %(vantaMood)"
+				"%(noxNeutral)Vanta dashed out to the beach to see if Rook was there today. He wasn't there but %(vantaMood)"
 			}
 			//Mug Kingdom
 			when 3{
@@ -180,35 +180,35 @@ WhatHappenedDialogue{
 	//SAME PLACE DIALOGUES (0)
 	//******************************************************************************
 	
-	if vanta[0] == 0 && rook[0] == 0{
+	if vanta[0] == 0 && rook[0] == 0 && vantaknown && rookknown {
 		"I came home to see both Vanta and Rook enjoying each other's company. Not surprising, considering they are boyfriends."
 		
 	}
 	
-	if vanta[0] == 1 && rook[0] == 1{
+	if vanta[0] == 1 && rook[0] == 1 && vantaknown && rookknown {
 		"Rook took Vanta and myself around Nighthaven, and we checked out the markets together."
 	
 	}
 	
-	if vanta[0] == 2 && rook[0] == 2{
+	if vanta[0] == 2 && rook[0] == 2 && vantaknown && rookknown {
 		"I noticed Rook and Vanta were out on the beach together. Looking over at them, I think they were looking for %(beachshiny) to fuel Rook's collecting addiction."
 	}
 	
-	if rook[0] == 1 && korianne[0] == 0{
+	if rook[0] == 1 && korianne[0] == 0 && rookknown && korianneknown {
 		"%(kori) and Rook ran into each other in Nighthaven. They... politely acknowledged each other and went their separate ways."
 	
 	}
 	
-	if rook[0] == 3 && korianne[0] == 1{
+	if rook[0] == 3 && korianne[0] == 1 && rookknown && korianneknown {
 		"Rook was messing around at The Hungry Table, as he usually does. %(kori) happened to be there, but %(koriHe) was just shaking %(koriHis) head at Rook's shenanigans."
 	}
 	
-	if vanta[0] == 1 && korianne[0] == 0{
-		"Vanta and I ran into %(kori) while traveling through Nighthaven. While I said hi to %(koriHim), Vanta hid behind me. He’s so shy sometimes."
+	if vanta[0] == 1 && korianne[0] == 0 && vantaknown && korianneknown {
+		"Vanta and I ran into %(kori) while traveling through Nighthaven. While I said hi to %(koriHim), Vanta hid behind me. He's so shy sometimes."
 	
 	}
 	
-	if vanta[0] == 1 && rook[0] == 1 && korianne[0] == 0{
+	if vanta[0] == 1 && rook[0] == 1 && korianne[0] == 0 && vantaknown && rookknown && korianneknown {
 	
 		"Apparently Rook and %(kori) had an argument in the middle of town today. Not sure what it was about, as Vanta was telling me what happened and the fight was completely verbal. Rook refuses to talk about it though, saying it was ''Just somethin' stupid.''\e"
 	}
@@ -217,15 +217,15 @@ WhatHappenedDialogue{
 	
 	//SPECIAL EVENTS (2)
 	
-	if vanta[2] == 1{
+	if vanta[2] == 1 && vantaknown == 1{
 		"%(noxNeutral)I was taking a quiet stroll in the forest next to Nighthaven, when I heard some odd sounds. Taking to the shadows to investigate it, I saw Vanta practicing his magic on his own.\n\nI quietly observed him and %(vantaMood)"
 	}
 	
-	if rook[2] == 1{
-		"Rook was showing off a technique he’s been developing with his magic today. As I observed, %(rookMood)"
+	if rook[2] == 1 && vantaknown == 1{
+		"Rook was showing off a technique he's been developing with his magic today. As I observed, %(rookMood)"
 	}
 	
-	if korianne[2] == 1{
+	if korianne[2] == 1 && vantaknown == 1{
 		
 		if korianne[4] == 0{
 			"Today Korianne gave me a scarf out of the blue. I think she accidentally made one too big for a human, which is understandable. When she gave me it, %(korianneMood)"

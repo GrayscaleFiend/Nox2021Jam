@@ -368,7 +368,7 @@ Menu_QUESTION_DRAGONS{
 Menu_QUESTION_HUMANS{
 	"\b1"
 	--
-	if relationship > ANNOYEDR1{
+	if relationship < ANNOYEDR2{
 		"%(noxAnnoyed)Phosphrinians are sometimes called Expanders because of how much land the country tries to grab all at once. Their actions make me upset, but at least theyfre nicer than you."
 	}else{
 		"%(noxNeutral)Sequoia is one of the three major magical kingdoms. Itfs more plant based than any of them, which cause a lot of the residents to become farmers. There isnft any other place in the world that has more fertile soil than them."
@@ -492,7 +492,7 @@ Menu_QUESTION_ROOK{
 }
 
 Menu_QUESTION_KORIANNE{
-	"I spoke to %(kori) earlier today and %(koriMood)"
+	"I spoke to %(kori) earlier today and %(korianneMood)"
 	"Oh %(kori)? I checked in on %(koriHim) recently and %(korianneMood)"
 	--
 	"\e"
@@ -568,7 +568,7 @@ Menu_GIFTS{
 	"\_q\n\n\*"
 	--
 	//and now it is time for me to figure out how to manually space these instead of using AYATEMPLATE stuff, lol
-	"\![*]\q[A book,Menu_GIFTS.BOOK]                   \![*]\q[Something shiny,Menu_GIFTS.SHINY]\n"
+	"\![*]\q[A book,Menu_GIFTS.BOOK]                    \![*]\q[Something shiny,Menu_GIFTS.SHINY]\n"
 	--
 	"\![*]\q[Something sweet,Menu_GIFTS.SWEET]     \![*]\q[Something spicy,Menu_GIFTS.SPICY]\n"
 	--
@@ -587,7 +587,8 @@ Menu_GIFTS{
 
 //buffs Vanta
 Menu_GIFTS.BOOK{
-	_gift = bookgenre
+	_id = RAND(ARRAYSIZE(bookgenreA))
+	_gift = bookgenreA[_id]
 	
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
@@ -602,10 +603,11 @@ Menu_GIFTS.BOOK{
 	//accept
 	}else{
 		vanta[3]++
-		inventory+= "," + _gift
+		inventory,= 100 + _id
 		relationship+= RAND(4) + 3
 		inventoryweight+=1
 		inventorylength++
+		booksgiven++
 		"%(noxNarBase)(You give Nox a book about %(_gift).)\n\n"
 		--
 		"%(noxCurious)Oh, a book? %(noxNeutral)Thank you, Ifll put it in my library at home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
@@ -617,7 +619,8 @@ Menu_GIFTS.BOOK{
 
 //buffs Rook
 Menu_GIFTS.SHINY{
-	_gift = treasure
+	_id = RAND(ARRAYSIZE(treasureA))
+	_gift = treasureA[_id]
 	
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
@@ -632,10 +635,11 @@ Menu_GIFTS.SHINY{
 	//accept
 	}else{
 		rook[3]++
-		inventory+= "," + _gift
+		inventory,= 200 + _id
 		relationship+= RAND(3) + 2
 		inventoryweight+=1
 		inventorylength++
+		foodgiven++
 		"%(noxNarBase)(You give Nox %(_gift).)\n\n"
 		--
 		"%(noxCurious)Oh whatfs this? How odd, Ifll have to take a look at it when I get home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
@@ -649,7 +653,8 @@ Menu_GIFTS.SHINY{
 
 //buffs Vanta
 Menu_GIFTS.SWEET{
-	_gift = sweetfood
+	_id = RAND(ARRAYSIZE(sweetfoodA))
+	_gift = sweetfoodA[_id]
 	
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
@@ -664,13 +669,14 @@ Menu_GIFTS.SWEET{
 	//accept
 	}else{
 		vanta[3]++
-		inventory+= "," + _gift
+		inventory,= 300 + _id
 		relationship+= RAND(7)
 		inventoryweight+=1
 		inventorylength++
+		foodgiven++
 		"%(noxNarBase)(You give Nox some sweet food.)\n\n"
 		--
-		"%(noxCurious)What is this? Some %_gift you say? Well, Ifm sure Ifll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+		"%(noxCurious)What is this? Some %_gift you say? Well, Ifm sure Ifll find a use for it.\n%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
 	
 	}
 	--
@@ -682,7 +688,8 @@ Menu_GIFTS.SWEET{
 
 //buffs Rook
 Menu_GIFTS.SPICY{
-	_gift = spicyfood
+	_id = RAND(ARRAYSIZE(spicyfoodA))
+	_gift = spicyfoodA[_id]
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
 		"%(noxNarBase)(You tried to give Nox some spicy food.)\n\n"
@@ -696,13 +703,15 @@ Menu_GIFTS.SPICY{
 	//accept
 	}else{
 		rook[3]++
-		inventory+= "," + _gift
+		inventory,= 400 + _id
 		relationship+= RAND(7)
 		inventoryweight+=1
 		inventorylength++
+		foodgiven++
+		_gift = CAPITALIZEFIRST(_gift)
 		"%(noxNarBase)(You give Nox some spicy food.)\n\n"
 		--
-		"%(noxCurious)What is this? Some %_gift you say? Well, Ifm sure Ifll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+		"%(noxCurious)What is this? %_gift you say? Well, Ifm sure Ifll find a use for it.\n%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
 	
 	}
 	--
@@ -713,7 +722,8 @@ Menu_GIFTS.SPICY{
 
 //buffs Kori/anne
 Menu_GIFTS.SOUR{
-	_gift = sourfood
+	_id = RAND(ARRAYSIZE(sourfoodA))
+	_gift = sourfoodA[_id]
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
 		"%(noxNarBase)(You tried to give Nox some sour food.)\n\n"
@@ -727,13 +737,14 @@ Menu_GIFTS.SOUR{
 	//accept
 	}else{
 		korianne[3]++
-		inventory+= "," + _gift
+		inventory,= 500 + _id
 		relationship+= RAND(7)
 		inventoryweight+=1
 		inventorylength++
+		foodgiven++
 		"%(noxNarBase)(You give Nox some sour food.)\n\n"
 		--
-		"%(noxCurious)What is this? Some %_gift you say? Well, Ifm sure Ifll find a use for it.\n(%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
+		"%(noxCurious)What is this? Some %_gift you say? Well, Ifm sure Ifll find a use for it.\n%(noxNarNeutral)(He eats it, but did he put it into his inventory?)"
 	
 	}
 	--
@@ -744,7 +755,8 @@ Menu_GIFTS.SOUR{
 
 //buffs Kori/anne
 Menu_GIFTS.BANDAGES{
-	_gift = bandages
+	_id = RAND(ARRAYSIZE(bandagesA))
+	_gift = bandagesA[_id]
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
 		"%(noxNarBase)(You tried to give Nox %(_gift).)\n\n"
@@ -758,10 +770,11 @@ Menu_GIFTS.BANDAGES{
 	//accept
 	}else{
 		korianne[3]++
-		inventory+= "," + _gift
+		inventory,= _id
 		relationship+= RAND(4) + 1
 		inventoryweight+=1
 		inventorylength++
+		bandagesgiven++
 		"%(noxNarBase)(You give Nox %(_gift).)\n\n"
 		--
 		"%(noxCurious)Whatfs this? Medical supplies? What use would I have for those? %(noxNeutral)Well, I do have a friend who could make use of it.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"
@@ -775,7 +788,8 @@ Menu_GIFTS.BANDAGES{
 
 //MUG.... EVENTUAL MUG KINGDOM
 Menu_GIFTS.MUG{
-	_gift = mugdesc
+	_id = RAND(ARRAYSIZE(mugdescA))
+	_gift = mugdescA[_id]
 	//deny by relationship
 	if relationship < (ANNOYEDR3 + 50){
 		"%(noxNarBase)(You tried to give Nox a %(_gift) mug.)\n\n"
@@ -788,10 +802,11 @@ Menu_GIFTS.MUG{
 		Menu_GIFTS.DENYBYWEIGHT
 	//accept
 	}else{
-		inventory+= "," + _gift
+		inventory,= 900 + _id
 		relationship+= RAND(2) + 1
 		inventoryweight+=1
 		inventorylength++
+		mugsgiven++
 		"%(noxNarBase)(You give Nox a %(_gift) mug.)\n\n"
 		--
 		"%(noxCurious)Oh whatfs this? How odd, Ifll have to take a look at it when I get home.\n%(noxNarNeutral)(He eats it, putting it into his inventory.)"

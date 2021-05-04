@@ -34,11 +34,13 @@ On_portalrootbutton.caption
 On_sakura.portalsites_EX : array
 {
 	"Arcane Gourmet Comic  | http://arcanegourmet.thecomicseries.com/comics/1#content-start       | "
-	"Dransnake             | https://dransnake.carrd.co/         | "
-	"GrayArea              | https://grayscalefiend.github.io/ghost-hub/         | "
-	"Ukagaka Dream Team    | https://ukagakadreamteam.tumblr.com/        | "
-	"SSP BUGTRAQ           | http://ssp.shillest.net/         | "
-	"Maintenance           | http://ms.shillest.net/          | "
+	"Dransnake             | https://dransnake.carrd.co/                                          | "
+	"GrayArea              | https://grayscalefiend.github.io/ghost-hub/                          | "
+	"BUG REPORT FORM       | https://forms.gle/ZJsA5PgwtE26ABR77                                  | "
+	"Ukagaka Dream Team    | https://ukagakadreamteam.tumblr.com/                                 | "
+	"SSP BUGTRAQ           | http://ssp.shillest.net/                                             | "
+	"Maintenance           | http://ms.shillest.net/                                              | "
+	
 }
 
 //------------------------------------------------------------------------------

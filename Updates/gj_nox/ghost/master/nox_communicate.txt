@@ -20,7 +20,8 @@ StartCommunicate
 
 //その他の人に話しかける
 TalkToOther{
-	"%(noxNeutral)Heya, %(res_reference0). How are you?"
+	"%(noxNeutral)Hey, %(res_reference0). How are you?"
+	startcomm = 1
 }
 
 TalkToNobody{
@@ -106,20 +107,35 @@ TalkToUser
 }
 
 //------------------------------------------------------------------------------
-//ゴーストからの話しかけ
+//Talk from a ghost
 //------------------------------------------------------------------------------
 
 
-//その他の人から話しかけられた
+//Receiving dialogue from another ghost
 ReplyToOther{
-	if "Hello" _in_ reference[1] || "Hi" _in_ reference[1]
-	{
-		res_reference0=reference[0]	//さらに相手に話しかける
-		"%(noxBase)Howdy, %(res_reference0). What's up?\e"
+	_talk = TOLOWER(reference[1])
+	res_reference0=reference[0]	//respond to this ghost
+	
+	if startcomm < 1{
+		//we set res_reference to 0 (null) so no one gets stuck in a communication loop
+		if "hello" _in_ _talk || "hi" _in_ _talk || "hey there" _in_ _talk
+		{
+			"%(noxBase)Hello, %(res_reference0). How are you?\e"
+			res_reference0=0
+		}else
+		{
+			"%(noxBase)What was that, %(res_reference0)?\e"
+			res_reference0=0
+		}
+	}	
+	
+	if "how are you" _in_ _talk || "how're you" _in_ _talk{
+		
+		"I'm doing well, %(res_reference0).\e"
+		res_reference0=0
 	}
-	else
-	{
-		"%(noxBase)What was that, %(res_reference0)?\e"
-	}
+		
+	
+	startcomm = 0
 }
 

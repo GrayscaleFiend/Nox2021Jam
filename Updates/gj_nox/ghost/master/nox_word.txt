@@ -88,6 +88,80 @@ growl{
 	"Girble"
 }
 
+
+
+
+//Note:
+//These are organzied through ANY so that they can have both random and array access for the sake of inventory management.
+//Inventory will be managed long-term by ID# instead of strings for efficiency and to allow grammatical changes without
+//changing the contents recognized to reduce errors.
+//To support this: IF YOU ARE ADDING AN ITEM TO THE ARRAY, ONLY DO SO AT THE END
+
+//this mechanic isn't currently used, but it's better to have it in place now
+//also: barely bugtested right now
+
+//takes reference0 as ID#, returns a string that's probably grammatically correct
+getItem{
+	_itemnum = reference0
+	
+	//extract 10s place
+	_number = (_itemnum % 100)
+	
+	//extract 100s place
+	_category = _itemnum - _number
+	
+	case _category{
+		//bandages
+		when 0{
+			_item = bandagesA[_number]
+			"%_item"
+		
+		}
+		//a book
+		when 100{
+			_item = bookgenreA[_number]
+			"a book about %_item"
+		
+		}
+		//treasure
+		when 200{
+			_item = treasureA[_number]
+			"%_item"
+		
+		}
+		//sweet food
+		when 300{
+			_item = sweetfoodA[_number]
+			"%_item"
+		
+		}
+		//spicy food
+		when 400{
+			_item = spicyfoodA[_number]
+			"%_item"
+		}
+		//sour food
+		when 500{
+			_item = sourfoodA[_number]
+			"%_item"
+		}
+		//MUGS!
+		when 900{
+			_item = mugdescA[_number]
+			"a %_item mug"
+		
+		}
+		//category not yet recognized
+		others{
+			"ERROR: INVALID ITEM"
+		}
+		
+	}
+
+}
+
+
+
 bookgenre{
 
 	ANY(bookgenreA)
@@ -158,8 +232,8 @@ spicyfood{
 }
 
 spicyfoodA : array{
-	"a bag of hot cheetos"
-	"a bag of doritos"
+	"hot cheetos"
+	"doritos"
 	"hot buffalo wings"
 	"a single ghost pepper"
 	"a death pepper"
@@ -249,6 +323,17 @@ mugdescA : array{
 	"ceramic"
 }
 
+
+CAPITALIZEFIRST{
+	_result = _argv[0]
+	
+	//take the latter half of the string
+	_result = SUBSTR(_result,1,999999)
+	_result = TOUPPER(SUBSTR(_argv[0],0,1)) + "%_result"
+	
+	_result
+
+}
 
 
 

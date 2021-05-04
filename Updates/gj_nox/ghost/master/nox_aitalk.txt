@@ -3,6 +3,17 @@
 // トーク辞書
 //******************************************************************************
 
+//Constants -- defined in many places but for whatever reason it's not fully working and I need to consult the manual
+#globaldefine ANNOYEDR3 -250
+#globaldefine ANNOYEDR2 -150
+#globaldefine ANNOYEDR1 -50
+#globaldefine POSITIVER1 50
+#globaldefine POSITIVER2 150
+#globaldefine POSITIVER3 250
+
+#globaldefine QPERHOUR 5
+#globaldefine MAXPETS 5
+#globaldefine MAXWEIGHT 20
 
 //******************************************************************************
 // ランダムトーク
@@ -272,7 +283,7 @@ OnHourChange{
 	questioncooldown = 0
 	petsthishour = 0
 	//with each hour here you hurt Vanta's feelings :(
-	vanta[3]-=1
+	vanta[3]-=.5
 		
 	//can be turned off in settings
 	if hourannounce >= 1 {
@@ -329,6 +340,7 @@ OnSecondChange
 	}else{
 	
 		//IJHEBAFGTVLKJHBNTFDLJKHGBKDJFH IT'S MOSTLY WORKIN DUDE I'M GROWIN A PLACEHOLDER STICK
+		//JERFDKVNGLFSDBLSKHJFDB DUDE IT'S NOT A STICK ANYMORE YEEHAW
 		if tendrilgrow {
 			"\![embed,OnGrowTendrils]"
 		}
@@ -361,18 +373,13 @@ MikireTalk : nonoverlap
 		if relationship > POSITIVER1{
 			"%(noxCurious)Hey… I don't like being in this darker area."
 			"%(noxCurious)I don't want to be in the dark. Could you move me?"
-		
 		}
-		
-	
 	}
 	
 	if relationship < ANNOYEDR1{
 		"%(noxAnnoyed)If you are going to keep me here, could you at least move me into the lighted area?"
 		"%(noxAnnoyed)I want to keep an eye on you. Can you move me to do just that?"
 		"%(noxNarAnnoyed)%(noxEyesClosed)(He looks like he's nervous.)"
-
-	
 	}
 	--
 	"\e"

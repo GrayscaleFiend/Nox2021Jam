@@ -12,3 +12,5 @@ Meet Nox, a dragon who is shadow incarnate! From the world of Arcane Gourmet, he
 Nox comes with four different petting surfaces (Top of his head, his face, his chin, and his wings), a punchable face, a tiered relationship system, gift giving, and a potential to influence parts of his world!
 
 Press R to reload, M for menu, T to talk, and if something weird happens just click on it a lot to make it leave you alone.
+
+!! The scrolling texture is set as an item-- you can switch it to stagnant if needed !!

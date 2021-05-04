@@ -3,6 +3,7 @@ version,1
 
 group,__disabled
 {
+	//In the surface test, we have a surface0 for the sake of a dummy that won't be offset by the scrolling
 	//the texture
 	00001,__parts
 	
