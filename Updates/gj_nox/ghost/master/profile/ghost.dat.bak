@@ -1,18 +1,18 @@
 Charset,UTF-8
 __system_settings_version__,2
-balloon,C:\Users\ihave\Desktop\Ukagaka\Ghost Jam 2021\balloon\z_undertale\
+balloon,C:\Users\ihave\Desktop\Ukagaka\Ghost Jam 2021\balloon\gj_nox_balloon\
 inputbox.left,2737
-scriptbox.left,2486
+scriptbox.left,3173
 shiori.debugnotify,0
 Char5.center,1269
-Char.VirtualDesktop,b605d94e-8c9e-49f7-9629-dac59b2fdf5b
+Char.VirtualDesktop,487f7673-6984-443a-8a74-db4b4da2676d
 Char2.center,2685
 Update.TestMode,0
-Char0.center,2536
-scriptbox.top,194
+Char0.center,3386
+scriptbox.top,171
 shell,shell\master\
 FirstBoot,booted
-Char1.center,720
+Char1.center,28
 shell.ischanged.2,1
 inputbox.top,288
 update.lastexec,672623280

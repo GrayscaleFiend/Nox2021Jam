@@ -20,12 +20,20 @@ StartCommunicate
 
 //‚»‚Ì‘¼‚Ìl‚É˜b‚µ‚©‚¯‚é
 TalkToOther{
-	"%(noxNeutral)Hey, %(res_reference0). How are you?"
-	startcomm = 1
+	if mode{
+		"%(noxNeutral)Hey, %(res_reference0). How are you?"
+		startcomm = 1
+	}else{
+		"%(noxNarSleep)(Nox is asleep. That won't do.)"
+	}
+	
 }
 
 TalkToNobody{
-	"%(noxNeutral)It's pretty quiet..."
+	if mode
+		"%(noxNeutral)It's pretty quiet..."
+	else
+		"%(noxNarSleep)(There's nobody around. Nox is also asleep, so that wouldn't work.)"
 }
 
 
@@ -86,23 +94,27 @@ ReplyToUser
 //------------------------------------------------------------------------------
 TalkToUser
 {	
-	_text = TOLOWER(reference[1])
-	if "hello" _in_ _text || "hi" == _text || "howdy" _in_ _text
-	{
-		"%(noxBase)Oh, hello. Is that all?\e"
-	}
-	elseif "how are you" _in_ _text
-	{	
-		if annoyance > 50{
-			"%(noxAnnoyed)I'm a little bothered."
-		}else{
-			"%(noxBase)I'm doing fine, thank you.\e"
+	if mode{
+		_text = TOLOWER(reference[1])
+		if "hello" _in_ _text || "hi" == _text || "howdy" _in_ _text
+		{
+			"%(noxBase)Oh, hello. Is that all?\e"
 		}
-		
-	}
-	else
-	{
-		"%(noxNarBase)(He quietly and intently listens.)\e"
+		elseif "how are you" _in_ _text
+		{	
+			if annoyance > 50{
+				"%(noxAnnoyed)I'm a little bothered."
+			}else{
+				"%(noxBase)I'm doing fine, thank you.\e"
+			}
+			
+		}
+		else
+		{
+			"%(noxNarBase)(He quietly and intently listens.)\e"
+		}
+	}else{
+		"%(noxNarSleep)(Nox is asleep.)"
 	}
 }
 
@@ -113,26 +125,32 @@ TalkToUser
 
 //Receiving dialogue from another ghost
 ReplyToOther{
-	_talk = TOLOWER(reference[1])
-	res_reference0=reference[0]	//respond to this ghost
 	
-	if startcomm < 1{
-		//we set res_reference to 0 (null) so no one gets stuck in a communication loop
-		if "hello" _in_ _talk || "hi" _in_ _talk || "hey there" _in_ _talk
-		{
-			"%(noxBase)Hello, %(res_reference0). How are you?\e"
-			res_reference0=0
-		}else
-		{
-			"%(noxBase)What was that, %(res_reference0)?\e"
+	if mode{
+		_talk = TOLOWER(reference[1])
+		res_reference0=reference[0]	//respond to this ghost
+		
+		if startcomm < 1{
+			//we set res_reference to 0 (null) so no one gets stuck in a communication loop
+			if "hello" _in_ _talk || "hi" _in_ _talk || "hey there" _in_ _talk
+			{
+				"%(noxBase)Hello, %(res_reference0). How are you?\e"
+				res_reference0=0
+			}else
+			{
+				"%(noxBase)What was that, %(res_reference0)?\e"
+				res_reference0=0
+			}
+		}	
+		
+		if "how are you" _in_ _talk || "how're you" _in_ _talk{
+			
+			"I'm doing well, %(res_reference0).\e"
 			res_reference0=0
 		}
-	}	
+	}else{
+		"%(noxSleep)Zzz... hmmmn...?"
 	
-	if "how are you" _in_ _talk || "how're you" _in_ _talk{
-		
-		"I'm doing well, %(res_reference0).\e"
-		res_reference0=0
 	}
 		
 	

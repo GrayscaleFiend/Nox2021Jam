@@ -11,8 +11,7 @@ type,shell
 sakura.balloon.alignment,none
 kero.balloon.alignment,none
 
-sakura.seriko.alignmenttodesktop,free
-kero.seriko.alignmenttodesktop,free
+seriko.alignmenttodesktop,free
 
 sakura.balloon.offsetx,10
 sakura.balloon.offsety,50
@@ -20,7 +19,8 @@ sakura.balloon.offsety,50
 sakura.balloon.offsetxr,850
 sakura.balloon.offsetyr,50
 
-sakura.defaultleft,1200
+sakura.defaultleft,1900
+sakura.defaulttop,400
 
 kero.balloon.offsetx,10
 kero.balloon.offsety,55

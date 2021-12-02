@@ -35,6 +35,8 @@ OpenMenu
 	}
 	"\b1"
 	--
+	
+	if mode{
 	//N, P1, P2, P3
 	if relationship > ANNOYEDR1{
 		"%(noxCurious)Oh? Do you need something?"
@@ -76,7 +78,29 @@ OpenMenu
 	AYATEMPLATE.MenuItem("Settings","Menu_SETTINGS",150)
 	--
 	AYATEMPLATE.MenuItem("Nevermind","Menu_CANCEL",150)
+	
+	
+	}else{
+	
+	"%(noxSleep)Zzzzzzzzzz....\n[150]"
+	--
+	if timeslept >= 120{
+		AYATEMPLATE.MenuItem("Wake him up\, it's been %(timeslept/60) hours","OnWakeNox")
+	}else{
+		AYATEMPLATE.MenuItem("Wake him up","OnWakeNox")
+		AYATEMPLATE.MenuItem("Wake him up","OnWakeNox")
+		AYATEMPLATE.MenuItem("No time for a nap\, Nox","OnWakeNox")
+	
+	}
+	
+	--
+	AYATEMPLATE.MenuItem("Let him sleep elsewhere","OnClose")
+	--
+	AYATEMPLATE.MenuItem("Let him sleep","Menu_CANCEL",150)
+	
+	}
 }
+
 
 //------------------------------------------------------------------------------
 //メニュー選択タイムアウト
@@ -85,20 +109,27 @@ OnChoiceTimeout
 {
 	"\b1"
 	--
-	//N, P1, P2, P3
-	if relationship > ANNOYEDR1{
-		"%(noxNeutral)It's okay, take your time."
-		"%(noxNeutral)Let me know if you need me."
+	if mode{
+		//N, P1, P2, P3
+		if relationship > ANNOYEDR1{
+			"%(noxNeutral)It's okay, take your time."
+			"%(noxNeutral)Let me know if you need me."
+		}else{
+		//A3, A2, A1
+			"%(noxNarAnnoyed)(He loses interest.)"
+		
+		}
+		
+		//A1, N, P1, P2, P3
+		if relationship > ANNOYEDR2 && RAND(2)==0{
+			"%(noxCurious)Uuh- Alright?"
+		
+		}
 	}else{
-	//A3, A2, A1
-		"%(noxNarAnnoyed)(He loses interest.)"
 	
-	}
-	
-	//A1, N, P1, P2, P3
-	if relationship > ANNOYEDR2 && RAND(2)==0{
-		"%(noxCurious)Uuh- Alright?"
-	
+		"Zzzzz..."
+		"Zzzzzssss...%(growl)..."
+		"%(noxNarSleep)(He doesn't notice.)"
 	}
 	--
 	"\e"
@@ -111,7 +142,10 @@ OnChoiceTimeout
 //---- Talk with the user
 Menu_COMMUNICATEOPEN
 {
-	"%(noxNeutral)What is it?\![open,communicatebox]\e"
+	if mode
+		"%(noxNeutral)What is it?\![open,communicatebox]\e"
+	else
+		"%(noxNarSleep)(He's asleep.)\e"
 }
 
 //---- talk to a friendghost
@@ -125,28 +159,34 @@ Menu_CANCEL
 {
 	"\b1"
 	--
-	//A1, N, P1, P2, P3
-	if relationship > ANNOYEDR2{
-		"%(noxNeutral)Oh, alright then."
-		"%(noxNeutral)Oh was that all?"
-	
-	}
-	
-	//A2, A1, N, P1, P2, P3
-	if relationship > ANNOYEDR3{
-		"%(noxNeutral)Alright."
+	if mode{
+		//A1, N, P1, P2, P3
+		if relationship > ANNOYEDR2{
+			"%(noxNeutral)Oh, alright then."
+			"%(noxNeutral)Oh was that all?"
+		
+		}
+		
+		//A2, A1, N, P1, P2, P3
+		if relationship > ANNOYEDR3{
+			"%(noxNeutral)Alright."
 
-	}
+		}
+		
+		//A2, A1, N
+		if relationship < POSITIVER1 && relationship > ANNOYEDR3{
+			"%(noxNeutral)Mmm."
+		}
+		
+		if relationship < ANNOYEDR2{
+			"%(noxNarAnnoyed)(He continues glaring at you.)"
+		}
+	}else{
 	
-	//A2, A1, N
-	if relationship < POSITIVER1 && relationship > ANNOYEDR3{
-		"%(noxNeutral)Mmm."
+		"Zzzzz..."
+		"Zzzzzssss...%(growl)..."
+		"%(noxNarSleep)(He doesn't notice.)"
 	}
-	
-	if relationship < ANNOYEDR2{
-		"%(noxNarAnnoyed)(He continues glaring at you.)"
-	}
-	
 	
 	
 	--

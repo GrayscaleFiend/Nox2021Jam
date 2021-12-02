@@ -7,11 +7,16 @@
 //------------------------------------------------------------------------------
 OnSurfaceRestore
 {
-	if relationship < ANNOYEDR2{
-		"%(noxAnnoyed)\e"
+	if mode{
+		if relationship < ANNOYEDR2{
+			"%(noxAnnoyed)\e"
+		}else{
+		
+			"%(noxNeutral)\e"
+		}
 	}else{
+		"%(noxSleep)"
 	
-		"%(noxNeutral)\e"
 	}
 	startcomm = 0
 	
@@ -24,23 +29,55 @@ OnSurfaceRestore
 //Surfaces and their Narration Counterparts
 //------------------------------------------------------------------------------
 
-//bases just will return Neutral or Annoyed based on relationship
+//bases just will return Neutral or Annoyed based on relationship (or sleep if relevant)
 noxBase{
-	if relationship > ANNOYEDR2{
-		"\0\s[1000]"
+	if mode{
+		if relationship > ANNOYEDR2{
+			"\0\s[1000]"
+		}else{
+			"\0\s[3000]"
+		}
 	}else{
-		"\0\s[3000]"
+		noxSleep
 	}
 }
 
 noxNarBase{
-	if relationship > ANNOYEDR2{
-		"\0\s[1001]"
+	if mode{
+		if relationship > ANNOYEDR2{
+			"\0\s[1001]"
+		}else{
+			"\0\s[3001]"
+		}
 	}else{
-		"\0\s[3001]"
+		noxNarSleep
 	}
 
 }
+
+
+noxSleep{
+	if relationship > ANNOYEDR2{
+		"\0\s[5000]"
+	}else{
+		"\0\s[3010]"
+	}
+	--
+	"\i[63]"
+}
+
+noxNarSleep{
+	if relationship > ANNOYEDR2{
+		"\0\s[5000]"
+	}else{
+		"\0\s[3011]"
+	}
+	--
+	"\i[63]"
+
+}
+
+
 
 noxNeutral{
 	"\0\s[1000]"
@@ -49,6 +86,15 @@ noxNeutral{
 
 noxNarNeutral{
 	"\0\s[1001]"
+}
+
+noxNeutralFrown{
+	"\0\s[1010]"
+}
+
+
+noxNarNeutralFrown{
+	"\0\s[1011]"
 }
 
 noxCurious{
@@ -60,6 +106,26 @@ noxNarCurious{
 	"\0\s[2001]"
 }
 
+noxSmileCurious{
+	"\0\s[2010]"
+}
+
+
+noxNarSmileCurious{
+	"\0\s[2011]"
+}
+
+
+noxCatCurious{
+	"\0\s[2020]"
+}
+
+
+noxNarCatCurious{
+	"\0\s[2021]"
+}
+
+
 noxAnnoyed{
 	"\0\s[3000]"
 }
@@ -67,6 +133,15 @@ noxAnnoyed{
 
 noxNarAnnoyed{
 	"\0\s[3001]"
+}
+
+noxAnnoyedSleep{
+	"\0\s[3010]"
+}
+
+
+noxNarAnnoyedSleep{
+	"\0\s[3011]"
 }
 
 noxAngry{
@@ -82,13 +157,65 @@ noxNarAngry{
 
 
 
-
 noxEyesClosed{
 	"\i[63]"
 }
 
+noxDetermined{
+	if mode
+		"\i[62]"
+}
+
+noxConcerned{
+	if mode
+		"\i[64]"
+}
+
+noxPikachu{
+	if mode
+		"\i[66]"
+}
+
+noxContentClosed{
+	if mode
+		"\i[67]"
+	else
+		"\i[64]"
+}
+
+
+
+noxSlDefault{
+	if !mode
+		"\i[64]"
+
+}
+
+noxSlConcern{
+	if !mode
+		"\i[65]"
+
+}
+
+noxSlIrritated{
+	if !mode
+		"\i[66]"
+
+}
+
+noxSlAggravated{
+	if !mode
+		"\i[67]"
+
+}
+
 noxMouthOpen{
 	"\i[94]"
+}
+
+noxFrown{
+
+
 }
 
 noxYawn{

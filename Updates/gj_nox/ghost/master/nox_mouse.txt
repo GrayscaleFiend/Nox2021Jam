@@ -37,8 +37,9 @@ MouseMove0Head
 	}
 	pets++
 	petsthishour++
+	wakefulmovements--
 	//A1, N, P1, P2, P3
-	if relationship > ANNOYEDR2{
+	if mode && relationship > ANNOYEDR2{
 		"%(noxCurious)Oh? I don't think I have ever been petted up there before."
 		"%(noxNeutral)Huh. This oddly feels nice."
 		"%(noxNarNeutral)%(noxEyesClosed)(He leans into the pet.)"
@@ -57,10 +58,11 @@ MouseMove0Face
 	}
 	pets++
 	petsthishour++
+	wakefulmovements--
 	
 	"%(MouseMoveGeneral)"
 	
-	if relationship > ANNOYEDR2{
+	if mode && relationship > ANNOYEDR2{
 		{
 			"%(noxNeutral)That's my face- Why are you petting there?"
 			"%(noxCurious)Are you trying to pet my nose? I would suggest under my chin more."
@@ -78,7 +80,7 @@ MouseMove0Face
 		}
 		
 	
-	}elseif relationship < ANNOYEDR2{
+	}elseif mode && relationship < ANNOYEDR2{
 		"%(noxNarAnnoyed)(He growls at you.)"
 		"%(noxNarAnnoyed)(He bites your mouse cursor.)\n%(noxAnnoyed) That's enough. Stop it."
 		"%(noxAnnoyed)Would you stop that?"
@@ -96,36 +98,43 @@ MouseMove0Chin
 	}
 	pets++
 	petsthishour++
+	wakefulmovements-=3
 	
 	"%(MouseMoveGeneral)"
-	
-	if relationship > ANNOYEDR2{
-		{
-			"%(noxNarNeutral)%(noxEyesClosed)(Is he… purring?)"
-			"%(noxNarNeutral)%(noxEyesClosed)(He seems to enjoy that spot.)"
-		}
-		{
-			"%(noxNeutral)%(noxEyesClosed)Mmm yes. \w8That's the spot."
-			"%(noxNarNeutral)%(noxEyesClosed)(He seems incredibly pleased.)"
-		}
+	if mode{
+		if relationship > ANNOYEDR2{
+			{
+				"%(noxNarNeutral)%(noxEyesClosed)(Is he… purring?)"
+				"%(noxNarNeutral)%(noxEyesClosed)(He seems to enjoy that spot.)"
+			}
+			{
+				"%(noxNeutral)%(noxEyesClosed)Mmm yes. \w8That's the spot."
+				"%(noxNarNeutral)%(noxEyesClosed)(He seems incredibly pleased.)"
+			}
+			
+			if relationship > POSITIVER2{
+				"%(noxNeutral)Vanta likes to pet me there all the time. I'm not sure why, but it feels really calming to me."
+				"%(noxNeutral)%(noxEyesClosed)Mmmm that's the good spot."
+			
+			}
+			
 		
-		if relationship > POSITIVER2{
-			"%(noxNeutral)Vanta likes to pet me there all the time. I'm not sure why, but it feels really calming to me."
-			"%(noxNeutral)%(noxEyesClosed)Mmmm that's the good spot."
-		
-		}
-		
-	
-	}elseif relationship < ANNOYEDR2{
-		"%(noxNarAnnoyed)(He grumbles a bit, but it seems like he's letting you pet there.)"
-		"%(noxNarAnnoyed)(He lets you scritch under his chin.)"
-		"%(noxNarAnnoyed)(He goes to bite you, but then seems to think otherwise of it.)"
-		"%(noxAnnoyed)What do you hope to gain from petting me?"
+		}elseif relationship < ANNOYEDR2{
+			"%(noxNarAnnoyed)(He grumbles a bit, but it seems like he's letting you pet there.)"
+			"%(noxNarAnnoyed)(He lets you scritch under his chin.)"
+			"%(noxNarAnnoyed)(He goes to bite you, but then seems to think otherwise of it.)"
+			"%(noxAnnoyed)What do you hope to gain from petting me?"
 
-	
+		
+		}else{
+			//neutral pet
+			"this is a bug if it occurs rip\e"
+		
+		}
 	}else{
-		//neutral pet
-		"this is a bug if it occurs rip\e"
+	
+		"%(noxNarSleep)(Even asleep, he knows it's the good spot.)"
+		"%(noxNarSleep)(Nox gives a warm purr.)"
 	
 	}
 	--
@@ -138,31 +147,38 @@ MouseMove0Wings{
 	lastinteraction = 0
 	relationship+= RAND(4) - 3
 	annoyance-= RAND(4) - 3
+	wakefulmovements+=3
 	
 	wingtouch++
-	
-	if relationship > ANNOYEDR1{
-		"%(noxCurious)Ah- I would prefer if you didn't touch there. That feels weird."
-		"%(noxAnnoyed)Please don't."
-		"%(noxCurious)Please don't touch me there."
-		"%(noxAnnoyed)That feels weird."
-		"%(noxAnnoyed)I really don't like that."
-	
+	if mode{
+		if relationship > ANNOYEDR1{
+			"%(noxCurious)Ah- I would prefer if you didn't touch there. That feels weird."
+			"%(noxAnnoyed)Please don't."
+			"%(noxCurious)Please don't touch me there."
+			"%(noxAnnoyed)That feels weird."
+			"%(noxAnnoyed)I really don't like that."
+		
+		}else{
+			"%(noxNarAngry)(He's growling at you.)"
+			"%(noxAnnoyed)Do you want to lose a hand?"
+			"%(noxAngry)I may be a shadow in physical form, but I can still bite."
+			"%(noxAngry)Touch me there again, and I will bite you."
+			"%(noxNarAngry)(Maybe that's not a good idea.)"
+			"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
+		
+		}
+		
+		
+		{
+			"%(noxAnnoyed)%(roar) %(growl)"
+			"%(noxAnnoyed)%(growl) %(roar)"
+			"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
+		
+		}
 	}else{
-		"%(noxNarAngry)(He's growling at you.)"
-		"%(noxAnnoyed)Do you want to lose a hand?"
-		"%(noxAngry)I may be a shadow in physical form, but I can still bite."
-		"%(noxAngry)Touch me there again, and I will bite you."
-		"%(noxNarAngry)(Maybe that's not a good idea.)"
-		"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
-	
-	}
-	
-	
-	{
-		"%(noxAnnoyed)%(roar) %(growl)"
-		"%(noxAnnoyed)%(growl) %(roar)"
-		"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
+		
+		"%(noxNarSleep)(This is going to disturb his sleep.)"
+		"%(noxSleep)%(growl)..."
 	
 	}
 	--
@@ -172,16 +188,31 @@ MouseMove0Wings{
 }
 
 MouseMoveGeneral{
-
-	if relationship > ANNOYREDR1{
-		"%(noxNeutral)%(noxEyesClosed)%(roar) %(growl)"
-		"%(noxNeutral)%(noxEyesClosed)%(growl) %(roar)"
-		"%(noxNarNeutral)(You pet the dragon. He seems okay with this.)"
 	
+	if mode{
+		if relationship > ANNOYREDR1{
+			"%(noxNeutral)%(noxEyesClosed)%(roar) %(growl)"
+			"%(noxNeutral)%(noxEyesClosed)%(growl) %(roar)"
+			"%(noxNarNeutral)(You pet the dragon. He seems okay with this.)"
+		
+		}else{
+			"%(noxAnnoyed)%(roar) %(growl)"
+			"%(noxAnnoyed)%(growl) %(roar)"
+			"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
+		}
 	}else{
-		"%(noxAnnoyed)%(roar) %(growl)"
-		"%(noxAnnoyed)%(growl) %(roar)"
-		"%(noxNarAnnoyed)(You pet the dragon. He seems annoyed by this.)"
+	
+		if relationship > ANNOYEDR2{
+			"%(noxNarSleep).\w8.\w8.\w8.\w8.\w8%(roar)...."
+			"%(noxNarSleep).\w8.\w8.\w8.\w8.\w8%(growl)...."
+			"%(noxNarSleep)%(noxNarSleep).\w8.\w8.\w8.\w8.\w8%(roar).\w8.\w8.\w8.\w8.\w8%(growl)...."
+			"%(noxNarSleep)(He visibly relaxes.)"
+			"%(noxNarSleep)Mmmm\w8.\w8.\w8.\w8.\w8.\w8."
+		}else{
+		
+			"%(noxNarSleep)mmn..."
+		}
+
 	}
 
 }
@@ -207,29 +238,35 @@ MouseDoubleClickAny : sequential{
 	punches++
 	subFriendshipBig
 	--
-	if relationship > POSITIVER2{
-		"%(noxCurious)Wh- Why?? What was that for?"
-		"%(noxNarCurious)(He looks at you wide eyed.)"
-		"%(noxAnnoyed)I thought we were friends."
-		"%(noxAnnoyed)%(noxEyesClosed)I…\w8\w8 I thought we were friends…"
-		"%(noxAnnoyed)These punches don't even hurt. What hurts more is the feeling of betrayal."
-		relationship-= 30
-	
-	}elseif relationship > ANNOYEDR2{
-		"%(noxCurious)Excuse me, but what was that for?"
-		"%(noxCurious)Ow?"
-		"%(noxCurious)What are you trying to accomplish here?"
-		"%(noxAnnoyed)That's annoying. Please stop."
-		"%(noxAnnoyed)Please stop."
-		"%(noxCurious)What was that for?"
-	
+	if mode{
+		if relationship > POSITIVER2{
+			"%(noxCurious)Wh- Why?? What was that for?"
+			"%(noxNarCurious)(He looks at you wide eyed.)"
+			"%(noxAnnoyed)I thought we were friends."
+			"%(noxAnnoyed)%(noxEyesClosed)I…\w8\w8 I thought we were friends…"
+			"%(noxAnnoyed)These punches don't even hurt. What hurts more is the feeling of betrayal."
+			relationship-= 30
+		
+		}elseif relationship > ANNOYEDR2{
+			"%(noxCurious)Excuse me, but what was that for?"
+			"%(noxCurious)Ow?"
+			"%(noxCurious)What are you trying to accomplish here?"
+			"%(noxAnnoyed)That's annoying. Please stop."
+			"%(noxAnnoyed)Please stop."
+			"%(noxCurious)What was that for?"
+		
+		}else{
+			//neutral hit
+			"%(noxNarAngry)(He recoils in anger.)"
+			"%(noxNarAngry)(He bites your mouse cursor in return.)"
+			"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
+			"%(noxAngry)%(growl) %(growl) %(roar)"
+			"%(noxAngry)Would you knock that off?"
+		
+		}
 	}else{
-		//neutral hit
-		"%(noxNarAngry)(He recoils in anger.)"
-		"%(noxNarAngry)(He bites your mouse cursor in return.)"
-		"%(noxNarAngry)(He bites your mouse cursor. It doesn't hurt, but he still bit it.)"
-		"%(noxAngry)%(growl) %(growl) %(roar)"
-		"%(noxAngry)Would you knock that off?"
+		wakeNox
+		"hngh--\w8%(noxAnnoyed) %(roar)! \w8\w8What was that for??"
 	
 	}
 	--
@@ -253,12 +290,18 @@ MouseDoubleClick0
 
 OnMouseMove
 {
-	AYATEMPLATE.MouseMoveWheelFunc(0,50,'MouseMove')
+	if (mode == 0) && (RAND(100) == 0){
+		OnNoxWakeUp
+	}else{
+		AYATEMPLATE.MouseMoveWheelFunc(0,50,'MouseMove')
+	}
+	
 }
 
 OnMouseWheel
 {
 	_result = ''
+	wakefulmovements++
 	if TOINT(reference[2]) > 0 {
 		_result = AYATEMPLATE.MouseMoveWheelFunc(1,4,'MouseWheelUp')
 	}
@@ -284,6 +327,13 @@ OnMouseDoubleClick
 		AYATEMPLATE.MouseEventExec('MouseDoubleClick');
 	}
 	
+}
+
+
+OnMouseEnterAll{
+	wakefulmovements++
+
+
 }
 
 

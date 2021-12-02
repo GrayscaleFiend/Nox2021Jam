@@ -34,6 +34,12 @@ RandomTalkEx : nonoverlap
 	_timeslot = GetTimeSlot
 	"\b1"
 	--
+	
+	//Modes: 0 asleep, 1 awake (normal)
+	case mode{
+	
+	
+	when 1{
 		//ANY ROUTE
 		{
 			"%(noxCurious)What is this thing you are using? The in..ter...net?\w[16] Inter net? That's odd, it doesn't look like a net.\e"
@@ -150,8 +156,18 @@ RandomTalkEx : nonoverlap
 			--
 			"\e"
 		}
+	}
+	
+	when 0{
+		"%(noxSleep)Zzzzzzzz..."
+	
+	
+	
+	}
 		
 
+
+	}
                
 }
 
@@ -223,6 +239,64 @@ OnMinuteChange
 	//general updates
 	lastinteraction++
 	
+	
+	//------------------SLEEP MANAGEMENT
+	if wakefulmovements >= 0
+		wakefulmovements-=5		
+	
+	//if he is asleep, increase rest, see if he'll wake up
+	if mode==0{
+		timeslept++
+		
+		if (timeslept + wakefulmovements + RAND(60) ) > 540{
+			OnNoxWakeUp
+		
+		}
+		
+		
+	}else{
+	//if awake, decrease it every other minute, see if he'll fall asleep
+		if minute % 2 == 0
+			timeslept--
+		
+		
+		
+		//he's exhausted, very likely to pass out every 5 minutes
+		if timeslept <= -5{
+			timeslept = 0
+			
+			//real likely to Conk, even if bad relationship
+			if (!RAND(8)){
+				OnNoxFallAsleep
+			}
+		
+		}
+		//he's gotten somewhat tired
+		elseif timeslept < 180{
+			
+			//hours for his preferred sleep schedule
+			if (hour < 10){
+				
+				//the more wakefulmovements, the less likely he'll conk out
+				if (timeslept + wakefulmovements - RAND(100)) < 0 {
+					OnNoxFallAsleep
+				
+				}
+			
+			}else{
+				//otherwise, less likely
+				if (timeslept + wakefulmovements + RAND(10) - (relationship/10)) < 0 {
+					OnNoxFallAsleep
+				
+				}
+			
+			}
+		
+		}
+	
+	}
+	
+	
 	//Minute checks for relationship tiers (for betrayal and recovery)
 	
 	if relationship > POSITIVER3{
@@ -287,7 +361,11 @@ OnHourChange{
 		
 	//can be turned off in settings
 	if hourannounce >= 1 {
-		"%(noxNarBase)"
+		if mode{
+			"%(noxNarBase)"
+		}else{
+			"%(noxNarSleep)"
+		}
 		--
 		//---- 特定の時間（正午など）ではさらに追加で話す
 		case hour{
@@ -349,40 +427,72 @@ OnSecondChange
 	
 }
 
+OnNoxFallAsleep{
+	mode=0
+	"%(noxBase)Zzzz..."
+}
+
+
+OnWakeNox{
+	wakeNox
+	"%(noxBase)Hmmm...?"
+
+}
+
+
+OnNoxWakeUp{
+	wakeNox
+	"%(noxBase)...What do you want...?"
+}
+
+
+wakeNox{
+	mode=1
+
+}
+
+
+
+
+
+
 //------------------------------------------------------------------------------
 //見切れ中
 //------------------------------------------------------------------------------
 MikireTalk : nonoverlap
 {
-	if offscreen == 0{
-		offscreen = 1
-		relationship -= RAND(5) + 1
-	}
-	if relationship > ANNOYEDR2{
-		{
-			"%(noxCurious)Would you mind moving me more onto the lighted area? It is pitch black beyond that border."
-			"%(noxNeutral)I would much rather be in full view, if you wouldn't mind."
-			"%(noxNeutral)Don't you think it would be better to see all of me?"
+	//Nox only notices being offscreen if he's awake
+	if mode{
+		if offscreen == 0{
+			offscreen = 1
+			relationship -= RAND(5) + 1
 		}
-		{
-			"%(noxNeutral)I would like to be in the lighted area, if you would please."
-			"%(noxCurious)If you wouldn't mind, could you move me into the lighted area?"
-			"%(noxNarCurious)%(noxEyesClosed)(He looks nervous for some reason.)"
+		if relationship > ANNOYEDR2{
+			{
+				"%(noxCurious)Would you mind moving me more onto the lighted area? It is pitch black beyond that border."
+				"%(noxNeutral)I would much rather be in full view, if you wouldn't mind."
+				"%(noxNeutral)Don't you think it would be better to see all of me?"
+			}
+			{
+				"%(noxNeutral)I would like to be in the lighted area, if you would please."
+				"%(noxCurious)If you wouldn't mind, could you move me into the lighted area?"
+				"%(noxNarCurious)%(noxEyesClosed)(He looks nervous for some reason.)"
+			}
+			
+			if relationship > POSITIVER1{
+				"%(noxCurious)Hey… I don't like being in this darker area."
+				"%(noxCurious)I don't want to be in the dark. Could you move me?"
+			}
 		}
 		
-		if relationship > POSITIVER1{
-			"%(noxCurious)Hey… I don't like being in this darker area."
-			"%(noxCurious)I don't want to be in the dark. Could you move me?"
+		if relationship < ANNOYEDR1{
+			"%(noxAnnoyed)If you are going to keep me here, could you at least move me into the lighted area?"
+			"%(noxAnnoyed)I want to keep an eye on you. Can you move me to do just that?"
+			"%(noxNarAnnoyed)%(noxEyesClosed)(He looks like he's nervous.)"
 		}
+		--
+		"\e"
 	}
-	
-	if relationship < ANNOYEDR1{
-		"%(noxAnnoyed)If you are going to keep me here, could you at least move me into the lighted area?"
-		"%(noxAnnoyed)I want to keep an eye on you. Can you move me to do just that?"
-		"%(noxNarAnnoyed)%(noxEyesClosed)(He looks like he's nervous.)"
-	}
-	--
-	"\e"
 }
 
 //------------------------------------------------------------------------------
@@ -390,11 +500,14 @@ MikireTalk : nonoverlap
 //------------------------------------------------------------------------------
 EndMikireTalk
 {
-	offscreen = 0
-	relationship+= RAND(4) + 1
-	"%(noxBase)Thank you.\e"
-	"%(noxNarNeutral)%(noxEyesClose)(He seems to be a little more at ease.)\e"
-	"%(noxNeutral)That’s better."
+	//anything non zero is awake
+	if mode{
+		offscreen = 0
+		relationship+= RAND(4) + 1
+		"%(noxBase)Thank you.\e"
+		"%(noxNarNeutral)%(noxEyesClose)(He seems to be a little more at ease.)\e"
+		"%(noxNeutral)That’s better."
+	}
 }
 
 

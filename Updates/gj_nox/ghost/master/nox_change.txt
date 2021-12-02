@@ -34,7 +34,10 @@ OnOtherGhostChanged When another ghost switches to another ghost and the startup
 //‚»‚Ì‘¼‚ÌƒS[ƒXƒg‚ÖØ‚è‘Ö‚¦
 OnGhostChangingOther
 {
-	"%(noxCurious)Oh, you want to swap to %reference[0]? %(noxNeutral)Alright, I'll take my leave then."
+	if mode
+		"%(noxCurious)Oh, you want to swap to %reference[0]? %(noxNeutral)Alright, I'll take my leave then.\w8\w8"
+	else
+		"%(noxNarSleep)(The sleeping dragon takes his leave. Come quietly, %reference[0].)\w8\w8"
 }
 
 

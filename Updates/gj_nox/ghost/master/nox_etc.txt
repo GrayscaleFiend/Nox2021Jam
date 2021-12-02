@@ -13,6 +13,7 @@
 
 OnShellChanging
 {
+	if mode
 	"%(noxCurious)You want a different color? Alright.\s[-1]\w8\w8\w8\e"
 }
 
@@ -36,7 +37,10 @@ OnShellChanged
 //------------------------------------------------------------------------------
 OnInstallBegin
 {
-	"%(noxNeutral)Installing %(reference[0]).\e"
+	if mode
+		"%(noxNeutral)Installing %(reference[0]).\e"
+	else
+		"%(noxNarBase)(Installing %(reference[0]).)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -78,7 +82,10 @@ OnInstallComplete
 		}
 		
 		if _id != '' {
-			"What do you want me to do with it?"
+			if mode
+				"What do you want me to do with it?"
+			else
+				"(What do you want to do?)"
 			--
 			AYATEMPLATE.MenuItem("Switch","OnAYATEMPLATE.InstallChange",_id,200)
 			--
@@ -97,7 +104,10 @@ OnAYATEMPLATE.InstallChange
 //------------------------------------------------------------------------------
 OnInstallFailure
 {
+	if mode
 	"That didn't work.\e"
+	else
+	"(That didn't work.)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -105,7 +115,10 @@ OnInstallFailure
 //------------------------------------------------------------------------------
 OnInstallRefuse
 {
+	if mode
 	"%(noxNeutral)I can't do that.\e"
+	else
+	"(This isn't possible currently.) \e"
 }
 
 
@@ -118,7 +131,10 @@ OnInstallRefuse
 //------------------------------------------------------------------------------
 OnVanishSelecting
 {
-	"%(noxCurious)Are you sure.\w4.\w4.?\e"
+	if mode
+		"%(noxCurious)Are you sure.\w4.\w4.?\e"
+	else
+		"%(noxNarSleep)(While he's unaware...?)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -127,9 +143,12 @@ OnVanishSelecting
 OnVanishSelected
 {
 	if RAND(100) == 0{
-		"%(noxNeutral)Change da world, \w8my final message.\w8\w8 Goodbye\w4"
+		"%(noxNeutral)Change da world, \w8my final message.\w8\w8 Goodbye\w4\e"
 	}else{
-		"%(noxAnnoyed)Alright. Goodbye.\\w8e"
+		if mode
+			"%(noxAnnoyed)Alright. Goodbye.\w8\e"
+		else
+			"%(noxNarSleep)Zzzz... hm? %(noxCurious)What's going on...?\w8\e"
 	}
 	
 }
@@ -139,7 +158,10 @@ OnVanishSelected
 //------------------------------------------------------------------------------
 OnVanishCancel
 {
-	"%(noxAnnoyed)That's not funny.\e"
+	if mode
+		"%(noxAnnoyed)That's not funny.\e"
+	else
+		"%(noxNarSleep)(Entirely unaware of what almost happened.)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -148,7 +170,10 @@ OnVanishCancel
 OnVanished
 {
 	relationship-=5
-	"%(noxCurious)What happened to %reference[0]...?\e"
+	if mode
+		"%(noxCurious)What happened to %reference[0]...?\e"
+	else
+		"%(noxNarSleep)(You know what you did.)\e"
 }
 
 
@@ -172,12 +197,12 @@ OnBIFFComplete
 	if reference[0] == 0
 	{
 		//---- メールは無かった
-		"%(noxNeutral)nothing new\e"
+		"%(noxBase)nothing new\e"
 	}
 	else
 	{
 		//---- メールが届いていた
-		"%(noxNeutral)%(reference[0])new email(s)\e"
+		"%(noxBase)%(reference[0])new email(s)\e"
 	}
 }
 
@@ -189,22 +214,22 @@ OnBIFFFailure
 	if reference[0] == "timeout"
 	{
 		//---- タイムアウト
-		"%(noxNeutral)Timed out.\e"
+		"%(noxBase)Timed out.\e"
 	}
 	elseif reference[0] == "kick"
 	{
 		//---- 蹴られた
-		"%(noxNeutral)Server kicked.\e"
+		"%(noxBase)Server kicked.\e"
 	}
 	elseif reference[0] == "defect"
 	{
 		//---- 設定誤り
-		"%(noxNeutral)It's defected.\e"
+		"%(noxBase)It's defected.\e"
 	}
 	else
 	{
 		//---- 原因不明
-		"%(noxNeutral)Yeah ok it's just not working.\e"
+		"%(noxBase)Yeah ok it's just not working.\e"
 	}
 }
 
@@ -229,7 +254,7 @@ OnUpdateBegin
 //------------------------------------------------------------------------------
 OnUpdateReady
 {
-	"%(noxNeutral)\_q%(TOINT(reference[0])+1) elements located.\e"
+	"%(noxBase)\_q%(TOINT(reference[0])+1) elements located.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -237,23 +262,42 @@ OnUpdateReady
 //------------------------------------------------------------------------------
 OnUpdateComplete
 {
-	if reference[0] == "none"
-	{
-		//---- no new files
-		//positive
-		if relationship > ANNOYEDR1{
-			"%(noxNeutral)Hm, nothing has changed in the order.\e"
-		
-		//negative route
-		}else{
-			"%(noxAnnoyed)Things are the same as always.\e"
+	if mode{
+		if reference[0] == "none"
+		{
+			//---- no new files
+			//positive
+			if relationship > ANNOYEDR1{
+				"%(noxNeutral)Hm, nothing has changed in the order.\e"
+			
+			//negative route
+			}else{
+				"%(noxAnnoyed)Things are the same as always.\e"
+			}
+			
 		}
-		
-	}
-	else
-	{
-		//---- genuine completion
-		"%(noxBase)Everything is in.\w4.\w4. proper order.\e"
+		else
+		{
+			//---- genuine completion
+			"%(noxBase)Everything is in.\w4.\w4. proper order.\e"
+		}
+	}else{
+	
+		if reference[0] == "none"
+		{
+			//---- no new files
+			
+			"%(noxNarSleep)(Nothing changed.)\e"
+	
+		}
+		else
+		{
+			//---- genuine completion
+			"%(noxNarSleep)(The shadows are looking fresher.)\e"
+		}
+
+	
+	
 	}
 }
 
@@ -262,23 +306,43 @@ OnUpdateComplete
 //------------------------------------------------------------------------------
 OnUpdateFailure
 {
-	if reference[0] == "timeout"
-	{
-		//---- タイムアウトした
-		"%(noxAnnoyed)Update timed out."
-	}
-	elseif reference[0] == "md5 miss"
-	{
-		//---- MD5値が一致しなかった
-		"%(noxAnnoyed)The MD5 value isn't aligned."
-	}
-	else
-	{
-		//---- 上記以外の理由で失敗した
-		"%(noxAnnoyed)%(reference[0]) error--"
+	if mode{
+		if reference[0] == "timeout"
+		{
+			//---- タイムアウトした
+			"%(noxAnnoyed)Update timed out."
+		}
+		elseif reference[0] == "md5 miss"
+		{
+			//---- MD5値が一致しなかった
+			"%(noxAnnoyed)The MD5 value isn't aligned."
+		}
+		else
+		{
+			//---- 上記以外の理由で失敗した
+			"%(noxAnnoyed)%(reference[0]) error--"
+		}
+	}else{
+		if reference[0] == "timeout"
+		{
+			//---- タイムアウトした
+			"%(noxNarSleep)(Update timed out.)"
+		}
+		elseif reference[0] == "md5 miss"
+		{
+			//---- MD5値が一致しなかった
+			"%(noxNarSleep)(The MD5 value isn't aligned.)"
+		}
+		else
+		{
+			//---- 上記以外の理由で失敗した
+			"%(noxNarSleep)(%(reference[0]) error.)"
+		}
+	
 	}
 	--
-	"\n\nPerhaps you should bring this up to someone.\e"
+	if mode
+		"\n\nPerhaps you should bring this up to someone.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -286,7 +350,7 @@ OnUpdateFailure
 //------------------------------------------------------------------------------
 OnUpdate.OnDownloadBegin
 {
-	"%(noxNeutral)%(reference[0]) done.\e"
+	"%(noxBase)%(reference[0]) done.\e"
 }
 
 //------------------------------------------------------------------------------
@@ -314,8 +378,14 @@ OnUpdate.OnMD5CompareComplete
 //------------------------------------------------------------------------------
 OnUpdate.OnMD5CompareFailure
 {
-	"%(noxBase)That's not right.\e"
-	"%(noxBase)They're not matched up.\e"
+	if mode{
+		"%(noxBase)That's not right.\e"
+		"%(noxBase)They're not matched up.\e"
+	}else{
+		"%(noxNarSleep)(MD5 values aren't matching.)\e"
+	
+	}
+	
 }
 
 //******************************************************************************
@@ -425,7 +495,10 @@ OnUpdatedataCreating
 //------------------------------------------------------------------------------
 OnUpdatedataCreated
 {
-	"%(noxBase)Update data assembled and shadows put where needed.\e"
+	if mode
+		"%(noxBase)Update data assembled and shadows put where needed.\e"
+	else
+		"%(noxNarBase)(Update data assembled and shadows put where needed.)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -433,10 +506,15 @@ OnUpdatedataCreated
 //------------------------------------------------------------------------------
 OnNarCreating
 {
-	if relationship > ANNOYEDR2{
-		"%(noxNeutral)I'll prepare those elements for you.\w4.\w4.\e"
+	if mode{
+		if relationship > ANNOYEDR2{
+			"%(noxNeutral)I'll prepare those elements for you.\w4.\w4.\e"
+		}else{
+			"%(noxAnnoyed)Fine, I'll prepare it for you.\e"
+		}
 	}else{
-		"%(noxAnnoyed)Fine, I'll prepare it for you.\e"
+	
+		"%(noxNarSleep)(Wait a second, are the shadows themselves making the NAR for you...?)\e"
 	}
 	
 }
@@ -446,7 +524,10 @@ OnNarCreating
 //------------------------------------------------------------------------------
 OnNarCreated
 {
-	"%(noxNeutral)NAR assembled.\e"
+	if mode
+		"%(noxNeutral)NAR assembled.\e"
+	else
+		"%(noxNarSleep)(NAR created.)\e"
 }
 
 
@@ -461,7 +542,7 @@ OnNarCreated
 //------------------------------------------------------------------------------
 OnSNTPBegin
 {
-	"%(noxNeutral)Connecting %(reference[0])\e"
+	"%(noxBase)Connecting %(reference[0])\e"
 }
 
 //------------------------------------------------------------------------------
@@ -479,7 +560,7 @@ SNTPCompare_StrForm
 
 OnSNTPCompare
 {
-	"%(noxNeutral)\_q/
+	"%(noxBase)\_q/
 	Before %(SNTPCompare_StrForm(reference[2]))\n/
 	After  %(SNTPCompare_StrForm(reference[1]))\n/
 	\_q\n"
@@ -491,12 +572,12 @@ OnSNTPCompare
 	else
 	{
 		//\6は補正実行タグ。消しちゃだめ
-		"\6\0\n%(noxNeutral)%(reference[3]) seconds corrected."
+		"\6\0\n%(noxBase)%(reference[3]) seconds corrected."
 	}
 }
 
 //------------------------------------------------------------------------------
-//時計合わせ失敗
+//時計合わせ失敗 
 //------------------------------------------------------------------------------
 OnSNTPFailure
 {
@@ -532,7 +613,10 @@ OnDisplayHandover{
 //------------------------------------------------------------------------------
 OnURLDropping
 {
-	"%(noxNeutral)Oh, let's see... %(reference[0])\e"
+	if mode
+		"%(noxNeutral)Oh, let's see... %(reference[0])\e"
+	else
+		"%(noxNarSleep)(You drop a URL for %(reference[0]).)\e"
 }
 
 //------------------------------------------------------------------------------
@@ -556,7 +640,8 @@ OnNekodorifExist
 //------------------------------------------------------------------------------
 OnScreenSaverStart
 {
-	"%(noxNeutral)Oh, it's dark!\w8\e"
+	if mode
+		"%(noxNeutral)Oh, it's dark!\w8\e"
 }
 
 //------------------------------------------------------------------------------
@@ -564,7 +649,8 @@ OnScreenSaverStart
 //------------------------------------------------------------------------------
 OnScreenSaverEnd
 {
-	"%(noxNeutral)Back into the light.\e"
+	if mode 
+		"%(noxNeutral)Back into the light.\e"
 }
 
 
@@ -574,4 +660,20 @@ OnNoxLoremIpsum
 	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi tempus imperdiet nulla malesuada pellentesque. Convallis posuere morbi leo urna molestie at elementum eu facilisis. Felis eget velit aliquet sagittis id consectetur. Urna porttitor rhoncus dolor purus non enim praesent elementum. Nibh sit amet commodo nulla facilisi nullam vehicula. Mi eget mauris pharetra et ultrices neque ornare aenean. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Eget felis eget nunc lobortis mattis aliquam faucibus purus. Turpis egestas sed tempus urna et pharetra pharetra. Amet tellus cras adipiscing enim eu. Congue nisi vitae suscipit tellus. Mauris pharetra et ultrices neque. Ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Turpis egestas maecenas pharetra convallis posuere morbi leo urna molestie. Iaculis eu non diam phasellus vestibulum lorem sed. Nibh venenatis cras sed felis eget. Ac auctor augue mauris augue neque. Mi quis hendrerit dolor magna eget est lorem ipsum dolor. Ullamcorper sit amet risus nullam eget."
 	--
 	"\n\nTellus integer feugiat scelerisque varius morbi enim nunc. Malesuada fames ac turpis egestas sed tempus urna. Felis imperdiet proin fermentum leo vel. Nec tincidunt praesent semper feugiat nibh. Eget velit aliquet sagittis id. Quis blandit turpis cursus in hac habitasse. Sed egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Porttitor eget dolor morbi non. In egestas erat imperdiet sed euismod nisi porta lorem mollis. Tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras fermentum.\e"
+}
+
+
+//take absolute number
+//this looks like it needs to be touched up for argv[0] though
+ABS{
+	if reference0 < 0{
+		_temp = -reference0
+		
+	}else{
+		_temp = reference0
+	}
+	_temp
+	return
+	
+	
 }

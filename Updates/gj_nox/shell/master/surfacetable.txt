@@ -12,6 +12,10 @@ group,__disabled
 	20000,__parts
 	30000,__parts
 	40000,__parts
+	//sleeping has breathing
+	50000,__parts
+	50001,__parts
+	50002,__parts
 	
 	
 	//ARMS
@@ -32,23 +36,41 @@ group,__disabled
 	10011,__parts
 	10012,__parts
 	
+	10013,__parts	//determined/frustrated
+	10014,__parts	//concerned/worried
+	10015,__parts 	//no blink, surprised Pikachu
+	10016,__parts 	//no blink, closed
+	
+	
 	//CURIOUS EYES
 	20010,__parts
 	//blinks
 	20011,__parts
 	20012,__parts
 	
+	20013,__parts //alt, no blink
+	
 	//ANNOYED EYES
 	30010,__parts
 	//blinks
 	30011,__parts
 	30012,__parts
+	//closed
+	30013,__parts	//relaxed
+	30014,__parts	//tense
+	30015,__parts	//squeezed shut
 	
 	//ANGERY EYES
 	40010,__parts
 	//blinks
 	40011,__parts
 	40012,__parts
+	
+	//SLEEPY EYES
+	50010,__parts	//irritated
+	50011,__parts	//relaxed/default
+	50012,__parts	//aggravated
+	50013,__parts	//concern
 	
 	
 	
@@ -57,27 +79,50 @@ group,__disabled
 	20090,__parts
 	30090,__parts
 	40090,__parts
+	50090,__parts
 
 
 	
 	
 	//MOUTHS
 	10040,__parts
-	//talkframes
+	//talkframes - normal
 	10041,__parts
 	10042,__parts
 	
+	10043,__parts
+	//talkframes - frown
+	10044,__parts
+	10045,__parts
+	
+	
 	//CURIOUS MOUTHS
 	20040,__parts
-	//talkframes
+	//talkframes - normal
 	20041,__parts
 	20042,__parts
+	
+	20043,__parts
+	//talkframes - smile
+	20044,__parts
+	20045,__parts
+	
+	20046,__parts
+	//talkframes - cat
+	20047,__parts
+	
 	
 	//ANNOYED MOUTHS
 	30040,__parts
 	//talkframes
 	30041,__parts
 	30042,__parts
+	
+	30043,__parts
+	//talkframes - sleepy
+	30044,__parts
+	30045,__parts
+	
 	
 	//ANGERY MOUTHS
 	40040,__parts

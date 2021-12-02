@@ -2,21 +2,22 @@ Charset,UTF-8
 __system_settings_version__,2
 balloon5.offset,855.-59
 char0.bind.savearray,60=1 59=0
-balloon,C:\Users\ihave\Desktop\Ukagaka\Ghost Jam 2021\balloon\soramiyururu_yu\
+balloon,C:\Users\ihave\Desktop\Ukagaka\Ghost Jam 2021\balloon\gj_nox_balloon\
 Char1.balloon.isleft,0
 inputbox.left,2737
-scriptbox.left,2486
-Char0.centery,1036
+scriptbox.left,3173
+balloon0.offset,140.-149
+Char0.centery,1029
 Char2.centery,1003
-balloon1.offset,0.0
+balloon1.offset,-288.-310
 Char5.center,1269
-Char0.balloon.isleft,0
-Char.VirtualDesktop,b605d94e-8c9e-49f7-9629-dac59b2fdf5b
+Char0.balloon.isleft,1
+Char.VirtualDesktop,487f7673-6984-443a-8a74-db4b4da2676d
 Char2.center,2685
-Char0.center,2536
-scriptbox.top,194
+Char0.center,3386
+scriptbox.top,171
 Char1.centery,1040
-Char1.center,720
+Char1.center,28
 Char2.balloon.isleft,1
 Char5.balloon.isleft,1
 inputbox.top,288

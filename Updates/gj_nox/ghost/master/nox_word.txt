@@ -86,6 +86,7 @@ growl{
 	"Grrumph"
 	"Grbrbrr"
 	"Girble"
+	"Girgl"
 }
 
 

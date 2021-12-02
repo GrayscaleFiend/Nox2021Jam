@@ -22,11 +22,19 @@ OnFirstBoot
 	usertheirs		 = "theirs"
 	usertheir		 = "their"
 	inlockedevent    = 1
+	
+	mode 			 = 1    //Nox is awake to begin
+	wakefulmovements = 0	//can make him more likely to wake
+	timeslept 		 = 240   //note to self: replace with same logic you put in boot later
+	
+	
 	pets			 = 0
 	punches			 = 0
 	wingtouch		 = 0	
-	waspositive		 = 0
+	
+	waspositive		 = 0    //betrayal notes
 	wasnegative 	 = 0
+	
 	petsthishour	 = 0
 	annoyance		 = 0
 	tendiesallowed	 = 1		//release the shadow tenders
@@ -535,134 +543,161 @@ OnClose
 	_timeslot = GetTimeSlot
 	if _timeslot == "early"
 	{
-		//A1, N, P1, P2, P3
-        if relationship > ANNOYEDR2{
-			"%(noxNarNeutral)%(noxEyesClose)%(noxYawn)\w6(He gently yawned) \w[50]%(noxNarNeutral)Is that all? \w6I'm going to sleep then."
-        
-            //A1, N, P1, P2
-            if relationship < POSITIVER3{
-                "%(noxNeutral)All done? Good, I want to go to sleep."
-            }
-        
-        }
-        
-        //N, P1, P2, P3
-        if relationship > ANNOYEDR1{
-			"%(noxCurious)Staying up late? Better get some sleep soon."
-        
-        }
-		
-        //N, A1, A2, A3
-        if relationship > ANNOYEDR1{
-			"%(noxNarNeutral)%(noxEyesClose)(He seems relieved.)"
+		if mode{
+			//A1, N, P1, P2, P3
+			if relationship > ANNOYEDR2{
+				"%(noxNarNeutral)%(noxEyesClose)%(noxYawn)\w6(He gently yawned) \w[50]%(noxNarNeutral)Is that all? \w6I'm going to sleep then."
+			
+				//A1, N, P1, P2
+				if relationship < POSITIVER3{
+					"%(noxNeutral)All done? Good, I want to go to sleep."
+				}
+			
+			}
+			
+			//N, P1, P2, P3
+			if relationship > ANNOYEDR1{
+				"%(noxCurious)Staying up late? Better get some sleep soon."
+			
+			}
+			
+			//N, A1, A2, A3
+			if relationship > ANNOYEDR1{
+				"%(noxNarNeutral)%(noxEyesClose)(He seems relieved.)"
 
-        }
-        
-        //A2, A3
-        if relationship < ANNOYEDR2{
-			"%(noxAnnoyed)Finally sending me home, hmm? It was about time."
-        
-        }
+			}
+			
+			//A2, A3
+			if relationship < ANNOYEDR2{
+				"%(noxAnnoyed)Finally sending me home, hmm? It was about time."
+			
+			}
+		}else{
+		
+			"%(noxNarSleep)(He should be able to sleep better at home.)"
+		
+		}
 	}
 	elseif _timeslot == "morning"
 	{
-		//A1, N, P1, P2, P3
-        if relationship > ANNOYEDR2{
-			"%(noxNeutral)Take care out there."
-        
-            //N, P1, P2, P3
-            if relationship > ANNOYEDR1{
-                "%(noxNeutral)Ah, time to go. Take care, %(username)."
-				"%(noxNeutral)Ah, time to go. Take care, young one."
-            }
-        
-        }
-        
-        //N, P1, P2, P3
-        if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? That's alright. It is still early in the day, so there is plenty of time to go out and do things."
-        
-        }
-		
-        
-        //A1, A2, A3
-        if relationship < ANNOYEDR1{
-			"%(noxNarAnnoyed)(He leaves without a word.)"
+	
+		if mode{
+			//A1, N, P1, P2, P3
+			if relationship > ANNOYEDR2{
+				"%(noxNeutral)Take care out there."
 			
-			//A1, A2
-			if relationship > ANNOYEDR3{
+				//N, P1, P2, P3
+				if relationship > ANNOYEDR1{
+					"%(noxNeutral)Ah, time to go. Take care, %(username)."
+					"%(noxNeutral)Ah, time to go. Take care, young one."
+				}
 			
-				"%(noxNeutral)Oh good, I can go home. I have too much work to do."
 			}
-        
-        }
+			
+			//N, P1, P2, P3
+			if relationship > ANNOYEDR1{
+				"%(noxNeutral)Going so soon? That's alright. It is still early in the day, so there is plenty of time to go out and do things."
+			
+			}
+			
+			
+			//A1, A2, A3
+			if relationship < ANNOYEDR1{
+				"%(noxNarAnnoyed)(He leaves without a word.)"
+				
+				//A1, A2
+				if relationship > ANNOYEDR3{
+				
+					"%(noxNeutral)Oh good, I can go home. I have too much work to do."
+				}
+			
+			}
+		}else{
+		
+			"%(noxNarSleep)(He should be able to sleep better at home.)"
+		
+		}
 	}
 	elseif _timeslot == "afternoon"
 	{
-		//A1, N, P1, P2, P3
-        if relationship > ANNOYEDR2{
-			"%(noxNeutral)Take care out there."
-        
-            //N, P1, P2, P3
-            if relationship > ANNOYEDR1{
-                "%(noxNeutral)Ah, time to go. Take care, %(username)."
-				"%(noxNeutral)Ah, time to go. Take care, young one."
-            }
-        
-        }
-        
-        //N, P1, P2, P3
-        if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? That's alright. I feel like the sun is still up high, so why not go take a walk outside?"
-        
-        }
-		
-        
-        //A1, A2, A3
-        if relationship < ANNOYEDR1{
-			"%(noxNarAnnoyed)(He leaves without a word.)"
+		if mode{
+			//A1, N, P1, P2, P3
+			if relationship > ANNOYEDR2{
+				"%(noxNeutral)Take care out there."
 			
-			//A1, A2
-			if relationship > ANNOYEDR3{
+				//N, P1, P2, P3
+				if relationship > ANNOYEDR1{
+					"%(noxNeutral)Ah, time to go. Take care, %(username)."
+					"%(noxNeutral)Ah, time to go. Take care, young one."
+				}
 			
-				"%(noxNeutral)Oh good, I can go home. I have too much work to do."
 			}
-        
-        }
+			
+			//N, P1, P2, P3
+			if relationship > ANNOYEDR1{
+				"%(noxNeutral)Going so soon? That's alright. I feel like the sun is still up high, so why not go take a walk outside?"
+			
+			}
+			
+			
+			//A1, A2, A3
+			if relationship < ANNOYEDR1{
+				"%(noxNarAnnoyed)(He leaves without a word.)"
+				
+				//A1, A2
+				if relationship > ANNOYEDR3{
+				
+					"%(noxNeutral)Oh good, I can go home. I have too much work to do."
+				}
+			
+			}
+		
+		}else{
+		
+			"%(noxNarSleep)(He should be able to sleep better at home.)"
+			"Zzzzzzz.... hmngh..."
+		
+		}
 	}
 	else
 	{
-		//---- night
-		//A1, N, P1, P2, P3
-        if relationship > ANNOYEDR2{
-			"%(noxNeutral)Take care out there."
-        
-            //N, P1, P2, P3
-            if relationship > ANNOYEDR1{
-                "%(noxNeutral)Ah, time to go. Take care, %(username)."
-				"%(noxNeutral)Ah, time to go. Take care, young one."
-            }
-        
-        }
-        
-        //N, P1, P2, P3
-        if relationship > ANNOYEDR1{
-			"%(noxNeutral)Going so soon? That's alright. The sun is likely setting soon, so go get some well deserved rest."
-        
-        }
-		
-        
-        //A1, A2, A3
-        if relationship < ANNOYEDR1{
-			"%(noxNarAnnoyed)(He leaves without a word.)"
+		if mode{
+			//---- night
+			//A1, N, P1, P2, P3
+			if relationship > ANNOYEDR2{
+				"%(noxNeutral)Take care out there."
 			
-			//A1, A2
-			if relationship > ANNOYEDR3{
+				//N, P1, P2, P3
+				if relationship > ANNOYEDR1{
+					"%(noxNeutral)Ah, time to go. Take care, %(username)."
+					"%(noxNeutral)Ah, time to go. Take care, young one."
+				}
 			
-				"%(noxNeutral)Oh good, I can go home. I have too much work to do."
 			}
-        
-        }
+			
+			//N, P1, P2, P3
+			if relationship > ANNOYEDR1{
+				"%(noxNeutral)Going so soon? That's alright. The sun is likely setting soon, so go get some well deserved rest."
+			
+			}
+			
+			
+			//A1, A2, A3
+			if relationship < ANNOYEDR1{
+				"%(noxNarAnnoyed)(He leaves without a word.)"
+				
+				//A1, A2
+				if relationship > ANNOYEDR3{
+				
+					"%(noxNeutral)Oh good, I can go home. I have too much work to do."
+				}
+			
+			}
+		}else{
+		
+			"%(noxNarSleep)(Time to let the tired drago sleep.)"
+		
+		}
 	}
 	--
 	"\w9\w9\-\e"
@@ -675,7 +710,8 @@ OnClose
 
 OnWindowStateRestore
 {
-	"%(noxCurious)Excuse me, but what was that?\e"
+	if mode
+		"%(noxCurious)Excuse me, but what was that?\e"
 }
 
 
@@ -725,6 +761,8 @@ ONBOOTVARS{
 	
 	}
 	today = day
+	
+	mode = 1 //on boot, make him awake (may be modified later so ELEPHANT to find this if forgotten)
 	
 
 }

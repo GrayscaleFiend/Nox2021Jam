@@ -1,9 +1,9 @@
 Charset,UTF-8
 install,671258733
 homeurl_found,1
-surfacecount,45
+surfacecount,72
 homeurl,https://raw.githubusercontent.com/GrayscaleFiend/Nox2021Jam/master/Updates/gj_nox/
 update_result,OK(0)
 firstboot,671298470
-commitmemorysize,11642639
-lastboot,673455449
+commitmemorysize,11929244
+lastboot,691802897
